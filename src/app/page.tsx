@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Search, Briefcase, TrendingUp, Lightbulb, GraduationCap, MapPin, ArrowRight } from "lucide-react";
 
@@ -9,21 +9,21 @@ export default function Home() {
       <section className="relative bg-[#f4f7fb] pt-24 pb-32 overflow-hidden">
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 max-w-4xl mx-auto leading-tight tracking-tight">
-            Transformer l'information en <br/><span className="text-blue-600">opportunitÃ©s</span>
+            Transformer l'information en <br/><span className="text-blue-600">opportunités</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
-            Plateforme d'intelligence Ã©conomique, de formation, de rÃ©seautage, de finance et de dÃ©veloppement territorial au service des MPME.
+            Plateforme d'intelligence économique, de formation, de réseautage, de finance et de développement territorial au service des MPME.
           </p>
           
           <div className="flex flex-col items-center justify-center gap-3 mb-8 max-w-lg mx-auto">
             <Button asChild size="lg" className="w-full text-base h-12 rounded-md bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
-              <Link href="/opportunites">Explorer les opportunitÃ©s</Link>
+              <Link href="/opportunites">Explorer les opportunités</Link>
             </Button>
             <Button asChild size="lg" className="w-full text-base h-12 rounded-md bg-orange-500 hover:bg-orange-600 text-white shadow-sm">
-              <Link href="/opportunites/publier">+ Publier une opportunitÃ©</Link>
+              <Link href="/opportunites/publier">+ Publier une opportunité</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="w-full text-base h-12 rounded-md border border-slate-900 text-slate-900 hover:bg-slate-100 bg-white">
-              <Link href="/profil">CrÃ©er un profil</Link>
+              <Link href="/profil">Créer un profil</Link>
             </Button>
           </div>
         </div>
@@ -36,7 +36,7 @@ export default function Home() {
             <Search className="h-5 w-5 text-slate-400" />
             <input 
               type="text" 
-              placeholder="Rechercher un emploi, un service, un finance" 
+              placeholder="Rechercher un emploi, un service, un financement..." 
               className="w-full py-3 px-3 outline-none text-slate-700 bg-transparent"
             />
           </div>
@@ -58,8 +58,8 @@ export default function Home() {
             <div className="h-14 w-14 bg-gradient-to-br from-blue-100 to-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
               <TrendingUp className="h-7 w-7" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Intelligence Ã©conomique</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">DonnÃ©es, veille, analyses, Ã©tudes et informations stratÃ©giques pour prendre de meilleures dÃ©cisions.</p>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">Intelligence économique</h3>
+            <p className="text-slate-600 leading-relaxed mb-4">Données, veille, analyses, études et informations stratégiques pour prendre de meilleures décisions.</p>
             <Link href="#" className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 2 */}
@@ -68,7 +68,7 @@ export default function Home() {
               <GraduationCap className="h-7 w-7" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">Formation & savoir-faire</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">Formation continue, webinars, masterclass, mentorat pour dÃ©velopper vos compÃ©tences.</p>
+            <p className="text-slate-600 leading-relaxed mb-4">Formation continue, webinars, masterclass, mentorat pour développer vos compétences.</p>
             <Link href="#" className="inline-flex items-center text-sm font-semibold text-orange-600 hover:text-orange-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 3 */}
@@ -77,7 +77,7 @@ export default function Home() {
               <TrendingUp className="h-7 w-7" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">Finance & investissement</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">CrÃ©dit, financement, investment readiness, projets et accÃ¨s aux investisseurs.</p>
+            <p className="text-slate-600 leading-relaxed mb-4">Crédit, financement, investment readiness, projets et accès aux investisseurs.</p>
             <Link href="#" className="inline-flex items-center text-sm font-semibold text-green-600 hover:text-green-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 4 */}
@@ -86,7 +86,7 @@ export default function Home() {
               <Lightbulb className="h-7 w-7" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">Technologie & innovation</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">IA, FinTech, digitalisation, outils numÃ©riques et solutions innovantes pour MPME.</p>
+            <p className="text-slate-600 leading-relaxed mb-4">IA, FinTech, digitalisation, outils numériques et solutions innovantes pour MPME.</p>
             <Link href="#" className="inline-flex items-center text-sm font-semibold text-purple-600 hover:text-purple-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 5 */}
@@ -94,8 +94,8 @@ export default function Home() {
             <div className="h-14 w-14 bg-gradient-to-br from-pink-100 to-pink-50 text-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
               <Briefcase className="h-7 w-7" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">OpportunitÃ©s & rÃ©seautage</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">Emplois, services, partenariats, appels d'offres, marchÃ©s et connexions B2B.</p>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">Opportunités & réseautage</h3>
+            <p className="text-slate-600 leading-relaxed mb-4">Emplois, services, partenariats, appels d'offres, marchés et connexions B2B.</p>
             <Link href="#" className="inline-flex items-center text-sm font-semibold text-pink-600 hover:text-pink-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 6 */}
@@ -103,8 +103,8 @@ export default function Home() {
             <div className="h-14 w-14 bg-gradient-to-br from-teal-100 to-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
               <MapPin className="h-7 w-7" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">DÃ©veloppement local</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">Ã‰pargne locale, crÃ©dit productif, investissement territorial et crÃ©ation de richesse.</p>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">Développement local</h3>
+            <p className="text-slate-600 leading-relaxed mb-4">Épargne locale, crédit productif, investissement territorial et création de richesse.</p>
             <Link href="#" className="inline-flex items-center text-sm font-semibold text-teal-600 hover:text-teal-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
         </div>

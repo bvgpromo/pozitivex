@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "POZITIVEX+ | Intelligence. Innovation. Finance. Impact.",
-  description: "Plateforme Ã©conomique intelligente qui relie information, savoir-faire, opportunitÃ©s, finance locale, technologie, investissement et dÃ©veloppement territorial.",
+  description: "Plateforme économique intelligente qui relie information, savoir-faire, opportunités, finance locale, technologie, investissement et développement territorial.",
 };
 
 export default function RootLayout({
@@ -44,12 +44,12 @@ export default function RootLayout({
               <div className="bg-white inline-block p-2 rounded-xl">
                 <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={200} height={70} className="h-12 w-auto object-contain" />
               </div>
-              <p className="text-sm leading-relaxed text-slate-400">Mobiliser les ressources. DÃ©velopper les compÃ©tences. Connecter les opportunitÃ©s. Financer la croissance. CrÃ©er de la richesse.</p>
+              <p className="text-sm leading-relaxed text-slate-400">Mobiliser les ressources. Développer les compétences. Connecter les opportunités. Financer la croissance. Créer de la richesse.</p>
             </div>
             <div>
               <h3 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">Plateforme</h3>
               <ul className="space-y-3 text-sm text-slate-400">
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">OpportunitÃ©s</Link></li>
+                <li><Link href="#" className="hover:text-blue-400 transition-colors">Opportunités</Link></li>
                 <li><Link href="#" className="hover:text-blue-400 transition-colors">Emplois & Talents</Link></li>
                 <li><Link href="#" className="hover:text-blue-400 transition-colors">Services professionnels</Link></li>
               </ul>
@@ -58,7 +58,7 @@ export default function RootLayout({
               <h3 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">Ressources</h3>
               <ul className="space-y-3 text-sm text-slate-400">
                 <li><Link href="#" className="hover:text-blue-400 transition-colors">Academy</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Intelligence Ã©conomique</Link></li>
+                <li><Link href="#" className="hover:text-blue-400 transition-colors">Intelligence économique</Link></li>
                 <li><Link href="#" className="hover:text-blue-400 transition-colors">Finance & Investissement</Link></li>
               </ul>
             </div>
@@ -66,12 +66,12 @@ export default function RootLayout({
               <h3 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">Contact</h3>
               <ul className="space-y-3 text-sm text-slate-400">
                 <li>contact@pozitivex.com</li>
-                <li>Port-au-Prince, HaÃ¯ti</li>
+                <li>Port-au-Prince, Haïti</li>
               </ul>
             </div>
           </div>
           <div className="container mx-auto px-4 mt-12 pt-8 border-t border-slate-800 text-sm text-center text-slate-500">
-            Â© {new Date().getFullYear()} POZITIVEX+. Tous droits rÃ©servÃ©s.
+            © {new Date().getFullYear()} POZITIVEX+. Tous droits réservés.
           </div>
         </footer>
       </body>
