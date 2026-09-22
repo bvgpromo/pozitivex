@@ -5,19 +5,19 @@ import { Search, Briefcase, TrendingUp, Lightbulb, GraduationCap, MapPin, ArrowR
 export default function Home() {
   return (
     <div className="flex flex-col gap-16 pb-16 bg-slate-50">
-      {/* Hero Section with Background Image - Made more responsive */}
+      {/* Hero Section with Background Image */}
       <section 
         className="relative pt-32 pb-40 lg:pt-48 lg:pb-56 overflow-hidden bg-cover bg-[50%_10%] bg-no-repeat w-full min-h-[75vh] flex items-center"
         style={{ backgroundImage: "url('/hero-bg.jpg')" }}
       >
-        {/* Dark overlay to make text readable */}
-        <div className="absolute inset-0 bg-slate-900/85 md:bg-slate-900/80 backdrop-blur-[3px] md:backdrop-blur-[2px]"></div>
+        {/* Dark overlay to make text readable WITHOUT blurring the image */}
+        <div className="absolute inset-0 bg-black/50"></div>
 
         <div className="container mx-auto px-4 text-center relative z-10 w-full">
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 max-w-5xl mx-auto leading-tight tracking-tight drop-shadow-lg">
             Transformer l'information en <br className="hidden md:block"/><span className="text-yellow-400">opportunités</span>
           </h1>
-          <p className="text-lg md:text-2xl text-slate-200 mb-12 max-w-3xl mx-auto font-light leading-relaxed drop-shadow-md">
+          <p className="text-lg md:text-2xl text-slate-100 mb-12 max-w-3xl mx-auto font-light leading-relaxed drop-shadow-md">
             Plateforme d'intelligence économique, de formation, de réseautage, de finance et de développement territorial au service des MPME.
           </p>
           
