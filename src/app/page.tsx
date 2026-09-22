@@ -1,53 +1,69 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Search, Briefcase, TrendingUp, Lightbulb, GraduationCap, MapPin, ArrowRight } from "lucide-react";
+import HeroSlideshow from "@/components/HeroSlideshow";
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-16 pb-16 bg-slate-50">
-      {/* Hero Section */}
-      <section className="relative bg-[#f4f7fb] pt-24 pb-32 overflow-hidden">
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 max-w-4xl mx-auto leading-tight tracking-tight">
-            Transformer l'information en <br/><span className="text-blue-600">opportunités</span>
-          </h1>
-          <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
-            Plateforme d'intelligence économique, de formation, de réseautage, de finance et de développement territorial au service des MPME.
-          </p>
-          
-          <div className="flex flex-col items-center justify-center gap-3 mb-8 max-w-lg mx-auto">
-            <Button asChild size="lg" className="w-full text-base h-12 rounded-md bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
-              <Link href="/opportunites">Explorer les opportunités</Link>
-            </Button>
-            <Button asChild size="lg" className="w-full text-base h-12 rounded-md bg-orange-500 hover:bg-orange-600 text-white shadow-sm">
-              <Link href="/opportunites/publier">+ Publier une opportunité</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="w-full text-base h-12 rounded-md border border-slate-900 text-slate-900 hover:bg-slate-100 bg-white">
-              <Link href="/profil">Créer un profil</Link>
-            </Button>
+      {/* Hero Section - Split Layout */}
+      <section className="relative bg-[#f4f7fb] pt-16 pb-24 overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            
+            {/* Left side: Text and Buttons */}
+            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-10">
+              <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 text-sm font-bold tracking-wide">
+                L'écosystème des MPME
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight tracking-tight">
+                Transformer l'information en <br className="hidden lg:block"/><span className="text-blue-600">opportunités</span>
+              </h1>
+              <p className="text-lg md:text-xl text-slate-600 mb-10 font-light leading-relaxed max-w-2xl">
+                Plateforme d'intelligence économique, de formation, de réseautage, de finance et de développement territorial au service des MPME.
+              </p>
+              
+              <div className="flex flex-col w-full sm:w-auto items-center lg:items-start gap-3">
+                <Button asChild size="lg" className="w-full sm:w-80 text-base h-12 rounded-md bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5">
+                  <Link href="/opportunites">Explorer les opportunités</Link>
+                </Button>
+                <Button asChild size="lg" className="w-full sm:w-80 text-base h-12 rounded-md bg-orange-500 hover:bg-orange-600 text-white shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5">
+                  <Link href="/opportunites/publier">+ Publier une opportunité</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="w-full sm:w-80 text-base h-12 rounded-md border border-slate-900 text-slate-900 hover:bg-slate-100 bg-white transition-all hover:shadow-sm">
+                  <Link href="/profil">Créer un profil</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right side: Slideshow Banner */}
+            <div className="w-full lg:w-1/2 z-10">
+              <HeroSlideshow />
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* Floating Search Bar */}
-      <section className="container mx-auto px-4 -mt-20 relative z-20">
-        <div className="max-w-4xl mx-auto bg-white p-2 rounded-xl shadow-lg border border-slate-200 flex flex-col sm:flex-row items-center gap-2">
+      <section className="container mx-auto px-4 -mt-16 relative z-20">
+        <div className="max-w-5xl mx-auto bg-white p-2 rounded-xl shadow-xl border border-slate-200 flex flex-col sm:flex-row items-center gap-2">
           <div className="flex-1 flex items-center w-full px-4 bg-transparent rounded-lg">
             <Search className="h-5 w-5 text-slate-400" />
             <input 
               type="text" 
               placeholder="Rechercher un emploi, un service, un financement..." 
-              className="w-full py-3 px-3 outline-none text-slate-700 bg-transparent"
+              className="w-full py-4 px-3 outline-none text-slate-700 bg-transparent text-lg"
             />
           </div>
-          <Button className="w-full sm:w-auto h-12 px-8 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+          <Button className="w-full sm:w-auto h-14 px-10 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-bold text-base shadow-md">
             Rechercher
           </Button>
         </div>
       </section>
 
       {/* Les 6 Moteurs */}
-      <section className="container mx-auto px-4 mt-16">
+      <section className="container mx-auto px-4 mt-12">
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Les 6 moteurs de POZITIVEX+</h2>
         </div>
