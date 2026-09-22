@@ -7,30 +7,33 @@ export default function Home() {
     <div className="flex flex-col gap-16 pb-16 bg-slate-50">
       {/* Hero Section with Background Image */}
       <section 
-        className="relative pt-32 pb-40 lg:pt-48 lg:pb-56 overflow-hidden bg-cover bg-[50%_10%] bg-no-repeat w-full min-h-[75vh] flex items-center"
+        className="relative pt-32 pb-40 lg:pt-48 lg:pb-56 overflow-hidden bg-cover bg-[center_top] bg-no-repeat w-full min-h-[75vh] flex items-center"
         style={{ backgroundImage: "url('/hero-bg.jpg')" }}
       >
-        {/* Dark overlay to make text readable WITHOUT blurring the image */}
-        <div className="absolute inset-0 bg-black/50"></div>
+        {/* Removed the dark overlay because the new image has a blue block on the left for the text */}
+        {/* Fallback overlay for mobile screens if the blue block doesn't cover */}
+        <div className="absolute inset-0 bg-blue-900/60 lg:bg-transparent"></div>
 
-        <div className="container mx-auto px-4 text-center relative z-10 w-full">
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 max-w-5xl mx-auto leading-tight tracking-tight drop-shadow-lg">
-            Transformer l'information en <br className="hidden md:block"/><span className="text-yellow-400">opportunités</span>
-          </h1>
-          <p className="text-lg md:text-2xl text-slate-100 mb-12 max-w-3xl mx-auto font-light leading-relaxed drop-shadow-md">
-            Plateforme d'intelligence économique, de formation, de réseautage, de finance et de développement territorial au service des MPME.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 max-w-4xl mx-auto">
-            <Button asChild size="lg" className="w-full sm:w-auto text-base h-14 px-8 rounded-md bg-blue-600 hover:bg-blue-700 text-white shadow-xl border-none transition-transform hover:-translate-y-1">
-              <Link href="/opportunites">Explorer les opportunités</Link>
-            </Button>
-            <Button asChild size="lg" className="w-full sm:w-auto text-base h-14 px-8 rounded-md bg-orange-500 hover:bg-orange-600 text-white shadow-xl border-none transition-transform hover:-translate-y-1">
-              <Link href="/opportunites/publier">+ Publier une opportunité</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="w-full sm:w-auto text-base h-14 px-8 rounded-md border-2 border-white text-white hover:bg-white hover:text-slate-900 bg-transparent shadow-xl transition-transform hover:-translate-y-1">
-              <Link href="/profil">Créer un profil</Link>
-            </Button>
+        <div className="container mx-auto px-4 relative z-10 w-full flex flex-col lg:items-start text-center lg:text-left">
+          <div className="max-w-2xl lg:ml-0">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight drop-shadow-lg">
+              Transformer l'information en <br className="hidden md:block"/><span className="text-yellow-400">opportunités</span>
+            </h1>
+            <p className="text-lg md:text-2xl text-slate-100 mb-12 font-light leading-relaxed drop-shadow-md">
+              Plateforme d'intelligence économique, de formation, de réseautage, de finance et de développement territorial au service des MPME.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4 mb-8">
+              <Button asChild size="lg" className="w-full sm:w-auto text-base h-14 px-8 rounded-md bg-blue-600 hover:bg-blue-700 text-white shadow-xl border-none transition-transform hover:-translate-y-1">
+                <Link href="/opportunites">Explorer les opportunités</Link>
+              </Button>
+              <Button asChild size="lg" className="w-full sm:w-auto text-base h-14 px-8 rounded-md bg-orange-500 hover:bg-orange-600 text-white shadow-xl border-none transition-transform hover:-translate-y-1">
+                <Link href="/opportunites/publier">+ Publier</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto text-base h-14 px-8 rounded-md border-2 border-white text-white hover:bg-white hover:text-slate-900 bg-transparent shadow-xl transition-transform hover:-translate-y-1">
+                <Link href="/profil">Mon profil</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
