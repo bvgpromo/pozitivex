@@ -22,7 +22,7 @@ export default function RootLayout({
         <header className="border-b sticky top-0 bg-white z-50">
           <div className="container mx-auto px-4 h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
-              <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={150} height={50} className="h-10 w-auto object-contain" />
+              <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={280} height={90} className="h-20 w-auto object-contain py-2" />
             </Link>
             
             <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -49,7 +49,7 @@ export default function RootLayout({
         <footer className="bg-slate-900 text-slate-300 py-12">
           <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={120} height={40} className="h-8 w-auto object-contain bg-white p-1 rounded mb-4" />
+              <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={200} height={70} className="h-12 w-auto object-contain bg-white p-2 rounded mb-4" />
               <p className="text-sm">Mobiliser les ressources. Développer les compétences. Connecter les opportunités. Financer la croissance. Créer de la richesse.</p>
             </div>
             <div>
