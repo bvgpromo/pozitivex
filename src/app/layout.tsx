@@ -19,23 +19,23 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
-        <header className="sticky top-0 bg-white z-50 border-b border-slate-300">
+        <header className="sticky top-0 bg-white z-50 border-b border-slate-200 shadow-sm">
           <div className="container mx-auto px-4 py-3 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
               <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={300} height={100} className="h-16 w-auto object-contain" />
             </Link>
             
-            <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
-              <Link href="/opportunites" className="hover:text-blue-600 transition-colors">Opportunités</Link>
-              <Link href="#" className="hover:text-blue-600 transition-colors">Emplois</Link>
-              <Link href="#" className="hover:text-blue-600 transition-colors">Services</Link>
-              <Link href="#" className="hover:text-blue-600 transition-colors">Réseautage</Link>
-              <Link href="#" className="hover:text-blue-600 transition-colors">Finance</Link>
+            <nav className="hidden lg:flex items-center gap-2 text-sm font-semibold text-slate-600">
+              <Link href="/opportunites" className="px-4 py-2 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-all">Opportunités</Link>
+              <Link href="/emplois" className="px-4 py-2 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-all">Emplois</Link>
+              <Link href="/services" className="px-4 py-2 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-all">Services</Link>
+              <Link href="/reseautage" className="px-4 py-2 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-all">Réseautage</Link>
+              <Link href="/finance" className="px-4 py-2 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-all">Finance</Link>
             </nav>
 
-            <div className="flex items-center gap-5">
-              <Link href="/profil" className="text-sm font-semibold text-slate-900 hover:text-blue-600">Mon Profil</Link>
-              <Link href="/opportunites/publier" className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-md text-sm font-bold shadow-sm transition-all">
+            <div className="flex items-center gap-4">
+              <Link href="/profil" className="text-sm font-semibold text-slate-700 hover:text-blue-600 px-3 py-2 rounded-full hover:bg-slate-50 transition-all">Mon Profil</Link>
+              <Link href="/opportunites/publier" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5">
                 + Publier
               </Link>
             </div>
@@ -57,9 +57,9 @@ export default function RootLayout({
             <div>
               <h3 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">Plateforme</h3>
               <ul className="space-y-3 text-sm text-slate-400">
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Opportunités</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Emplois & Talents</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Services professionnels</Link></li>
+                <li><Link href="/opportunites" className="hover:text-blue-400 transition-colors">Opportunités</Link></li>
+                <li><Link href="/emplois" className="hover:text-blue-400 transition-colors">Emplois & Talents</Link></li>
+                <li><Link href="/services" className="hover:text-blue-400 transition-colors">Services professionnels</Link></li>
               </ul>
             </div>
             <div>
@@ -67,7 +67,7 @@ export default function RootLayout({
               <ul className="space-y-3 text-sm text-slate-400">
                 <li><Link href="#" className="hover:text-blue-400 transition-colors">Academy</Link></li>
                 <li><Link href="#" className="hover:text-blue-400 transition-colors">Intelligence économique</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Finance & Investissement</Link></li>
+                <li><Link href="/finance" className="hover:text-blue-400 transition-colors">Finance & Investissement</Link></li>
               </ul>
             </div>
             <div>
