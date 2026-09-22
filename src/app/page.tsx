@@ -5,30 +5,30 @@ import { Search, Briefcase, TrendingUp, Lightbulb, GraduationCap, MapPin, ArrowR
 export default function Home() {
   return (
     <div className="flex flex-col gap-16 pb-16 bg-slate-50">
-      {/* Hero Section with Background Image */}
+      {/* Hero Section with Background Image - Made more responsive */}
       <section 
-        className="relative pt-32 pb-40 overflow-hidden bg-cover bg-center bg-no-repeat"
+        className="relative pt-32 pb-40 lg:pt-48 lg:pb-56 overflow-hidden bg-cover bg-[50%_10%] bg-no-repeat w-full min-h-[75vh] flex items-center"
         style={{ backgroundImage: "url('/hero-bg.jpg')" }}
       >
         {/* Dark overlay to make text readable */}
-        <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px]"></div>
+        <div className="absolute inset-0 bg-slate-900/85 md:bg-slate-900/80 backdrop-blur-[3px] md:backdrop-blur-[2px]"></div>
 
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 max-w-4xl mx-auto leading-tight tracking-tight drop-shadow-md">
+        <div className="container mx-auto px-4 text-center relative z-10 w-full">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 max-w-5xl mx-auto leading-tight tracking-tight drop-shadow-lg">
             Transformer l'information en <br className="hidden md:block"/><span className="text-yellow-400">opportunités</span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-200 mb-10 max-w-3xl mx-auto font-light leading-relaxed drop-shadow">
+          <p className="text-lg md:text-2xl text-slate-200 mb-12 max-w-3xl mx-auto font-light leading-relaxed drop-shadow-md">
             Plateforme d'intelligence économique, de formation, de réseautage, de finance et de développement territorial au service des MPME.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 max-w-3xl mx-auto">
-            <Button asChild size="lg" className="w-full sm:w-auto text-base h-14 px-8 rounded-md bg-blue-600 hover:bg-blue-700 text-white shadow-lg border-none">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 max-w-4xl mx-auto">
+            <Button asChild size="lg" className="w-full sm:w-auto text-base h-14 px-8 rounded-md bg-blue-600 hover:bg-blue-700 text-white shadow-xl border-none transition-transform hover:-translate-y-1">
               <Link href="/opportunites">Explorer les opportunités</Link>
             </Button>
-            <Button asChild size="lg" className="w-full sm:w-auto text-base h-14 px-8 rounded-md bg-orange-500 hover:bg-orange-600 text-white shadow-lg border-none">
+            <Button asChild size="lg" className="w-full sm:w-auto text-base h-14 px-8 rounded-md bg-orange-500 hover:bg-orange-600 text-white shadow-xl border-none transition-transform hover:-translate-y-1">
               <Link href="/opportunites/publier">+ Publier une opportunité</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="w-full sm:w-auto text-base h-14 px-8 rounded-md border-2 border-white text-white hover:bg-white hover:text-slate-900 bg-transparent shadow-lg">
+            <Button asChild size="lg" variant="outline" className="w-full sm:w-auto text-base h-14 px-8 rounded-md border-2 border-white text-white hover:bg-white hover:text-slate-900 bg-transparent shadow-xl transition-transform hover:-translate-y-1">
               <Link href="/profil">Créer un profil</Link>
             </Button>
           </div>
@@ -83,7 +83,7 @@ export default function Home() {
               <TrendingUp className="h-7 w-7" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">Finance & investissement</h3>
-            <p className="text-slate-600 leading-relaxed mb-4">Crédit, financement, investment readiness, projets et accès aux investisseurs.</p>
+            <p className="text-slate-600 leading-relaxed mb-4">Crédit, financement, investment readiness, projects et accès aux investisseurs.</p>
             <Link href="#" className="inline-flex items-center text-sm font-semibold text-green-600 hover:text-green-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 4 */}
