@@ -7,11 +7,11 @@ export default function Home() {
     <div className="flex flex-col gap-10 lg:gap-16 pb-16 bg-slate-50">
       {/* Hero Section with Background Image */}
       <section 
-        className="relative pt-24 pb-28 lg:pt-48 lg:pb-56 overflow-hidden bg-cover bg-[75%_top] lg:bg-[center_top] bg-no-repeat w-full min-h-[65vh] lg:min-h-[75vh] flex items-center"
+        className="relative pt-72 pb-16 lg:pt-48 lg:pb-56 overflow-hidden bg-cover bg-[center_top] lg:bg-[center_top] bg-no-repeat w-full min-h-[90vh] lg:min-h-[75vh] flex items-end lg:items-center"
         style={{ backgroundImage: "url('/hero-bg.jpg')" }}
       >
-        {/* Stronger overlay on mobile to make text readable, transparent on desktop where the blue block is */}
-        <div className="absolute inset-0 bg-slate-900/75 lg:bg-transparent"></div>
+        {/* Gradient overlay on mobile: Dark at the bottom for text, transparent at the top so the face is clear */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent lg:hidden"></div>
 
         <div className="container mx-auto px-4 relative z-10 w-full flex flex-col lg:items-start text-center lg:text-left">
           <div className="max-w-2xl lg:ml-0 mx-auto">
@@ -38,7 +38,7 @@ export default function Home() {
       </section>
 
       {/* Floating Search Bar */}
-      <section className="container mx-auto px-4 -mt-16 lg:-mt-24 relative z-20">
+      <section className="container mx-auto px-4 -mt-8 lg:-mt-24 relative z-20">
         <div className="max-w-4xl mx-auto bg-white p-2 lg:p-3 rounded-2xl shadow-2xl border border-slate-100 flex flex-col sm:flex-row items-center gap-2 lg:gap-3">
           <div className="flex-1 flex items-center w-full px-4 bg-slate-50 rounded-xl">
             <Search className="h-5 w-5 text-slate-400" />
