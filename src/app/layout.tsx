@@ -20,9 +20,9 @@ export default function RootLayout({
     <html lang="fr">
       <body className={inter.className}>
         <header className="border-b sticky top-0 bg-white z-50">
-          <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
-              <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={280} height={90} className="h-20 w-auto object-contain py-2" />
+              <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={350} height={120} className="h-24 w-auto object-contain" />
             </Link>
             
             <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
