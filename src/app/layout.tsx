@@ -19,13 +19,13 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
-        <header className="border-b sticky top-0 bg-white z-50">
-          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <header className="sticky top-0 bg-white/80 backdrop-blur-md z-50 shadow-sm border-b border-slate-100">
+          <div className="container mx-auto px-4 py-3 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
-              <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={350} height={120} className="h-24 w-auto object-contain" />
+              <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={300} height={100} className="h-20 w-auto object-contain" />
             </Link>
             
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+            <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
               <Link href="/opportunites" className="hover:text-blue-600 transition-colors">Opportunités</Link>
               <Link href="#" className="hover:text-blue-600 transition-colors">Emplois</Link>
               <Link href="#" className="hover:text-blue-600 transition-colors">Services</Link>
@@ -33,9 +33,9 @@ export default function RootLayout({
               <Link href="#" className="hover:text-blue-600 transition-colors">Finance</Link>
             </nav>
 
-            <div className="flex items-center gap-4">
-              <Link href="/profil" className="text-sm font-medium hover:text-blue-600">Mon Profil</Link>
-              <Link href="/opportunites/publier" className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+            <div className="flex items-center gap-5">
+              <Link href="/profil" className="text-sm font-semibold text-slate-700 hover:text-blue-600">Mon Profil</Link>
+              <Link href="/opportunites/publier" className="bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-600 hover:to-orange-500 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md shadow-orange-500/20 transition-all hover:shadow-lg hover:-translate-y-0.5">
                 + Publier
               </Link>
             </div>
@@ -46,37 +46,39 @@ export default function RootLayout({
           {children}
         </main>
 
-        <footer className="bg-slate-900 text-slate-300 py-12">
-          <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={200} height={70} className="h-12 w-auto object-contain bg-white p-2 rounded mb-4" />
-              <p className="text-sm">Mobiliser les ressources. Développer les compétences. Connecter les opportunités. Financer la croissance. Créer de la richesse.</p>
+        <footer className="bg-slate-900 text-slate-300 py-16">
+          <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div className="space-y-6">
+              <div className="bg-white inline-block p-2 rounded-xl">
+                <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={200} height={70} className="h-12 w-auto object-contain" />
+              </div>
+              <p className="text-sm leading-relaxed text-slate-400">Mobiliser les ressources. Développer les compétences. Connecter les opportunités. Financer la croissance. Créer de la richesse.</p>
             </div>
             <div>
-              <h3 className="font-semibold text-white mb-4">Plateforme</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="#" className="hover:text-white">Opportunités</Link></li>
-                <li><Link href="#" className="hover:text-white">Emplois & Talents</Link></li>
-                <li><Link href="#" className="hover:text-white">Services professionnels</Link></li>
+              <h3 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">Plateforme</h3>
+              <ul className="space-y-3 text-sm text-slate-400">
+                <li><Link href="#" className="hover:text-blue-400 transition-colors">Opportunités</Link></li>
+                <li><Link href="#" className="hover:text-blue-400 transition-colors">Emplois & Talents</Link></li>
+                <li><Link href="#" className="hover:text-blue-400 transition-colors">Services professionnels</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-white mb-4">Ressources</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="#" className="hover:text-white">Academy</Link></li>
-                <li><Link href="#" className="hover:text-white">Intelligence économique</Link></li>
-                <li><Link href="#" className="hover:text-white">Finance & Investissement</Link></li>
+              <h3 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">Ressources</h3>
+              <ul className="space-y-3 text-sm text-slate-400">
+                <li><Link href="#" className="hover:text-blue-400 transition-colors">Academy</Link></li>
+                <li><Link href="#" className="hover:text-blue-400 transition-colors">Intelligence économique</Link></li>
+                <li><Link href="#" className="hover:text-blue-400 transition-colors">Finance & Investissement</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-white mb-4">Contact</h3>
-              <ul className="space-y-2 text-sm">
+              <h3 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">Contact</h3>
+              <ul className="space-y-3 text-sm text-slate-400">
                 <li>contact@pozitivex.com</li>
                 <li>Port-au-Prince, Haïti</li>
               </ul>
             </div>
           </div>
-          <div className="container mx-auto px-4 mt-8 pt-8 border-t border-slate-800 text-sm text-center">
+          <div className="container mx-auto px-4 mt-12 pt-8 border-t border-slate-800 text-sm text-center text-slate-500">
             © {new Date().getFullYear()} POZITIVEX+. Tous droits réservés.
           </div>
         </footer>
