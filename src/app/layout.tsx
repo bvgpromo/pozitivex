@@ -25,6 +25,14 @@ export default function RootLayout({
               <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={300} height={100} className="h-16 w-auto object-contain" />
             </Link>
             
+            <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
+              <Link href="/opportunites" className="hover:text-blue-600 transition-colors">Opportunités</Link>
+              <Link href="#" className="hover:text-blue-600 transition-colors">Emplois</Link>
+              <Link href="#" className="hover:text-blue-600 transition-colors">Services</Link>
+              <Link href="#" className="hover:text-blue-600 transition-colors">Réseautage</Link>
+              <Link href="#" className="hover:text-blue-600 transition-colors">Finance</Link>
+            </nav>
+
             <div className="flex items-center gap-5">
               <Link href="/profil" className="text-sm font-semibold text-slate-900 hover:text-blue-600">Mon Profil</Link>
               <Link href="/opportunites/publier" className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-md text-sm font-bold shadow-sm transition-all">
