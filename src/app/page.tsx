@@ -68,7 +68,7 @@ export default function Home() {
             </div>
             <h3 className="text-lg lg:text-xl font-bold text-slate-900 mb-2 lg:mb-3">Intelligence économique</h3>
             <p className="text-sm lg:text-base text-slate-600 leading-relaxed mb-4">Données, veille, analyses, études et informations stratégiques pour prendre de meilleures décisions.</p>
-            <Link href="#" className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
+            <Link href="/opportunites" className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 2 */}
           <div className="group bg-white p-6 lg:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-orange-100 transition-all duration-300 hover:-translate-y-1">
@@ -77,7 +77,7 @@ export default function Home() {
             </div>
             <h3 className="text-lg lg:text-xl font-bold text-slate-900 mb-2 lg:mb-3">Formation & savoir-faire</h3>
             <p className="text-sm lg:text-base text-slate-600 leading-relaxed mb-4">Formation continue, webinars, masterclass, mentorat pour développer vos compétences.</p>
-            <Link href="#" className="inline-flex items-center text-sm font-semibold text-orange-600 hover:text-orange-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
+            <Link href="/services" className="inline-flex items-center text-sm font-semibold text-orange-600 hover:text-orange-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 3 */}
           <div className="group bg-white p-6 lg:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-green-100 transition-all duration-300 hover:-translate-y-1">
@@ -86,7 +86,7 @@ export default function Home() {
             </div>
             <h3 className="text-lg lg:text-xl font-bold text-slate-900 mb-2 lg:mb-3">Finance & investissement</h3>
             <p className="text-sm lg:text-base text-slate-600 leading-relaxed mb-4">Crédit, financement, investment readiness, projects et accès aux investisseurs.</p>
-            <Link href="#" className="inline-flex items-center text-sm font-semibold text-green-600 hover:text-green-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
+            <Link href="/finance" className="inline-flex items-center text-sm font-semibold text-green-600 hover:text-green-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 4 */}
           <div className="group bg-white p-6 lg:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-purple-100 transition-all duration-300 hover:-translate-y-1">
@@ -95,7 +95,7 @@ export default function Home() {
             </div>
             <h3 className="text-lg lg:text-xl font-bold text-slate-900 mb-2 lg:mb-3">Technologie & innovation</h3>
             <p className="text-sm lg:text-base text-slate-600 leading-relaxed mb-4">IA, FinTech, digitalisation, outils numériques et solutions innovantes pour MPME.</p>
-            <Link href="#" className="inline-flex items-center text-sm font-semibold text-purple-600 hover:text-purple-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
+            <Link href="/opportunites" className="inline-flex items-center text-sm font-semibold text-purple-600 hover:text-purple-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 5 */}
           <div className="group bg-white p-6 lg:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-pink-100 transition-all duration-300 hover:-translate-y-1">
@@ -104,7 +104,7 @@ export default function Home() {
             </div>
             <h3 className="text-lg lg:text-xl font-bold text-slate-900 mb-2 lg:mb-3">Opportunités & réseautage</h3>
             <p className="text-sm lg:text-base text-slate-600 leading-relaxed mb-4">Emplois, services, partenariats, appels d'offres, marchés et connexions B2B.</p>
-            <Link href="#" className="inline-flex items-center text-sm font-semibold text-pink-600 hover:text-pink-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
+            <Link href="/reseautage" className="inline-flex items-center text-sm font-semibold text-pink-600 hover:text-pink-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
           {/* Card 6 */}
           <div className="group bg-white p-6 lg:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-teal-100 transition-all duration-300 hover:-translate-y-1">
@@ -113,7 +113,7 @@ export default function Home() {
             </div>
             <h3 className="text-lg lg:text-xl font-bold text-slate-900 mb-2 lg:mb-3">Développement local</h3>
             <p className="text-sm lg:text-base text-slate-600 leading-relaxed mb-4">Épargne locale, crédit productif, investissement territorial et création de richesse.</p>
-            <Link href="#" className="inline-flex items-center text-sm font-semibold text-teal-600 hover:text-teal-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
+            <Link href="/opportunites" className="inline-flex items-center text-sm font-semibold text-teal-600 hover:text-teal-700">En savoir plus <ArrowRight className="ml-1 h-4 w-4"/></Link>
           </div>
         </div>
       </section>
