@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,46 +20,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
-        <header className="sticky top-0 bg-white z-50 border-b border-slate-200 shadow-sm">
-          <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <Image src="/logo.jpg" alt="POZITIVEX+ Logo" width={300} height={100} className="h-16 w-auto object-contain" />
-            </Link>
-            
-            <nav className="hidden lg:flex items-center gap-8 text-[15px] font-medium text-slate-600">
-              <Link href="/opportunites" className="hover:text-blue-600 transition-colors relative group">
-                Opportunités
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-600 transition-all group-hover:w-full"></span>
-              </Link>
-              <Link href="/emplois" className="hover:text-blue-600 transition-colors relative group">
-                Emplois
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-600 transition-all group-hover:w-full"></span>
-              </Link>
-              <Link href="/services" className="hover:text-blue-600 transition-colors relative group">
-                Services
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-600 transition-all group-hover:w-full"></span>
-              </Link>
-              <Link href="/reseautage" className="hover:text-blue-600 transition-colors relative group">
-                Réseautage
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-600 transition-all group-hover:w-full"></span>
-              </Link>
-              <Link href="/finance" className="hover:text-blue-600 transition-colors relative group">
-                Finance
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-600 transition-all group-hover:w-full"></span>
-              </Link>
-            </nav>
-
-            <div className="flex items-center gap-5">
-              <Link href="/profil" className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors relative group">
-                Mon Profil
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-600 transition-all group-hover:w-full"></span>
-              </Link>
-              <Link href="/opportunites/publier" className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-md text-sm font-bold shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5">
-                + Publier
-              </Link>
-            </div>
-          </div>
-        </header>
+        <Header />
 
         <main className="min-h-screen bg-slate-50">
           {children}
