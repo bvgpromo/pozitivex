@@ -39,15 +39,17 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row gap-6 bg-[#131B2F] p-4 lg:p-6 rounded-2xl border border-[#1E293B]">
           {/* Main Video */}
           <div className="lg:w-2/3">
-            <div className="relative aspect-video bg-slate-800 rounded-xl overflow-hidden group flex items-center justify-center">
-              {/* Dummy Image for Video */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 flex flex-col justify-end p-6">
-                <span className="bg-blue-600 text-xs text-white px-2 py-1 rounded w-max mb-2">Découverte</span>
-                <h3 className="text-white font-bold text-xl">The most beautiful islands in the Caribbean? - Barbados - Saint Vincent</h3>
-              </div>
-              <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center z-20 cursor-pointer group-hover:scale-110 transition-transform shadow-lg">
-                <Play className="text-white h-8 w-8 ml-1" />
-              </div>
+            <div className="relative aspect-video bg-slate-800 rounded-xl overflow-hidden shadow-lg border border-[#1E293B]">
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/S8pvwbiY9OU?si=z8B3f4D3R_wO2mPz" 
+                title="Yon gwo Pwofesè ki bati pwòp paradi l lakay li" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowFullScreen
+                className="absolute top-0 left-0 w-full h-full"
+              ></iframe>
             </div>
           </div>
           
