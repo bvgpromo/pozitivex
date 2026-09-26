@@ -21,13 +21,13 @@ export default function Header() {
         
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex flex-1 justify-center items-center gap-8 text-sm font-bold text-slate-300 uppercase tracking-wider">
-          <Link href="/intelligence" className="hover:text-blue-400 transition-colors">Intelligence</Link>
-          <Link href="/magazine" className="hover:text-blue-400 transition-colors">Actualités</Link>
-          <Link href="/opportunites" className="hover:text-blue-400 transition-colors">Opportunités</Link>
-          <Link href="/reseautage" className="hover:text-blue-400 transition-colors">Réseau</Link>
-          <Link href="/data-center" className="hover:text-blue-400 transition-colors">Data Center</Link>
-          <Link href="/programmes" className="hover:text-blue-400 transition-colors">Programmes</Link>
-          <Link href="/formations" className="hover:text-blue-400 transition-colors">Formations</Link>
+          <Link href="/intelligence" className="hover:text-blue-400 transition-colors whitespace-nowrap">Intelligence</Link>
+          <Link href="/magazine" className="hover:text-blue-400 transition-colors whitespace-nowrap">Actualités</Link>
+          <Link href="/opportunites" className="hover:text-blue-400 transition-colors whitespace-nowrap">Opportunités</Link>
+          <Link href="/reseautage" className="hover:text-blue-400 transition-colors whitespace-nowrap">Réseau</Link>
+          <Link href="/data-center" className="hover:text-blue-400 transition-colors whitespace-nowrap">Data Center</Link>
+          <Link href="/programmes" className="hover:text-blue-400 transition-colors whitespace-nowrap">Programmes</Link>
+          <Link href="/formations" className="hover:text-blue-400 transition-colors whitespace-nowrap">Formations</Link>
         </nav>
 
         {/* Desktop Buttons */}
