@@ -151,7 +151,7 @@ export default function Home() {
             </h3>
             <p className="text-slate-400 text-xs mb-6">Trouvez les financements et projets qui correspondent à votre vision.</p>
             <div className="grid grid-cols-2 gap-4">
-              {['Investissements', 'Financements', 'Appels d'offres', 'Partenariats'].map((item, i) => (
+              {['Investissements', 'Financements', "Appels d'offres", 'Partenariats'].map((item, i) => (
                 <div key={i} className="border border-[#1E293B] bg-[#0B1120] p-4 rounded-xl flex flex-col items-center justify-center gap-3 hover:border-blue-500/50 cursor-pointer transition-colors text-center">
                   <div className="w-8 h-8 rounded-full bg-[#1E293B] flex items-center justify-center text-blue-400">
                      <TrendingUp className="h-4 w-4" />
