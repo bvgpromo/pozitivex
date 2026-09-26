@@ -27,12 +27,12 @@ export default function Home() {
           Connecter la Caraïbe aux opportunités mondiales grâce à l'intelligence économique, à l'innovation, aux affaires et à la technologie.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto">
+          <Link href="/opportunites" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto text-center">
             Explorer les Opportunités +
-          </button>
-          <button className="bg-transparent border border-slate-600 text-white px-8 py-3 rounded text-sm font-bold hover:bg-slate-800 transition-colors w-full sm:w-auto">
+          </Link>
+          <Link href="/profil" className="inline-block bg-transparent border border-slate-600 text-white px-8 py-3 rounded text-sm font-bold hover:bg-slate-800 transition-colors w-full sm:w-auto text-center">
             Devenir membre
-          </button>
+          </Link>
           <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto">
             Investir dans la Caraïbe
           </button>
