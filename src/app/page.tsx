@@ -1,8 +1,19 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Play, TrendingUp, Lightbulb, GraduationCap, Users, Shield, Zap, Search, ChevronRight, Briefcase } from "lucide-react";
 
 export default function Home() {
+  const playlist = [
+    { id: "S8pvwbiY9OU", tag: "AGRICULTURE", title: "Yon gwo Pwofesè ki bati pwòp paradi l lakay li" },
+    { id: "JkaxUblCGz0", tag: "INNOVATION", title: "Développement technologique et opportunités d'affaires" },
+    { id: "9bZkp7q19f0", tag: "ÉCONOMIE", title: "L'impact des investissements étrangers dans la Caraïbe" },
+    { id: "VyoN4x-lM24", tag: "TOURISME", title: "Redéfinir le tourisme écologique et durable" }
+  ];
+  const [mainVideo, setMainVideo] = useState(playlist[0]);
+
   return (
     <div className="flex flex-col gap-24 pb-16 pt-12">
       
@@ -43,14 +54,15 @@ export default function Home() {
               <iframe 
                 width="100%" 
                 height="100%" 
-                src="https://www.youtube.com/embed/S8pvwbiY9OU?si=z8B3f4D3R_wO2mPz" 
-                title="Yon gwo Pwofesè ki bati pwòp paradi l lakay li" 
+                src={`https://www.youtube.com/embed/${mainVideo.id}?autoplay=1&mute=0`} 
+                title={mainVideo.title}
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 allowFullScreen
                 className="absolute top-0 left-0 w-full h-full"
               ></iframe>
             </div>
+            <h3 className="text-white font-bold text-lg mt-4">{mainVideo.title}</h3>
           </div>
           
           {/* Playlist */}
@@ -59,14 +71,21 @@ export default function Home() {
               <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span> Plus de vidéos
             </h3>
             <div className="flex flex-col gap-3 overflow-y-auto pr-2 max-h-[400px]">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="flex gap-3 bg-[#0B1120] p-2 rounded-lg border border-[#1E293B] cursor-pointer hover:border-slate-600 transition-colors">
-                  <div className="w-24 h-16 bg-slate-800 rounded flex-shrink-0 flex items-center justify-center relative">
-                     <Play className="text-white/50 h-6 w-6" />
+              {playlist.map((video, index) => (
+                <div 
+                  key={index} 
+                  onClick={() => setMainVideo(video)}
+                  className={`flex gap-3 p-2 rounded-lg border cursor-pointer transition-colors ${mainVideo.id === video.id ? 'bg-blue-900/30 border-blue-500' : 'bg-[#0B1120] border-[#1E293B] hover:border-slate-500'}`}
+                >
+                  <div className="w-24 h-16 bg-slate-800 rounded flex-shrink-0 relative overflow-hidden">
+                     <img src={`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`} alt={video.title} className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" />
+                     <div className="absolute inset-0 flex items-center justify-center">
+                        <Play className="text-white/80 h-6 w-6 drop-shadow-md" />
+                     </div>
                   </div>
                   <div className="flex-1 py-1">
-                    <span className="text-[10px] text-orange-500 font-bold uppercase block mb-1">Caraïbes</span>
-                    <h4 className="text-slate-200 text-xs font-medium line-clamp-2 leading-tight">Nature et destinations : le nouveau visage de la Caraïbe en 2024.</h4>
+                    <span className="text-[10px] text-orange-500 font-bold uppercase block mb-1">{video.tag}</span>
+                    <h4 className="text-slate-200 text-xs font-medium line-clamp-2 leading-tight">{video.title}</h4>
                   </div>
                 </div>
               ))}
