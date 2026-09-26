@@ -9,7 +9,7 @@ export default function Page() {
       </span>
       <h1 className="text-4xl font-bold text-white mb-4">S'inscrire</h1>
       <p className="text-slate-400 max-w-lg mb-8">
-        La page de {title.lower()} sera bientôt disponible. Merci de votre patience.
+        La page de s'inscrire sera bientôt disponible. Merci de votre patience.
       </p>
       <Link href="/" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold transition-colors">
         <ArrowLeft className="h-4 w-4" /> Retour à l'accueil
