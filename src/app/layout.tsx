@@ -72,7 +72,7 @@ export default function RootLayout({
             </div>
           </div>
           <div className="container mx-auto px-4 mt-12 pt-8 border-t border-[#1E293B] flex flex-col md:flex-row justify-between text-xs text-slate-500">
-            <p>© 2024 PozitivEx+. Tous droits réservés.</p>
+            <p>© 2026 PozitivEx+. Tous droits réservés.</p>
             <p>Connecting the Caribbean to the World, Creating Positive Externalities.</p>
           </div>
         </footer>
