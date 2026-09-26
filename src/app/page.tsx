@@ -30,7 +30,7 @@ export default function Home() {
           <Link href="/opportunites" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto text-center">
             Explorer les Opportunités +
           </Link>
-          <Link href="/profil" className="inline-block bg-transparent border border-slate-600 text-white px-8 py-3 rounded text-sm font-bold hover:bg-slate-800 transition-colors w-full sm:w-auto text-center">
+          <Link href="/inscription" className="inline-block bg-transparent border border-slate-600 text-white px-8 py-3 rounded text-sm font-bold hover:bg-slate-800 transition-colors w-full sm:w-auto text-center">
             Devenir membre
           </Link>
           <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto">
