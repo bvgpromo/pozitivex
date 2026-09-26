@@ -31,14 +31,7 @@ export default function Header() {
         </nav>
 
         {/* Desktop Buttons */}
-        <div className="hidden lg:flex items-center gap-4">
-          <Link href="#" className="text-slate-300 hover:text-white transition-colors text-sm font-medium">
-            Se connecter
-          </Link>
-          <Link href="#" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md text-sm font-bold transition-all">
-            S'inscrire
-          </Link>
-        </div>
+        
 
         {/* Mobile Menu Toggle Button */}
         <button 
@@ -61,10 +54,8 @@ export default function Header() {
             <Link href="#" className="text-slate-300 hover:text-blue-400 font-medium">Programmes</Link>
             <Link href="#" className="text-slate-300 hover:text-blue-400 font-medium">Formations</Link>
             <hr className="border-[#1E293B] my-2" />
-            <Link href="/connexion" className="text-slate-300 font-medium hover:text-white transition-colors">Se connecter</Link>
-            <Link href="#" className="bg-blue-600 hover:bg-blue-700 text-white text-center px-4 py-2 rounded-md font-bold mt-2">
-              S'inscrire
-            </Link>
+            
+            
           </div>
         </div>
       )}
