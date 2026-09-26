@@ -8,9 +8,9 @@ import { Play, TrendingUp, Lightbulb, GraduationCap, Users, Shield, Zap, Search,
 export default function Home() {
   const playlist = [
     { id: "S8pvwbiY9OU", tag: "AGRICULTURE", title: "Yon gwo Pwofesè ki bati pwòp paradi l lakay li" },
-    { id: "S8pvwbiY9OU", tag: "INNOVATION", title: "Développement technologique et opportunités d'affaires" },
-    { id: "S8pvwbiY9OU", tag: "ÉCONOMIE", title: "L'impact des investissements étrangers dans la Caraïbe" },
-    { id: "S8pvwbiY9OU", tag: "TOURISME", title: "Redéfinir le tourisme écologique et durable" }
+    { id: "Zgv4CLJALTc", tag: "INNOVATION", title: "Développement technologique et opportunités d'affaires" },
+    { id: "hmVCi2ZL3Nw", tag: "ÉCONOMIE", title: "L'impact des investissements étrangers dans la Caraïbe" },
+    { id: "atUomXZm1Gg", tag: "TOURISME", title: "Redéfinir le tourisme écologique et durable" }
   ];
   const [mainVideo, setMainVideo] = useState(playlist[0]);
 
