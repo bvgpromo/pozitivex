@@ -1,22 +1,19 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, TrendingUp } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
-export default function FinancePage() {
+export default function Page() {
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center p-4 bg-slate-50 text-center">
-      <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-100 max-w-2xl w-full">
-        <div className="h-16 w-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-          <TrendingUp className="h-8 w-8" />
-        </div>
-        <h1 className="text-3xl font-bold text-slate-900 mb-4">Finance</h1>
-        <p className="text-slate-600 text-lg mb-8">
-          Accédez aux opportunités de crédit, de financement et d'investissement. Bientôt disponible.
-        </p>
-        <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-8">
-          <Link href="/"><ArrowLeft className="mr-2 h-4 w-4" /> Retour à l'accueil</Link>
-        </Button>
-      </div>
+    <div className="min-h-[80vh] flex flex-col items-center justify-center p-8 text-center bg-[#0B1120]">
+      <span className="w-16 h-16 bg-blue-600/20 text-blue-500 rounded-full flex items-center justify-center mb-6 text-2xl">
+        🚧
+      </span>
+      <h1 className="text-4xl font-bold text-white mb-4">Financement & Investissement</h1>
+      <p className="text-slate-400 max-w-lg mb-8">
+        Cette page est actuellement en cours de développement. Les fonctionnalités seront bientôt disponibles sur PozitivEx+.
+      </p>
+      <Link href="/" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold transition-colors">
+        <ArrowLeft className="h-4 w-4" /> Retour à l'accueil
+      </Link>
     </div>
   );
 }

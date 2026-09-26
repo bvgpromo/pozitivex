@@ -21,13 +21,13 @@ export default function Header() {
         
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-6 text-[13px] font-semibold text-slate-300 uppercase tracking-wider">
-          <Link href="#" className="hover:text-blue-400 transition-colors">Intelligence</Link>
-          <Link href="#" className="hover:text-blue-400 transition-colors">Actualités</Link>
+          <Link href="/intelligence" className="hover:text-blue-400 transition-colors">Intelligence</Link>
+          <Link href="/magazine" className="hover:text-blue-400 transition-colors">Actualités</Link>
           <Link href="/opportunites" className="hover:text-blue-400 transition-colors">Opportunités</Link>
           <Link href="/reseautage" className="hover:text-blue-400 transition-colors">Réseau</Link>
-          <Link href="#" className="hover:text-blue-400 transition-colors">Data Center</Link>
-          <Link href="#" className="hover:text-blue-400 transition-colors">Programmes</Link>
-          <Link href="#" className="hover:text-blue-400 transition-colors">Formations</Link>
+          <Link href="/data-center" className="hover:text-blue-400 transition-colors">Data Center</Link>
+          <Link href="/programmes" className="hover:text-blue-400 transition-colors">Programmes</Link>
+          <Link href="/formations" className="hover:text-blue-400 transition-colors">Formations</Link>
         </nav>
 
         {/* Desktop Buttons */}
