@@ -14,9 +14,9 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2">
           {/* We use text logo or the existing image, assuming the existing image might have a white background, 
               but let's keep the image for now, and add a text fallback visually. */}
-          <span className="text-xl font-bold text-white flex items-center gap-2">
-            <span className="text-blue-500">POZITIV</span><span className="text-orange-500">EX+</span>
-          </span>
+          <div className="flex-shrink-0 bg-white rounded-lg overflow-hidden p-1 shadow-[0_0_10px_rgba(255,255,255,0.1)]">
+            <Image src="/logo.jpg" alt="PozitivEx+" width={120} height={40} className="object-contain" priority />
+          </div>
         </Link>
         
         {/* Desktop Navigation */}
