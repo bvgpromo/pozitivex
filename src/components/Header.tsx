@@ -10,17 +10,17 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 bg-[#0B1120] border-b border-[#1E293B] z-50">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+      <div className="container mx-auto px-4 py-4 flex items-center">
+        <Link href="/" className="flex items-center gap-2 lg:w-1/4">
           {/* We use text logo or the existing image, assuming the existing image might have a white background, 
               but let's keep the image for now, and add a text fallback visually. */}
           <div className="flex-shrink-0">
-            <Image src="/logo.png" alt="PozitivEx+" width={150} height={50} className="object-contain drop-shadow-md" priority />
+            <Image src="/logo.png" alt="PozitivEx+" width={180} height={60} className="object-contain drop-shadow-md" priority />
           </div>
         </Link>
         
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-6 text-[13px] font-semibold text-slate-300 uppercase tracking-wider">
+        <nav className="hidden lg:flex flex-1 justify-center items-center gap-8 text-sm font-bold text-slate-300 uppercase tracking-wider">
           <Link href="/intelligence" className="hover:text-blue-400 transition-colors">Intelligence</Link>
           <Link href="/magazine" className="hover:text-blue-400 transition-colors">Actualités</Link>
           <Link href="/opportunites" className="hover:text-blue-400 transition-colors">Opportunités</Link>
@@ -33,9 +33,11 @@ export default function Header() {
         {/* Desktop Buttons */}
         
 
+        <div className="hidden lg:block lg:w-1/4"></div>
+
         {/* Mobile Menu Toggle Button */}
         <button 
-          className="lg:hidden p-2 text-slate-300 hover:bg-[#1E293B] rounded-md transition-colors"
+          className="lg:hidden ml-auto p-2 text-slate-300 hover:bg-[#1E293B] rounded-md transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
