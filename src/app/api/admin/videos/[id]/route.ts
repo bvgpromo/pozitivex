@@ -6,7 +6,8 @@ import path from "path";
 
 const dataFile = path.join(process.cwd(), "data", "videos.json");
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, context: any) {
+  const id = context.params?.id;
   const id = params.id;
   const body = await req.json();
   const file = await fs.readFile(dataFile, "utf-8");
@@ -18,7 +19,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   return NextResponse.json(videos[index]);
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context: any) {
+  const id = context.params?.id;
   const id = params.id;
   const file = await fs.readFile(dataFile, "utf-8");
   let videos = JSON.parse(file);
