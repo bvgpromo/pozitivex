@@ -8,7 +8,7 @@ const dataFile = path.join(process.cwd(), "data", "videos.json");
 
 export async function PUT(req: NextRequest, context: any) {
   const id = context.params?.id;
-  const id = params.id;
+
   const body = await req.json();
   const file = await fs.readFile(dataFile, "utf-8");
   const videos = JSON.parse(file);
@@ -21,7 +21,7 @@ export async function PUT(req: NextRequest, context: any) {
 
 export async function DELETE(req: NextRequest, context: any) {
   const id = context.params?.id;
-  const id = params.id;
+
   const file = await fs.readFile(dataFile, "utf-8");
   let videos = JSON.parse(file);
   const lengthBefore = videos.length;

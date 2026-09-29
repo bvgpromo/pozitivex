@@ -8,7 +8,7 @@ const dataFile = path.join(process.cwd(), "data", "pages.json");
 
 export async function PUT(req: NextRequest, context: any) {
   const slug = context.params?.slug;
-  const slug = params.slug;
+
   const body = await req.json();
   const file = await fs.readFile(dataFile, "utf-8");
   const pages = JSON.parse(file);
@@ -21,7 +21,7 @@ export async function PUT(req: NextRequest, context: any) {
 
 export async function DELETE(req: NextRequest, context: any) {
   const slug = context.params?.slug;
-  const slug = params.slug;
+
   const file = await fs.readFile(dataFile, "utf-8");
   let pages = JSON.parse(file);
   const lengthBefore = pages.length;
