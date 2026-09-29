@@ -34,4 +34,9 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-export default NextAuth(authOptions);
+export async function GET(req: Request) {
+  return NextAuth(req, authOptions);
+}
+export async function POST(req: Request) {
+  return NextAuth(req, authOptions);
+}
