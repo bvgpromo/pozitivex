@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
+import RichEditor from "@/components/RichEditor";
 
 // ─── Icons (inline SVG) ──────────────────────────────────────────────────────
 
@@ -205,7 +206,7 @@ function ArticlesManager() {
             </div>
             <div>
               <div style={S.label}>Kontni</div>
-              <textarea style={S.textarea} placeholder="Contenu de l'article..." value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} required />
+              <RichEditor value={form.content} onChange={(val) => setForm({ ...form, content: val })} placeholder="Contenu de l'article..." />
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
               <button type="submit" style={S.btn('#3b82f6')}>{editId ? 'Mettre à jour' : 'Ajouter'}</button>
@@ -364,7 +365,7 @@ function PagesManager() {
             </div>
             <div>
               <div style={S.label}>Kontni</div>
-              <textarea style={S.textarea} placeholder="Contenu de la page..." value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} required />
+              <RichEditor value={form.content} onChange={(val) => setForm({ ...form, content: val })} placeholder="Contenu de la page..." />
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
               <button type="submit" style={S.btn('#10b981')}>{editId ? 'Mettre à jour' : 'Ajouter'}</button>
