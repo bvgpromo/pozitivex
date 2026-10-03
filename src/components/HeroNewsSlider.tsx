@@ -51,7 +51,7 @@ export default function HeroNewsSlider({ articles }: HeroNewsSliderProps) {
       id: "3",
       title: "Nouveau projet d'énergie solaire approuvé",
       category: "Énergie",
-      imageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1200",
+      imageUrl: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=1200",
       date: "Il y a 5h"
     },
     {
