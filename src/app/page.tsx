@@ -5,15 +5,19 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Play, TrendingUp, Lightbulb, GraduationCap, Users, Shield, Zap, Search, ChevronRight, Briefcase } from "lucide-react";
 
+function getYouTubeId(url: string) {
+  if (!url) return '';
+  const trimmed = String(url).trim();
+  const match = trimmed.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+  if (match && match[1]) return match[1];
+  if (/^[\w-]{11}$/.test(trimmed)) return trimmed;
+  return trimmed;
+}
+
 export default function Home() {
-  const playlist = [
-    { id: "S8pvwbiY9OU", tag: "AGRICULTURE", title: "Yon gwo Pwofesè ki bati pwòp paradi l lakay li" },
-    { id: "Zgv4CLJALTc", tag: "INNOVATION", title: "Développement technologique et opportunités d'affaires" },
-    { id: "hmVCi2ZL3Nw", tag: "ÉCONOMIE", title: "L'impact des investissements étrangers dans la Caraïbe" },
-    { id: "atUomXZm1Gg", tag: "TOURISME", title: "Redéfinir le tourisme écologique et durable" }
-  ];
-  const [mainVideo, setMainVideo] = useState(playlist[0]);
   const [articles, setArticles] = useState<any[]>([]);
+  const [videoList, setVideoList] = useState<any[]>([]);
+  const [selectedVideo, setSelectedVideo] = useState<any>(null);
 
   useEffect(() => {
     fetch('/api/admin/articles')
@@ -22,7 +26,25 @@ export default function Home() {
         if (Array.isArray(data) && data.length > 0) setArticles(data);
       })
       .catch(() => {});
+
+    fetch('/api/admin/videos')
+      .then(r => (r.ok ? r.json() : []))
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) setVideoList(data);
+      })
+      .catch(() => {});
   }, []);
+
+  const defaultVideos = [
+    { id: "1", youtubeId: "S8pvwbiY9OU", tag: "AGRICULTURE", title: "Yon gwo Pwofesè ki bati pwòp paradi l lakay li | yon bèl fèm agrilòl" },
+    { id: "2", youtubeId: "Zgv4CLJALTc", tag: "INNOVATION", title: "Développement technologique et opportunités d'affaires" },
+    { id: "3", youtubeId: "hmVCi2ZL3Nw", tag: "ÉCONOMIE", title: "L'impact des investissements étrangers dans la Caraïbe" },
+    { id: "4", youtubeId: "atUomXZm1Gg", tag: "TOURISME", title: "Redéfinir le tourisme écologique et durable" }
+  ];
+
+  const currentVideos = videoList.length > 0 ? videoList : defaultVideos;
+  const activeVideo = selectedVideo || currentVideos[0];
+  const activeYtId = getYouTubeId(activeVideo.youtubeId || activeVideo.videoUrl || activeVideo.id) || "S8pvwbiY9OU";
 
   const featured = articles[0] || {
     id: "1",
@@ -80,41 +102,58 @@ export default function Home() {
               <iframe 
                 width="100%" 
                 height="100%" 
-                src={`https://www.youtube.com/embed/${mainVideo.id}?autoplay=1&mute=0`} 
-                title={mainVideo.title}
+                src={`https://www.youtube-nocookie.com/embed/${activeYtId}?autoplay=1&mute=0`} 
+                title={activeVideo.title}
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 allowFullScreen
                 className="absolute top-0 left-0 w-full h-full"
               ></iframe>
             </div>
-            <h3 className="text-white font-bold text-lg mt-4">{mainVideo.title}</h3>
+            <div className="mt-4">
+              <span className="text-xs bg-orange-500/20 text-orange-400 border border-orange-500/30 px-3 py-0.5 rounded font-bold uppercase tracking-wider inline-block mb-2">
+                ● {activeVideo.tag || "VIDÉO"}
+              </span>
+              <h3 className="text-white font-bold text-xl">{activeVideo.title}</h3>
+              {activeVideo.description && (
+                <p className="text-slate-400 text-xs mt-2 leading-relaxed">{activeVideo.description}</p>
+              )}
+            </div>
           </div>
           
           {/* Playlist */}
           <div className="lg:w-1/3 flex flex-col">
             <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span> Plus de vidéos
+              <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span> Plus de vidéos ({currentVideos.length})
             </h3>
-            <div className="flex flex-col gap-3 overflow-y-auto pr-2 max-h-[400px]">
-              {playlist.map((video, index) => (
-                <div 
-                  key={index} 
-                  onClick={() => setMainVideo(video)}
-                  className={`flex gap-3 p-2 rounded-lg border cursor-pointer transition-colors ${mainVideo.id === video.id ? 'bg-blue-900/30 border-blue-500' : 'bg-[#0B1120] border-[#1E293B] hover:border-slate-500'}`}
-                >
-                  <div className="w-24 h-16 bg-slate-800 rounded flex-shrink-0 relative overflow-hidden">
-                     <img src={`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`} alt={video.title} className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" />
-                     <div className="absolute inset-0 flex items-center justify-center">
-                        <Play className="text-white/80 h-6 w-6 drop-shadow-md" />
-                     </div>
+            <div className="flex flex-col gap-3 overflow-y-auto pr-2 max-h-[440px]">
+              {currentVideos.map((video: any, index: number) => {
+                const yt = getYouTubeId(video.youtubeId || video.videoUrl || video.id);
+                const isSelected = activeVideo.id === video.id || activeYtId === yt;
+                return (
+                  <div 
+                    key={video.id || index} 
+                    onClick={() => setSelectedVideo(video)}
+                    className={`flex gap-3 p-2.5 rounded-xl border cursor-pointer transition-all ${isSelected ? 'bg-blue-900/40 border-blue-500 shadow-md ring-1 ring-blue-500/50' : 'bg-[#0B1120] border-[#1E293B] hover:border-slate-500 hover:bg-[#111827]'}`}
+                  >
+                    <div className="w-24 h-16 bg-slate-800 rounded-lg flex-shrink-0 relative overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`https://img.youtube.com/vi/${yt}/mqdefault.jpg`}
+                        alt={video.title}
+                        className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/25">
+                        <Play className={`h-5 w-5 drop-shadow-md ${isSelected ? 'text-blue-400' : 'text-white/90'}`} />
+                      </div>
+                    </div>
+                    <div className="flex-1 py-0.5 min-w-0">
+                      <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider block mb-1">{video.tag || "VIDÉO"}</span>
+                      <h4 className="text-slate-200 text-xs font-medium line-clamp-2 leading-tight">{video.title}</h4>
+                    </div>
                   </div>
-                  <div className="flex-1 py-1">
-                    <span className="text-[10px] text-orange-500 font-bold uppercase block mb-1">{video.tag}</span>
-                    <h4 className="text-slate-200 text-xs font-medium line-clamp-2 leading-tight">{video.title}</h4>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

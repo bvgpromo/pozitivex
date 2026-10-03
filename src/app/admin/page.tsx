@@ -394,11 +394,20 @@ function ArticlesManager() {
 
 // ─── Videos Manager ──────────────────────────────────────────────────────────
 
+function getYouTubeId(url: string) {
+  if (!url) return '';
+  const trimmed = url.trim();
+  const match = trimmed.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+  if (match && match[1]) return match[1];
+  if (/^[\w-]{11}$/.test(trimmed)) return trimmed;
+  return '';
+}
+
 function VideosManager() {
   const [items, setItems]       = useState<any[]>([]);
   const [loading, setLoading]   = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm]         = useState({ title: '', videoUrl: '' });
+  const [form, setForm]         = useState({ title: '', videoUrl: '', tag: 'AGRICULTURE', description: '' });
   const [editId, setEditId]     = useState<string | null>(null);
 
   const load = async () => { setLoading(true); const r = await fetch('/api/admin/videos'); if (r.ok) setItems(await r.json()); setLoading(false); };
@@ -406,14 +415,18 @@ function VideosManager() {
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
+    const ytId = getYouTubeId(form.videoUrl);
+    const payload = { ...form, youtubeId: ytId || form.videoUrl };
     const url    = editId ? `/api/admin/videos/${editId}` : '/api/admin/videos';
     const method = editId ? 'PUT' : 'POST';
-    await fetch(url, { method, body: JSON.stringify(form), headers: { 'Content-Type': 'application/json' } });
+    await fetch(url, { method, body: JSON.stringify(payload), headers: { 'Content-Type': 'application/json' } });
     reset(); load();
   };
-  const reset = () => { setForm({ title: '', videoUrl: '' }); setEditId(null); setShowForm(false); };
-  const edit  = (item: any) => { setForm({ title: item.title, videoUrl: item.videoUrl }); setEditId(item.id); setShowForm(true); };
+  const reset = () => { setForm({ title: '', videoUrl: '', tag: 'AGRICULTURE', description: '' }); setEditId(null); setShowForm(false); };
+  const edit  = (item: any) => { setForm({ title: item.title, videoUrl: item.videoUrl || '', tag: item.tag || 'AGRICULTURE', description: item.description || '' }); setEditId(item.id); setShowForm(true); };
   const del   = async (id: string) => { if (confirm('Supprimer cette vidéo ?')) { await fetch(`/api/admin/videos/${id}`, { method: 'DELETE' }); load(); } };
+
+  const currentYtId = getYouTubeId(form.videoUrl);
 
   return (
     <div>
@@ -430,14 +443,67 @@ function VideosManager() {
             {editId ? '✏️ Modifier la vidéo' : '➕ Ajouter une vidéo'}
           </h3>
           <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            <div>
-              <div style={S.label}>Titre</div>
-              <input style={S.input} placeholder="Titre de la vidéo" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
+            <div style={S.formGrid}>
+              <div>
+                <div style={S.label}>Titre</div>
+                <input style={S.input} placeholder="Titre de la vidéo" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
+              </div>
+              <div>
+                <div style={S.label}>Catégorie / Tag</div>
+                <select
+                  style={{ ...S.input, cursor: 'pointer' }}
+                  value={form.tag}
+                  onChange={e => setForm({ ...form, tag: e.target.value })}
+                >
+                  {['AGRICULTURE', 'INNOVATION', 'ÉCONOMIE', 'TOURISME', 'TECHNOLOGIE', 'FINANCE', 'ENTREPRENEURIAT', 'CULTURE', 'ÉDUCATION'].map(c => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
             </div>
+
             <div>
-              <div style={S.label}>URL YouTube</div>
-              <input style={S.input} placeholder="https://youtube.com/watch?v=..." value={form.videoUrl} onChange={e => setForm({ ...form, videoUrl: e.target.value })} required />
+              <div style={S.label}>Lien YouTube</div>
+              <input
+                style={S.input}
+                placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..."
+                value={form.videoUrl}
+                onChange={e => setForm({ ...form, videoUrl: e.target.value })}
+                required
+              />
             </div>
+
+            {/* Aperçu YouTube en direct */}
+            {currentYtId && (
+              <div style={{ display: 'flex', gap: '14px', alignItems: 'center', backgroundColor: '#060d1a', padding: '12px', borderRadius: '8px', border: '1px solid #1e293b' }}>
+                <div style={{ position: 'relative', width: '120px', height: '68px', borderRadius: '6px', overflow: 'hidden', flexShrink: 0 }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`https://img.youtube.com/vi/${currentYtId}/mqdefault.jpg`}
+                    alt="Aperçu YouTube"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                    ▶
+                  </div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '11px', color: '#10b981', fontWeight: 600 }}>✓ Vidéo YouTube détectée</div>
+                  <div style={{ fontSize: '12px', color: '#94a3b8', fontFamily: 'monospace' }}>ID: {currentYtId}</div>
+                </div>
+              </div>
+            )}
+
+            <div>
+              <div style={S.label}>Description (optionnel)</div>
+              <textarea
+                style={{ ...S.textarea, minHeight: '70px' }}
+                placeholder="Courte description de la vidéo..."
+                value={form.description}
+                onChange={e => setForm({ ...form, description: e.target.value })}
+              />
+            </div>
+
             <div style={{ display: 'flex', gap: '10px' }}>
               <button type="submit" style={S.btn('#8b5cf6')}>{editId ? 'Mettre à jour' : 'Ajouter'}</button>
               <button type="button" style={S.btn('#334155')} onClick={reset}>Annuler</button>
@@ -449,18 +515,34 @@ function VideosManager() {
       {loading ? <p style={{ color: '#475569', fontSize: '14px' }}>Chargement...</p> : (
         <div>
           {items.length === 0 && <p style={{ color: '#475569', fontSize: '14px', fontStyle: 'italic' }}>Aucune vidéo pour l'instant.</p>}
-          {items.map(item => (
-            <div key={item.id} style={S.row}>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '14px', marginBottom: '3px' }}>{item.title}</div>
-                <a href={item.videoUrl} target="_blank" rel="noreferrer" style={{ fontSize: '12px', color: '#8b5cf6', textDecoration: 'none' }}>{item.videoUrl}</a>
+          {items.map(item => {
+            const yt = getYouTubeId(item.videoUrl || item.youtubeId || item.id);
+            return (
+              <div key={item.id} style={S.row}>
+                {yt && (
+                  <div style={{ width: '64px', height: '44px', borderRadius: '6px', overflow: 'hidden', marginRight: '14px', flexShrink: 0, position: 'relative' }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`https://img.youtube.com/vi/${yt}/mqdefault.jpg`}
+                      alt={item.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                )}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                    <span style={{ fontSize: '10px', color: '#a78bfa', fontWeight: 700, textTransform: 'uppercase' }}>● {item.tag || 'VIDÉO'}</span>
+                    <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '14px' }}>{item.title}</div>
+                  </div>
+                  <a href={item.videoUrl} target="_blank" rel="noreferrer" style={{ fontSize: '12px', color: '#8b5cf6', textDecoration: 'none' }}>{item.videoUrl}</a>
+                </div>
+                <div style={{ display: 'flex', gap: '8px', marginLeft: '12px', flexShrink: 0 }}>
+                  <button style={S.btnSm('#6d28d9')} onClick={() => edit(item)}><IconEdit /> Modifier</button>
+                  <button style={S.btnSm('#dc2626')} onClick={() => del(item.id)}><IconTrash /> Supprimer</button>
+                </div>
               </div>
-              <div style={{ display: 'flex', gap: '8px', marginLeft: '12px', flexShrink: 0 }}>
-                <button style={S.btnSm('#6d28d9')} onClick={() => edit(item)}><IconEdit /> Modifier</button>
-                <button style={S.btnSm('#dc2626')} onClick={() => del(item.id)}><IconTrash /> Supprimer</button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

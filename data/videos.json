@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "1",
+    "youtubeId": "S8pvwbiY9OU",
+    "title": "Yon gwo Pwofesè ki bati pwòp paradi l lakay li | yon bèl fèm agrilòl",
+    "videoUrl": "https://www.youtube.com/watch?v=S8pvwbiY9OU",
+    "tag": "AGRICULTURE",
+    "description": "Découvrez l'histoire inspirante d'un professeur qui a développé un modèle agricole autosuffisant et moderne.",
+    "createdAt": "2026-10-02T19:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "youtubeId": "Zgv4CLJALTc",
+    "title": "Développement technologique et opportunités d'affaires",
+    "videoUrl": "https://www.youtube.com/watch?v=Zgv4CLJALTc",
+    "tag": "INNOVATION",
+    "description": "Comment l'innovation numérique transforme les écosystèmes d'affaires et crée de nouvelles perspectives économiques dans la région.",
+    "createdAt": "2026-10-02T18:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "youtubeId": "hmVCi2ZL3Nw",
+    "title": "L'impact des investissements étrangers dans la Caraïbe",
+    "videoUrl": "https://www.youtube.com/watch?v=hmVCi2ZL3Nw",
+    "tag": "ÉCONOMIE",
+    "description": "Analyse des flux financiers internationaux et de leur contribution au développement des infrastructures régionales.",
+    "createdAt": "2026-10-02T17:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "youtubeId": "atUomXZm1Gg",
+    "title": "Redéfinir le tourisme écologique et durable",
+    "videoUrl": "https://www.youtube.com/watch?v=atUomXZm1Gg",
+    "tag": "TOURISME",
+    "description": "Vers un modèle touristique respectueux de l'environnement, valorisant le patrimoine naturel et soutenant les communautés locales.",
+    "createdAt": "2026-10-02T16:00:00.000Z"
+  }
+]

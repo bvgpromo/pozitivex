@@ -6,8 +6,23 @@ import path from "path";
 
 const dataFile = path.join(process.cwd(), "data", "videos.json");
 
+export async function GET(req: NextRequest, context: any) {
+  const params = await context.params;
+  const id = params?.id;
+  try {
+    const file = await fs.readFile(dataFile, "utf-8");
+    const videos = JSON.parse(file);
+    const video = videos.find((v: any) => v.id === id);
+    if (!video) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    return NextResponse.json(video);
+  } catch {
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+
 export async function PUT(req: NextRequest, context: any) {
-  const id = context.params?.id;
+  const params = await context.params;
+  const id = params?.id;
 
   const body = await req.json();
   const file = await fs.readFile(dataFile, "utf-8");
@@ -20,7 +35,8 @@ export async function PUT(req: NextRequest, context: any) {
 }
 
 export async function DELETE(req: NextRequest, context: any) {
-  const id = context.params?.id;
+  const params = await context.params;
+  const id = params?.id;
 
   const file = await fs.readFile(dataFile, "utf-8");
   let videos = JSON.parse(file);
