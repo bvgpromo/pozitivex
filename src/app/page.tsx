@@ -134,7 +134,7 @@ export default function Home() {
   const activePricing = pricingData || defaultPricing;
   const defaultHomepage = {
     hero: {
-      badge: "Plateforme Économique Intelligente",
+      badge: "",
       titleLine1: "POZITIVEX+",
       titleLine2: "Intelligence. Innovation. Finance. Impact.",
       subtitle: "",
@@ -168,10 +168,12 @@ export default function Home() {
       
       {/* 1. Hero Section & Slideshow */}
       <section className="container mx-auto px-4 text-center max-w-5xl">
+        {hero.badge && (
         <div className="inline-flex items-center gap-2 border border-blue-500/30 bg-blue-500/10 text-blue-400 text-[11px] sm:text-xs font-bold px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full mb-3 sm:mb-4 shadow-sm">
           <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-          {hero.badge || "Plateforme Économique Intelligente"}
+          {hero.badge}
         </div>
+        )}
 
         <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3 sm:mb-4 leading-tight tracking-tight">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500">{hero.titleLine1}</span>
