@@ -178,7 +178,7 @@ function ArticlesManager() {
   };
   const reset = () => { setForm({ title: '', content: '', imageUrl: '' }); setEditId(null); setShowForm(false); };
   const edit  = (item: any) => { setForm({ title: item.title, content: item.content, imageUrl: item.imageUrl || '' }); setEditId(item.id); setShowForm(true); };
-  const del   = async (id: string) => { if (confirm('Supprimer cet article ?')) { await fetch(`/api/admin/articles/${id}`, { method: 'DELETE' }); load(); } };
+  const del   = async (id: string) => { if (confirm("Supprimer cet article ?")) { await fetch(`/api/admin/articles/${id}`, { method: 'DELETE' }); load(); } };
 
   return (
     <div>
@@ -192,11 +192,11 @@ function ArticlesManager() {
       {showForm && (
         <div style={S.card}>
           <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#60a5fa' }}>
-            {editId ? '✏️ Modifier l'Article' : '➕ Ajouterr un Article'}
+            {editId ? "✏️ Modifier l'article" : "➕ Ajouter un article"}
           </h3>
           <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
-              <div style={S.label}>Tit</div>
+              <div style={S.label}>Titre</div>
               <input style={S.input} placeholder="Titre de l'article" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
             </div>
             <div>
@@ -277,7 +277,7 @@ function VideosManager() {
           </h3>
           <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
-              <div style={S.label}>Tit</div>
+              <div style={S.label}>Titre</div>
               <input style={S.input} placeholder="Titre de la vidéo" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
             </div>
             <div>
@@ -353,7 +353,7 @@ function PagesManager() {
           <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div style={S.formGrid}>
               <div>
-                <div style={S.label}>Tit</div>
+                <div style={S.label}>Titre</div>
                 <input style={S.input} placeholder="Titre de la page" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
               </div>
               <div>
