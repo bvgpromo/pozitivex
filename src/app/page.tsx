@@ -135,9 +135,9 @@ export default function Home() {
   const defaultHomepage = {
     hero: {
       badge: "Plateforme Économique Intelligente",
-      titleLine1: "Connecting the Caribbean",
-      titleLine2: "to Global Opportunities",
-      subtitle: "La plateforme de référence pour l'intelligence économique, l'innovation et l'investissement en Caraïbe.",
+      titleLine1: "POZITIVEX+",
+      titleLine2: "Intelligence. Innovation. Finance. Impact.",
+      subtitle: "",
       btn1Text: "Explorer les Opportunités +",
       btn1Link: "/opportunites",
       btn2Text: "Devenir membre",
@@ -167,20 +167,22 @@ export default function Home() {
     <div className="flex flex-col gap-16 md:gap-20 pb-16 pt-8">
       
       {/* 1. Hero Section & Slideshow */}
-      <section className="container mx-auto px-4 text-center max-w-4xl">
+      <section className="container mx-auto px-4 text-center max-w-5xl">
         <div className="inline-flex items-center gap-2 border border-blue-500/30 bg-blue-500/10 text-blue-400 text-[11px] sm:text-xs font-bold px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full mb-3 sm:mb-4 shadow-sm">
           <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
           {hero.badge || "Plateforme Économique Intelligente"}
         </div>
 
         <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3 sm:mb-4 leading-tight tracking-tight">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500">{hero.titleLine1}</span> <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500">{hero.titleLine2}</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500">{hero.titleLine1}</span>
+          <span className="block mt-2 sm:mt-3 text-base sm:text-xl md:text-2xl lg:text-4xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500">{hero.titleLine2}</span>
         </h1>
 
-        <p className="text-slate-400 text-xs sm:text-sm md:text-base max-w-xl mx-auto mb-2 sm:mb-3 leading-relaxed px-2">
-          {hero.subtitle || "La plateforme de référence pour l'intelligence économique, l'innovation et l'investissement en Caraïbe."}
-        </p>
+        {hero.subtitle && (
+          <p className="text-slate-400 text-xs sm:text-sm md:text-base max-w-xl mx-auto mb-2 sm:mb-3 leading-relaxed px-2">
+            {hero.subtitle}
+          </p>
+        )}
       </section>
 
       {/* Featured Actualités Slideshow */}

@@ -652,7 +652,7 @@ function HomepageManager() {
 
           <div style={{ marginTop: '14px' }}>
             <div style={S.label}>Sous-titre / Description d'introduction</div>
-            <textarea style={{ ...S.textarea, minHeight: '75px' }} value={data.hero?.subtitle || ''} onChange={e => setData({ ...data, hero: { ...data.hero, subtitle: e.target.value } })} required />
+            <textarea style={{ ...S.textarea, minHeight: '75px' }} value={data.hero?.subtitle || ''} onChange={e => setData({ ...data, hero: { ...data.hero, subtitle: e.target.value } })} />
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginTop: '14px' }}>
