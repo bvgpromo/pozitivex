@@ -24,3 +24,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Conteneur plus large pour grands écrans */
+@utility container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1680px;
+  padding-inline: 1rem;
+}
+@media (min-width: 1024px) {
+  .container { padding-inline: 2rem; }
+}

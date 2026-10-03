@@ -102,7 +102,7 @@ export default function HeroNewsSlider({ articles }: HeroNewsSliderProps) {
   const sideArticles = items.slice(0, 4);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-2 sm:px-4">
+    <div className="w-full max-w-[1680px] mx-auto px-2 sm:px-4">
       {/* 2-Column Grid: Main Slider (left) + Live Economic News Feed (right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-6 items-stretch">
         

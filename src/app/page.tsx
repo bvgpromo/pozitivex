@@ -531,7 +531,7 @@ export default function Home() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto mb-10 items-stretch">
           {activePricing.plans?.map((plan: any, idx: number) => {
             const isPopular = !!plan.popular;
             return (
@@ -574,7 +574,7 @@ export default function Home() {
 
         {/* Donation Banner */}
         {activePricing.donation && (
-          <div className="max-w-4xl mx-auto border border-orange-500/30 bg-gradient-to-r from-[#131B2F] to-[#1E293B] p-8 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="max-w-6xl mx-auto border border-orange-500/30 bg-gradient-to-r from-[#131B2F] to-[#1E293B] p-8 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
             <div>
               <h3 className="text-orange-500 font-bold text-lg mb-2 flex items-center gap-2">
                 <Shield className="h-5 w-5" /> {activePricing.donation.title || "Soutenir PozitivEx+"}
@@ -592,7 +592,7 @@ export default function Home() {
 
       {/* 8. Assistant IA */}
       <section className="container mx-auto px-4 mt-10">
-        <div className="max-w-5xl mx-auto bg-[#131B2F] border border-[#1E293B] p-6 lg:p-10 rounded-3xl flex flex-col lg:flex-row gap-10 items-center">
+        <div className="max-w-7xl mx-auto bg-[#131B2F] border border-[#1E293B] p-6 lg:p-10 rounded-3xl flex flex-col lg:flex-row gap-10 items-center">
           <div className="lg:w-1/2">
             <span className="border border-blue-500/30 text-blue-400 text-xs font-bold px-3 py-1 rounded-full mb-4 inline-flex items-center gap-1"><Lightbulb className="h-3 w-3"/> Intelligence Artificielle</span>
             <h2 className="text-3xl font-bold text-white mb-4">Votre Assistant Stratégique</h2>
