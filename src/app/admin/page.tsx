@@ -2,117 +2,233 @@
 export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
+
+// ─── Icons (inline SVG) ──────────────────────────────────────────────────────
+
+const IconArticle = () => (
+  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+    <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+  </svg>
+);
+const IconVideo = () => (
+  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+  </svg>
+);
+const IconPage = () => (
+  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>
+    <line x1="9" y1="21" x2="9" y2="9"/>
+  </svg>
+);
+const IconLogout = () => (
+  <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+  </svg>
+);
+const IconEdit = () => (
+  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+  </svg>
+);
+const IconTrash = () => (
+  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+  </svg>
+);
+const IconPlus = () => (
+  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+  </svg>
+);
+
+// ─── Styles ──────────────────────────────────────────────────────────────────
+
+const S = {
+  shell:    { display: 'flex', minHeight: '100vh', backgroundColor: '#060d1a' } as React.CSSProperties,
+  sidebar:  { width: '240px', backgroundColor: '#0d1829', borderRight: '1px solid #1e293b', display: 'flex', flexDirection: 'column' as const, padding: '0', flexShrink: 0 },
+  logo:     { padding: '24px 20px 20px', borderBottom: '1px solid #1e293b', marginBottom: '8px' },
+  logoTxt:  { fontSize: '20px', fontWeight: 800, letterSpacing: '-0.5px' },
+  navItem:  (active: boolean): React.CSSProperties => ({
+    display: 'flex', alignItems: 'center', gap: '12px', padding: '11px 20px', cursor: 'pointer',
+    borderRadius: '0', transition: 'all .15s',
+    backgroundColor: active ? '#1a3a6e' : 'transparent',
+    color: active ? '#60a5fa' : '#94a3b8',
+    borderLeft: active ? '3px solid #3b82f6' : '3px solid transparent',
+    fontSize: '14px', fontWeight: active ? 600 : 400,
+  }),
+  sideFooter: { marginTop: 'auto', padding: '16px', borderTop: '1px solid #1e293b' },
+  logoutBtn:  { display: 'flex', alignItems: 'center', gap: '8px', width: '100%', padding: '10px 14px', backgroundColor: 'transparent', border: '1px solid #ef444433', borderRadius: '8px', color: '#ef4444', cursor: 'pointer', fontSize: '13px', transition: 'background .15s' } as React.CSSProperties,
+  main:     { flex: 1, overflow: 'auto', backgroundColor: '#060d1a' },
+  topbar:   { backgroundColor: '#0d1829', borderBottom: '1px solid #1e293b', padding: '14px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
+  content:  { padding: '28px' },
+  card:     { backgroundColor: '#0d1829', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px', marginBottom: '24px' },
+  badge:    (color: string): React.CSSProperties => ({ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: 600, backgroundColor: color + '22', color }),
+  input:    { width: '100%', backgroundColor: '#111827', border: '1px solid #1e293b', borderRadius: '8px', padding: '10px 14px', color: '#e2e8f0', fontSize: '14px', outline: 'none', boxSizing: 'border-box' } as React.CSSProperties,
+  textarea: { width: '100%', backgroundColor: '#111827', border: '1px solid #1e293b', borderRadius: '8px', padding: '10px 14px', color: '#e2e8f0', fontSize: '14px', outline: 'none', resize: 'vertical' as const, minHeight: '100px', boxSizing: 'border-box' } as React.CSSProperties,
+  btn:      (color: string): React.CSSProperties => ({ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', backgroundColor: color, color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '13px', fontWeight: 600 }),
+  btnSm:    (color: string): React.CSSProperties => ({ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '6px 12px', backgroundColor: color, color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '12px', fontWeight: 600 }),
+  row:      { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', backgroundColor: '#111827', borderRadius: '8px', marginBottom: '10px', border: '1px solid #1e293b' } as React.CSSProperties,
+  label:    { fontSize: '11px', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' as const, letterSpacing: '0.5px', marginBottom: '6px' },
+  formGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' } as React.CSSProperties,
+};
+
+type Tab = 'articles' | 'videos' | 'pages';
+
+// ─── Main Dashboard ──────────────────────────────────────────────────────────
 
 export default function AdminDashboard() {
   const { data: session, status } = useSession();
-  const [tab, setTab] = useState<'articles' | 'videos' | 'pages'>('articles');
+  const [tab, setTab] = useState<Tab>('articles');
 
-  if (status === "loading") return <div className="p-8 text-slate-300">Loading...</div>;
-  if (!session) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-[#0B1120] text-slate-200">
-        <Link href="/api/auth/signin" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-bold">
-          Sign in as Admin
-        </Link>
-      </div>
-    );
-  }
+  if (status === 'loading') return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', backgroundColor: '#060d1a', color: '#64748b', fontSize: '14px' }}>
+      Chajman...
+    </div>
+  );
+  if (!session) return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', backgroundColor: '#060d1a' }}>
+      <a href="/api/auth/signin" style={{ padding: '12px 28px', backgroundColor: '#3b82f6', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: 700 }}>
+        Konekte
+      </a>
+    </div>
+  );
+
+  const tabs: { id: Tab; label: string; icon: JSX.Element; color: string }[] = [
+    { id: 'articles', label: 'Atik', icon: <IconArticle />, color: '#3b82f6' },
+    { id: 'videos',   label: 'Videyo', icon: <IconVideo />, color: '#8b5cf6' },
+    { id: 'pages',    label: 'Paj', icon: <IconPage />, color: '#10b981' },
+  ];
 
   return (
-    <div className="min-h-screen bg-[#0B1120] text-slate-200 p-8">
-      <header className="flex justify-between items-center mb-8 border-b border-slate-700 pb-4">
-        <div>
-          <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-          <p className="text-slate-400">Byenveni, {session.user?.name}</p>
+    <div style={S.shell}>
+      {/* ── Sidebar ── */}
+      <aside style={S.sidebar}>
+        <div style={S.logo}>
+          <div style={S.logoTxt}>
+            <span style={{ color: '#3b82f6' }}>POZITIV</span><span style={{ color: '#f97316' }}>EX+</span>
+          </div>
+          <div style={{ fontSize: '11px', color: '#475569', marginTop: '4px', fontWeight: 500 }}>Panèl Admin</div>
         </div>
-        <button onClick={() => signOut()} className="bg-red-600 hover:bg-red-700 transition-colors text-white px-5 py-2 rounded font-semibold shadow">
-          Dekonekte
-        </button>
-      </header>
 
-      <nav className="flex space-x-2 mb-8 bg-[#1E293B] p-2 rounded-lg inline-block">
-        <button onClick={() => setTab('articles')} className={`px-5 py-2 rounded font-medium transition-colors ${tab==='articles' ? 'bg-blue-600 text-white shadow' : 'hover:bg-slate-700 text-slate-300'}`}>Atik</button>
-        <button onClick={() => setTab('videos')} className={`px-5 py-2 rounded font-medium transition-colors ${tab==='videos' ? 'bg-blue-600 text-white shadow' : 'hover:bg-slate-700 text-slate-300'}`}>Videyo</button>
-        <button onClick={() => setTab('pages')} className={`px-5 py-2 rounded font-medium transition-colors ${tab==='pages' ? 'bg-blue-600 text-white shadow' : 'hover:bg-slate-700 text-slate-300'}`}>Paj nouvo manm</button>
-      </nav>
+        <nav style={{ padding: '8px 0' }}>
+          {tabs.map(t => (
+            <div key={t.id} style={S.navItem(tab === t.id)} onClick={() => setTab(t.id)}>
+              <span style={{ color: tab === t.id ? t.color : '#475569' }}>{t.icon}</span>
+              {t.label}
+            </div>
+          ))}
+        </nav>
 
-      <div className="bg-[#1E293B] p-6 rounded-xl shadow-lg border border-slate-700">
-        {tab === 'articles' && <ArticlesManager />}
-        {tab === 'videos' && <VideosManager />}
-        {tab === 'pages' && <PagesManager />}
+        <div style={S.sideFooter}>
+          <div style={{ fontSize: '12px', color: '#475569', marginBottom: '10px', padding: '0 4px' }}>
+            Konekte: <span style={{ color: '#94a3b8' }}>{session.user?.name}</span>
+          </div>
+          <button onClick={() => signOut({ callbackUrl: '/' })} style={S.logoutBtn}>
+            <IconLogout /> Dekonekte
+          </button>
+        </div>
+      </aside>
+
+      {/* ── Main ── */}
+      <div style={S.main}>
+        <div style={S.topbar}>
+          <div>
+            <h1 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: '#f1f5f9' }}>
+              {tabs.find(t => t.id === tab)?.label}
+            </h1>
+            <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#475569' }}>Jere kontni sit la</p>
+          </div>
+          <div style={S.badge(tabs.find(t => t.id === tab)?.color || '#3b82f6')}>
+            {tabs.find(t => t.id === tab)?.icon}
+            {tabs.find(t => t.id === tab)?.label}
+          </div>
+        </div>
+
+        <div style={S.content}>
+          {tab === 'articles' && <ArticlesManager />}
+          {tab === 'videos'   && <VideosManager />}
+          {tab === 'pages'    && <PagesManager />}
+        </div>
       </div>
     </div>
   );
 }
+
+// ─── Articles Manager ────────────────────────────────────────────────────────
 
 function ArticlesManager() {
-  const [items, setItems] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState({ title: '', content: '', imageUrl: '' });
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [items, setItems]       = useState<any[]>([]);
+  const [loading, setLoading]   = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm]         = useState({ title: '', content: '', imageUrl: '' });
+  const [editId, setEditId]     = useState<string | null>(null);
 
-  const fetchItems = async () => {
-    setLoading(true);
-    const res = await fetch('/api/admin/articles');
-    if (res.ok) setItems(await res.json());
-    setLoading(false);
-  };
+  const load = async () => { setLoading(true); const r = await fetch('/api/admin/articles'); if (r.ok) setItems(await r.json()); setLoading(false); };
+  useEffect(() => { load(); }, []);
 
-  useEffect(() => { fetchItems(); }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const save = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (editingId) {
-      await fetch(`/api/admin/articles/${editingId}`, { method: 'PUT', body: JSON.stringify(form) });
-    } else {
-      await fetch('/api/admin/articles', { method: 'POST', body: JSON.stringify(form) });
-    }
-    setForm({ title: '', content: '', imageUrl: '' });
-    setEditingId(null);
-    fetchItems();
+    const url    = editId ? `/api/admin/articles/${editId}` : '/api/admin/articles';
+    const method = editId ? 'PUT' : 'POST';
+    await fetch(url, { method, body: JSON.stringify(form), headers: { 'Content-Type': 'application/json' } });
+    reset(); load();
   };
-
-  const handleEdit = (item: any) => {
-    setForm({ title: item.title, content: item.content, imageUrl: item.imageUrl || '' });
-    setEditingId(item.id);
-  };
-
-  const handleDelete = async (id: string) => {
-    if (confirm("Ou sèten ou vle efase atik sa?")) {
-      await fetch(`/api/admin/articles/${id}`, { method: 'DELETE' });
-      fetchItems();
-    }
-  };
+  const reset = () => { setForm({ title: '', content: '', imageUrl: '' }); setEditId(null); setShowForm(false); };
+  const edit  = (item: any) => { setForm({ title: item.title, content: item.content, imageUrl: item.imageUrl || '' }); setEditId(item.id); setShowForm(true); };
+  const del   = async (id: string) => { if (confirm('Efase atik sa?')) { await fetch(`/api/admin/articles/${id}`, { method: 'DELETE' }); load(); } };
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6 text-white border-b border-slate-700 pb-2">Jere Atik (Articles)</h2>
-      
-      <form onSubmit={handleSubmit} className="mb-8 space-y-4 bg-[#0F172A] p-5 rounded-lg border border-slate-800">
-        <h3 className="text-lg font-semibold text-blue-400 mb-2">{editingId ? 'Modifye Atik' : 'Ajoute yon nouvo Atik'}</h3>
-        <input className="w-full bg-[#1E293B] border border-slate-600 rounded p-3 text-white focus:outline-none focus:border-blue-500" placeholder="Tit atik la" value={form.title} onChange={e => setForm({...form, title: e.target.value})} required />
-        <input className="w-full bg-[#1E293B] border border-slate-600 rounded p-3 text-white focus:outline-none focus:border-blue-500" placeholder="Lien Imaj (URL)" value={form.imageUrl} onChange={e => setForm({...form, imageUrl: e.target.value})} />
-        <textarea className="w-full bg-[#1E293B] border border-slate-600 rounded p-3 text-white h-32 focus:outline-none focus:border-blue-500" placeholder="Kontni atik la..." value={form.content} onChange={e => setForm({...form, content: e.target.value})} required></textarea>
-        <div className="flex gap-2">
-            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold transition">{editingId ? 'Mete a jou' : 'Ajoute Atik'}</button>
-            {editingId && <button type="button" onClick={() => { setEditingId(null); setForm({title:'', content:'', imageUrl:''}); }} className="bg-slate-600 hover:bg-slate-700 text-white px-6 py-2 rounded font-semibold transition">Anile</button>}
-        </div>
-      </form>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#e2e8f0' }}>Lis Atik ({items.length})</h2>
+        <button style={S.btn('#3b82f6')} onClick={() => { reset(); setShowForm(v => !v); }}>
+          <IconPlus /> {showForm ? 'Fèmen' : 'Nouvo Atik'}
+        </button>
+      </div>
 
-      {loading ? <p>Ap chaje...</p> : (
-        <div className="space-y-4">
-          {items.length === 0 ? <p className="text-slate-400 italic">Pa gen atik ankò.</p> : null}
+      {showForm && (
+        <div style={S.card}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#60a5fa' }}>
+            {editId ? '✏️ Modifye Atik' : '➕ Ajoute Atik'}
+          </h3>
+          <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div>
+              <div style={S.label}>Tit</div>
+              <input style={S.input} placeholder="Tit atik la" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
+            </div>
+            <div>
+              <div style={S.label}>URL Imaj (opsyonèl)</div>
+              <input style={S.input} placeholder="https://..." value={form.imageUrl} onChange={e => setForm({ ...form, imageUrl: e.target.value })} />
+            </div>
+            <div>
+              <div style={S.label}>Kontni</div>
+              <textarea style={S.textarea} placeholder="Kontni atik la..." value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} required />
+            </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button type="submit" style={S.btn('#3b82f6')}>{editId ? 'Mete a jou' : 'Ajoute'}</button>
+              <button type="button" style={S.btn('#334155')} onClick={reset}>Anile</button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {loading ? <p style={{ color: '#475569', fontSize: '14px' }}>Ap chaje...</p> : (
+        <div>
+          {items.length === 0 && <p style={{ color: '#475569', fontSize: '14px', fontStyle: 'italic' }}>Pa gen atik ankò.</p>}
           {items.map(item => (
-            <div key={item.id} className="bg-[#0F172A] p-4 rounded-lg flex justify-between items-center border border-slate-700 hover:border-slate-500 transition">
-              <div>
-                <h4 className="text-lg font-bold text-white">{item.title}</h4>
-                <p className="text-sm text-slate-400 truncate max-w-2xl">{item.content.substring(0, 100)}...</p>
+            <div key={item.id} style={S.row}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '14px', marginBottom: '3px' }}>{item.title}</div>
+                <div style={{ fontSize: '12px', color: '#475569', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '600px' }}>
+                  {item.content?.substring(0, 100)}...
+                </div>
               </div>
-              <div className="flex space-x-2">
-                <button onClick={() => handleEdit(item)} className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded transition text-sm">Modifye</button>
-                <button onClick={() => handleDelete(item.id)} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition text-sm">Efase</button>
+              <div style={{ display: 'flex', gap: '8px', marginLeft: '12px', flexShrink: 0 }}>
+                <button style={S.btnSm('#1d4ed8')} onClick={() => edit(item)}><IconEdit /> Modifye</button>
+                <button style={S.btnSm('#dc2626')} onClick={() => del(item.id)}><IconTrash /> Efase</button>
               </div>
             </div>
           ))}
@@ -121,72 +237,73 @@ function ArticlesManager() {
     </div>
   );
 }
+
+// ─── Videos Manager ──────────────────────────────────────────────────────────
 
 function VideosManager() {
-  const [items, setItems] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState({ title: '', videoUrl: '' });
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [items, setItems]       = useState<any[]>([]);
+  const [loading, setLoading]   = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm]         = useState({ title: '', videoUrl: '' });
+  const [editId, setEditId]     = useState<string | null>(null);
 
-  const fetchItems = async () => {
-    setLoading(true);
-    const res = await fetch('/api/admin/videos');
-    if (res.ok) setItems(await res.json());
-    setLoading(false);
-  };
+  const load = async () => { setLoading(true); const r = await fetch('/api/admin/videos'); if (r.ok) setItems(await r.json()); setLoading(false); };
+  useEffect(() => { load(); }, []);
 
-  useEffect(() => { fetchItems(); }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const save = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (editingId) {
-      await fetch(`/api/admin/videos/${editingId}`, { method: 'PUT', body: JSON.stringify(form) });
-    } else {
-      await fetch('/api/admin/videos', { method: 'POST', body: JSON.stringify(form) });
-    }
-    setForm({ title: '', videoUrl: '' });
-    setEditingId(null);
-    fetchItems();
+    const url    = editId ? `/api/admin/videos/${editId}` : '/api/admin/videos';
+    const method = editId ? 'PUT' : 'POST';
+    await fetch(url, { method, body: JSON.stringify(form), headers: { 'Content-Type': 'application/json' } });
+    reset(); load();
   };
-
-  const handleEdit = (item: any) => {
-    setForm({ title: item.title, videoUrl: item.videoUrl });
-    setEditingId(item.id);
-  };
-
-  const handleDelete = async (id: string) => {
-    if (confirm("Ou sèten ou vle efase videyo sa?")) {
-      await fetch(`/api/admin/videos/${id}`, { method: 'DELETE' });
-      fetchItems();
-    }
-  };
+  const reset = () => { setForm({ title: '', videoUrl: '' }); setEditId(null); setShowForm(false); };
+  const edit  = (item: any) => { setForm({ title: item.title, videoUrl: item.videoUrl }); setEditId(item.id); setShowForm(true); };
+  const del   = async (id: string) => { if (confirm('Efase videyo sa?')) { await fetch(`/api/admin/videos/${id}`, { method: 'DELETE' }); load(); } };
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6 text-white border-b border-slate-700 pb-2">Jere Videyo (Videos)</h2>
-      
-      <form onSubmit={handleSubmit} className="mb-8 space-y-4 bg-[#0F172A] p-5 rounded-lg border border-slate-800">
-        <h3 className="text-lg font-semibold text-blue-400 mb-2">{editingId ? 'Modifye Videyo' : 'Ajoute yon nouvo Videyo'}</h3>
-        <input className="w-full bg-[#1E293B] border border-slate-600 rounded p-3 text-white focus:outline-none focus:border-blue-500" placeholder="Tit videyo a" value={form.title} onChange={e => setForm({...form, title: e.target.value})} required />
-        <input className="w-full bg-[#1E293B] border border-slate-600 rounded p-3 text-white focus:outline-none focus:border-blue-500" placeholder="Lien YouTube (URL)" value={form.videoUrl} onChange={e => setForm({...form, videoUrl: e.target.value})} required />
-        <div className="flex gap-2">
-            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold transition">{editingId ? 'Mete a jou' : 'Ajoute Videyo'}</button>
-            {editingId && <button type="button" onClick={() => { setEditingId(null); setForm({title:'', videoUrl:''}); }} className="bg-slate-600 hover:bg-slate-700 text-white px-6 py-2 rounded font-semibold transition">Anile</button>}
-        </div>
-      </form>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#e2e8f0' }}>Lis Videyo ({items.length})</h2>
+        <button style={S.btn('#8b5cf6')} onClick={() => { reset(); setShowForm(v => !v); }}>
+          <IconPlus /> {showForm ? 'Fèmen' : 'Nouvo Videyo'}
+        </button>
+      </div>
 
-      {loading ? <p>Ap chaje...</p> : (
-        <div className="space-y-4">
-          {items.length === 0 ? <p className="text-slate-400 italic">Pa gen videyo ankò.</p> : null}
+      {showForm && (
+        <div style={S.card}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#a78bfa' }}>
+            {editId ? '✏️ Modifye Videyo' : '➕ Ajoute Videyo'}
+          </h3>
+          <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div>
+              <div style={S.label}>Tit</div>
+              <input style={S.input} placeholder="Tit videyo a" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
+            </div>
+            <div>
+              <div style={S.label}>URL YouTube</div>
+              <input style={S.input} placeholder="https://youtube.com/watch?v=..." value={form.videoUrl} onChange={e => setForm({ ...form, videoUrl: e.target.value })} required />
+            </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button type="submit" style={S.btn('#8b5cf6')}>{editId ? 'Mete a jou' : 'Ajoute'}</button>
+              <button type="button" style={S.btn('#334155')} onClick={reset}>Anile</button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {loading ? <p style={{ color: '#475569', fontSize: '14px' }}>Ap chaje...</p> : (
+        <div>
+          {items.length === 0 && <p style={{ color: '#475569', fontSize: '14px', fontStyle: 'italic' }}>Pa gen videyo ankò.</p>}
           {items.map(item => (
-            <div key={item.id} className="bg-[#0F172A] p-4 rounded-lg flex justify-between items-center border border-slate-700 hover:border-slate-500 transition">
-              <div>
-                <h4 className="text-lg font-bold text-white">{item.title}</h4>
-                <a href={item.videoUrl} target="_blank" className="text-sm text-blue-400 hover:underline">{item.videoUrl}</a>
+            <div key={item.id} style={S.row}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '14px', marginBottom: '3px' }}>{item.title}</div>
+                <a href={item.videoUrl} target="_blank" rel="noreferrer" style={{ fontSize: '12px', color: '#8b5cf6', textDecoration: 'none' }}>{item.videoUrl}</a>
               </div>
-              <div className="flex space-x-2">
-                <button onClick={() => handleEdit(item)} className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded transition text-sm">Modifye</button>
-                <button onClick={() => handleDelete(item.id)} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition text-sm">Efase</button>
+              <div style={{ display: 'flex', gap: '8px', marginLeft: '12px', flexShrink: 0 }}>
+                <button style={S.btnSm('#6d28d9')} onClick={() => edit(item)}><IconEdit /> Modifye</button>
+                <button style={S.btnSm('#dc2626')} onClick={() => del(item.id)}><IconTrash /> Efase</button>
               </div>
             </div>
           ))}
@@ -196,75 +313,79 @@ function VideosManager() {
   );
 }
 
+// ─── Pages Manager ───────────────────────────────────────────────────────────
+
 function PagesManager() {
-  const [items, setItems] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState({ title: '', slug: '', content: '' });
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [items, setItems]       = useState<any[]>([]);
+  const [loading, setLoading]   = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm]         = useState({ title: '', slug: '', content: '' });
+  const [editId, setEditId]     = useState<string | null>(null);
 
-  const fetchItems = async () => {
-    setLoading(true);
-    const res = await fetch('/api/admin/pages');
-    if (res.ok) setItems(await res.json());
-    setLoading(false);
-  };
+  const load = async () => { setLoading(true); const r = await fetch('/api/admin/pages'); if (r.ok) setItems(await r.json()); setLoading(false); };
+  useEffect(() => { load(); }, []);
 
-  useEffect(() => { fetchItems(); }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const save = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (editingId) {
-      await fetch(`/api/admin/pages/${editingId}`, { method: 'PUT', body: JSON.stringify(form) });
-    } else {
-      await fetch('/api/admin/pages', { method: 'POST', body: JSON.stringify(form) });
-    }
-    setForm({ title: '', slug: '', content: '' });
-    setEditingId(null);
-    fetchItems();
+    const url    = editId ? `/api/admin/pages/${editId}` : '/api/admin/pages';
+    const method = editId ? 'PUT' : 'POST';
+    await fetch(url, { method, body: JSON.stringify(form), headers: { 'Content-Type': 'application/json' } });
+    reset(); load();
   };
-
-  const handleEdit = (item: any) => {
-    setForm({ title: item.title, slug: item.slug, content: item.content });
-    setEditingId(item.id || item.slug);
-  };
-
-  const handleDelete = async (id: string) => {
-    if (confirm("Ou sèten ou vle efase paj sa?")) {
-      await fetch(`/api/admin/pages/${id}`, { method: 'DELETE' });
-      fetchItems();
-    }
-  };
+  const reset = () => { setForm({ title: '', slug: '', content: '' }); setEditId(null); setShowForm(false); };
+  const edit  = (item: any) => { setForm({ title: item.title, slug: item.slug, content: item.content }); setEditId(item.id || item.slug); setShowForm(true); };
+  const del   = async (id: string) => { if (confirm('Efase paj sa?')) { await fetch(`/api/admin/pages/${id}`, { method: 'DELETE' }); load(); } };
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6 text-white border-b border-slate-700 pb-2">Jere Paj (Pages)</h2>
-      
-      <form onSubmit={handleSubmit} className="mb-8 space-y-4 bg-[#0F172A] p-5 rounded-lg border border-slate-800">
-        <h3 className="text-lg font-semibold text-blue-400 mb-2">{editingId ? 'Modifye Paj' : 'Ajoute yon nouvo Paj'}</h3>
-        <div className="grid grid-cols-2 gap-4">
-            <input className="w-full bg-[#1E293B] border border-slate-600 rounded p-3 text-white focus:outline-none focus:border-blue-500" placeholder="Tit paj la" value={form.title} onChange={e => setForm({...form, title: e.target.value})} required />
-            <input className="w-full bg-[#1E293B] border border-slate-600 rounded p-3 text-white focus:outline-none focus:border-blue-500" placeholder="Slug (ex: nouvel-manm)" value={form.slug} onChange={e => setForm({...form, slug: e.target.value.toLowerCase().replace(/ /g, '-')})} required />
-        </div>
-        <textarea className="w-full bg-[#1E293B] border border-slate-600 rounded p-3 text-white h-32 focus:outline-none focus:border-blue-500" placeholder="Kontni paj la..." value={form.content} onChange={e => setForm({...form, content: e.target.value})} required></textarea>
-        <div className="flex gap-2">
-            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold transition">{editingId ? 'Mete a jou' : 'Ajoute Paj'}</button>
-            {editingId && <button type="button" onClick={() => { setEditingId(null); setForm({title:'', slug:'', content:''}); }} className="bg-slate-600 hover:bg-slate-700 text-white px-6 py-2 rounded font-semibold transition">Anile</button>}
-        </div>
-      </form>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#e2e8f0' }}>Lis Paj ({items.length})</h2>
+        <button style={S.btn('#10b981')} onClick={() => { reset(); setShowForm(v => !v); }}>
+          <IconPlus /> {showForm ? 'Fèmen' : 'Nouvo Paj'}
+        </button>
+      </div>
 
-      {loading ? <p>Ap chaje...</p> : (
-        <div className="space-y-4">
-          {items.length === 0 ? <p className="text-slate-400 italic">Pa gen paj ankò.</p> : null}
-          {items.map(item => (
-            <div key={item.id || item.slug} className="bg-[#0F172A] p-4 rounded-lg flex justify-between items-center border border-slate-700 hover:border-slate-500 transition">
+      {showForm && (
+        <div style={S.card}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#34d399' }}>
+            {editId ? '✏️ Modifye Paj' : '➕ Ajoute Paj'}
+          </h3>
+          <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div style={S.formGrid}>
               <div>
-                <h4 className="text-lg font-bold text-white">{item.title}</h4>
-                <p className="text-sm text-blue-400 font-mono mb-1">/{item.slug}</p>
-                <p className="text-sm text-slate-400 truncate max-w-2xl">{item.content.substring(0, 100)}...</p>
+                <div style={S.label}>Tit</div>
+                <input style={S.input} placeholder="Tit paj la" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
               </div>
-              <div className="flex space-x-2">
-                <button onClick={() => handleEdit(item)} className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded transition text-sm">Modifye</button>
-                <button onClick={() => handleDelete(item.id || item.slug)} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition text-sm">Efase</button>
+              <div>
+                <div style={S.label}>Slug (URL)</div>
+                <input style={S.input} placeholder="ex: nouvo-manm" value={form.slug}
+                  onChange={e => setForm({ ...form, slug: e.target.value.toLowerCase().replace(/ /g, '-') })} required />
+              </div>
+            </div>
+            <div>
+              <div style={S.label}>Kontni</div>
+              <textarea style={S.textarea} placeholder="Kontni paj la..." value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} required />
+            </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button type="submit" style={S.btn('#10b981')}>{editId ? 'Mete a jou' : 'Ajoute'}</button>
+              <button type="button" style={S.btn('#334155')} onClick={reset}>Anile</button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {loading ? <p style={{ color: '#475569', fontSize: '14px' }}>Ap chaje...</p> : (
+        <div>
+          {items.length === 0 && <p style={{ color: '#475569', fontSize: '14px', fontStyle: 'italic' }}>Pa gen paj ankò.</p>}
+          {items.map(item => (
+            <div key={item.id || item.slug} style={S.row}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '14px', marginBottom: '3px' }}>{item.title}</div>
+                <span style={{ fontSize: '11px', color: '#10b981', fontFamily: 'monospace', backgroundColor: '#10b98122', padding: '2px 8px', borderRadius: '4px' }}>/{item.slug}</span>
+              </div>
+              <div style={{ display: 'flex', gap: '8px', marginLeft: '12px', flexShrink: 0 }}>
+                <button style={S.btnSm('#047857')} onClick={() => edit(item)}><IconEdit /> Modifye</button>
+                <button style={S.btnSm('#dc2626')} onClick={() => del(item.id || item.slug)}><IconTrash /> Efase</button>
               </div>
             </div>
           ))}
