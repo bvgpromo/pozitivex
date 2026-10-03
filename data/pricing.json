@@ -1,0 +1,58 @@
+{
+  "header": {
+    "badge": "Academy & Solution",
+    "title": "Formations & Tarifs",
+    "description": "Investissez dans vos compétences ou soutenez notre mission de développement économique dans la Caraïbe."
+  },
+  "plans": [
+    {
+      "id": "plan-1",
+      "title": "Masterclass Entrepreneuriat",
+      "subtitle": "Pour les porteurs de projets",
+      "price": "$149",
+      "features": [
+        "Modules en ligne",
+        "Accès à la communauté",
+        "Certificat de participation"
+      ],
+      "popular": false,
+      "buttonText": "S'inscrire",
+      "buttonLink": "/inscription"
+    },
+    {
+      "id": "plan-2",
+      "title": "Certificat Intelligence Éco.",
+      "subtitle": "Pour les professionnels",
+      "price": "$299",
+      "features": [
+        "Programme complet (8 semaines)",
+        "Mentorat personnalisé",
+        "Certification reconnue",
+        "Accès Data Center (6 mois)"
+      ],
+      "popular": true,
+      "buttonText": "S'inscrire",
+      "buttonLink": "/inscription"
+    },
+    {
+      "id": "plan-3",
+      "title": "Bootcamp IA & Innovation",
+      "subtitle": "Pour les technologues",
+      "price": "$499",
+      "features": [
+        "Formation intensive (12 sem.)",
+        "Projets pratiques (HubTech)",
+        "Placement en entreprise"
+      ],
+      "popular": false,
+      "buttonText": "S'inscrire",
+      "buttonLink": "/inscription"
+    }
+  ],
+  "donation": {
+    "title": "Soutenir PozitivEx+",
+    "description": "Vos dons nous aident à financer des bourses d'études pour les jeunes de la Caraïbe, à soutenir des projets d'innovation et à maintenir notre plateforme accessible.",
+    "buttonText": "Faire un don",
+    "buttonLink": "/opportunites"
+  }
+}

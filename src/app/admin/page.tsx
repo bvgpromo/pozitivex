@@ -19,6 +19,11 @@ const IconVideo = () => (
     <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
   </svg>
 );
+const IconPricing = () => (
+  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+  </svg>
+);
 const IconPage = () => (
   <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
     <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>
@@ -77,7 +82,7 @@ const S = {
   formGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' } as React.CSSProperties,
 };
 
-type Tab = 'articles' | 'videos' | 'pages';
+type Tab = 'articles' | 'videos' | 'tarifs' | 'pages';
 
 // ─── Main Dashboard ──────────────────────────────────────────────────────────
 
@@ -101,6 +106,7 @@ export default function AdminDashboard() {
   const tabs: { id: Tab; label: string; icon: React.ReactElement; color: string }[] = [
     { id: 'articles', label: 'Articles', icon: <IconArticle />, color: '#3b82f6' },
     { id: 'videos',   label: 'Vidéos', icon: <IconVideo />, color: '#8b5cf6' },
+    { id: 'tarifs',   label: 'Tarifs & Formations', icon: <IconPricing />, color: '#f59e0b' },
     { id: 'pages',    label: 'Pages', icon: <IconPage />, color: '#10b981' },
   ];
 
@@ -152,6 +158,7 @@ export default function AdminDashboard() {
         <div style={S.content}>
           {tab === 'articles' && <ArticlesManager />}
           {tab === 'videos'   && <VideosManager />}
+          {tab === 'tarifs'   && <PricingManager />}
           {tab === 'pages'    && <PagesManager />}
         </div>
       </div>
@@ -545,6 +552,230 @@ function VideosManager() {
           })}
         </div>
       )}
+    </div>
+  );
+}
+
+// ─── Pricing Manager ──────────────────────────────────────────────────────────
+
+function PricingManager() {
+  const [data, setData]       = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving]   = useState(false);
+  const [message, setMessage] = useState('');
+
+  const load = async () => {
+    setLoading(true);
+    const r = await fetch('/api/admin/pricing');
+    if (r.ok) setData(await r.json());
+    setLoading(false);
+  };
+  useEffect(() => { load(); }, []);
+
+  const save = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    setMessage('');
+    const r = await fetch('/api/admin/pricing', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (r.ok) {
+      setMessage('✓ Tarifs et Formations enregistrés avec succès !');
+      setTimeout(() => setMessage(''), 4000);
+    } else {
+      setMessage("Erreur lors de l'enregistrement.");
+    }
+    setSaving(false);
+  };
+
+  if (loading || !data) return <p style={{ color: '#475569', fontSize: '14px' }}>Chargement des tarifs...</p>;
+
+  const updatePlan = (index: number, field: string, val: any) => {
+    const newPlans = [...data.plans];
+    newPlans[index] = { ...newPlans[index], [field]: val };
+    setData({ ...data, plans: newPlans });
+  };
+
+  const updateFeatures = (index: number, text: string) => {
+    const list = text.split('\n').map((s: string) => s.trim()).filter(Boolean);
+    updatePlan(index, 'features', list);
+  };
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div>
+          <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#e2e8f0' }}>Gestion des Formations & Tarifs</h2>
+          <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#64748b' }}>Modifiez les prix, titres et avantages affichés sur la page d'accueil</p>
+        </div>
+        {message && (
+          <span style={{ fontSize: '13px', color: '#10b981', fontWeight: 600, backgroundColor: '#10b98122', padding: '6px 14px', borderRadius: '20px' }}>
+            {message}
+          </span>
+        )}
+      </div>
+
+      <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        {/* En-tête de la section */}
+        <div style={S.card}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#f59e0b' }}>
+            En-tête de la section
+          </h3>
+          <div style={S.formGrid}>
+            <div>
+              <div style={S.label}>Titre Principal</div>
+              <input
+                style={S.input}
+                value={data.header?.title || ''}
+                onChange={e => setData({ ...data, header: { ...data.header, title: e.target.value } })}
+                required
+              />
+            </div>
+            <div>
+              <div style={S.label}>Badge / Surtitre</div>
+              <input
+                style={S.input}
+                value={data.header?.badge || ''}
+                onChange={e => setData({ ...data, header: { ...data.header, badge: e.target.value } })}
+              />
+            </div>
+          </div>
+          <div style={{ marginTop: '14px' }}>
+            <div style={S.label}>Description d'introduction</div>
+            <input
+              style={S.input}
+              value={data.header?.description || ''}
+              onChange={e => setData({ ...data, header: { ...data.header, description: e.target.value } })}
+            />
+          </div>
+        </div>
+
+        {/* 3 Cartes de Tarifs */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+          {data.plans.map((plan: any, idx: number) => (
+            <div
+              key={plan.id || idx}
+              style={{
+                ...S.card,
+                marginBottom: 0,
+                border: plan.popular ? '2px solid #3b82f6' : '1px solid #1e293b',
+                position: 'relative',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 800, color: '#f59e0b', textTransform: 'uppercase' }}>
+                  Plan {idx + 1}
+                </span>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', fontSize: '12px', color: plan.popular ? '#60a5fa' : '#64748b' }}>
+                  <input
+                    type="checkbox"
+                    checked={!!plan.popular}
+                    onChange={e => updatePlan(idx, 'popular', e.target.checked)}
+                  />
+                  Badge Populaire
+                </label>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div>
+                  <div style={S.label}>Titre de la formation</div>
+                  <input
+                    style={S.input}
+                    value={plan.title}
+                    onChange={e => updatePlan(idx, 'title', e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <div style={S.label}>Sous-titre (Cible)</div>
+                  <input
+                    style={S.input}
+                    value={plan.subtitle}
+                    onChange={e => updatePlan(idx, 'subtitle', e.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <div style={S.label}>Prix affiché (ex: $149, $299)</div>
+                  <input
+                    style={{ ...S.input, fontWeight: 700, fontSize: '16px', color: '#38bdf8' }}
+                    value={plan.price}
+                    onChange={e => updatePlan(idx, 'price', e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <div style={S.label}>Avantages inclus (1 par ligne)</div>
+                  <textarea
+                    style={{ ...S.textarea, minHeight: '110px' }}
+                    value={(plan.features || []).join('\n')}
+                    onChange={e => updateFeatures(idx, e.target.value)}
+                    placeholder="Avantage 1&#10;Avantage 2&#10;Avantage 3"
+                  />
+                </div>
+
+                <div>
+                  <div style={S.label}>Texte du bouton</div>
+                  <input
+                    style={S.input}
+                    value={plan.buttonText || "S'inscrire"}
+                    onChange={e => updatePlan(idx, 'buttonText', e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bannière de Soutien / Don */}
+        <div style={{ ...S.card, borderColor: '#f9731655', background: 'linear-gradient(to right, #0d1829, #1a233a)' }}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#f97316' }}>
+            Bannière de Soutien & Don (en bas des tarifs)
+          </h3>
+          <div style={S.formGrid}>
+            <div>
+              <div style={S.label}>Titre du bandeau</div>
+              <input
+                style={S.input}
+                value={data.donation?.title || ''}
+                onChange={e => setData({ ...data, donation: { ...data.donation, title: e.target.value } })}
+              />
+            </div>
+            <div>
+              <div style={S.label}>Texte du bouton Don</div>
+              <input
+                style={S.input}
+                value={data.donation?.buttonText || ''}
+                onChange={e => setData({ ...data, donation: { ...data.donation, buttonText: e.target.value } })}
+              />
+            </div>
+          </div>
+          <div style={{ marginTop: '14px' }}>
+            <div style={S.label}>Texte explicatif pour les dons</div>
+            <textarea
+              style={{ ...S.textarea, minHeight: '75px' }}
+              value={data.donation?.description || ''}
+              onChange={e => setData({ ...data, donation: { ...data.donation, description: e.target.value } })}
+            />
+          </div>
+        </div>
+
+        {/* Bouton d'enregistrement général */}
+        <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+          <button type="submit" disabled={saving} style={{ ...S.btn('#f59e0b'), color: '#000', fontWeight: 800, padding: '12px 28px', fontSize: '14px' }}>
+            {saving ? 'Enregistrement en cours...' : '💾 Enregistrer toutes les modifications des Tarifs'}
+          </button>
+          {message && (
+            <span style={{ fontSize: '13px', color: '#10b981', fontWeight: 600 }}>
+              {message}
+            </span>
+          )}
+        </div>
+      </form>
     </div>
   );
 }

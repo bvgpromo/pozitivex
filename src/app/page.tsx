@@ -18,6 +18,7 @@ export default function Home() {
   const [articles, setArticles] = useState<any[]>([]);
   const [videoList, setVideoList] = useState<any[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
+  const [pricingData, setPricingData] = useState<any>(null);
 
   useEffect(() => {
     fetch('/api/admin/articles')
@@ -31,6 +32,13 @@ export default function Home() {
       .then(r => (r.ok ? r.json() : []))
       .then(data => {
         if (Array.isArray(data) && data.length > 0) setVideoList(data);
+      })
+      .catch(() => {});
+
+    fetch('/api/admin/pricing')
+      .then(r => (r.ok ? r.json() : null))
+      .then(data => {
+        if (data && data.plans) setPricingData(data);
       })
       .catch(() => {});
   }, []);
@@ -61,6 +69,59 @@ export default function Home() {
     { id: "5", category: "Finance", title: "Les banques régionales annoncent de nouveaux taux", date: "Hier" },
     { id: "6", category: "Transport", title: "Amélioration des infrastructures portuaires", date: "03 Oct 2026" },
   ];
+
+  const defaultPricing = {
+    header: {
+      badge: "Academy & Solution",
+      title: "Formations & Tarifs",
+      description: "Investissez dans vos compétences ou soutenez notre mission de développement économique dans la Caraïbe."
+    },
+    plans: [
+      {
+        id: "masterclass",
+        title: "Masterclass Entrepreneuriat",
+        subtitle: "Pour les porteurs de projets",
+        price: "$149",
+        features: ["Modules en ligne", "Accès à la communauté", "Certificat de participation"],
+        buttonText: "S'inscrire",
+        popular: false
+      },
+      {
+        id: "certificat",
+        title: "Certificat Intelligence Éco.",
+        subtitle: "Pour les professionnels",
+        price: "$299",
+        features: [
+          "Programme complet (8 semaines)",
+          "Mentorat personnalisé",
+          "Certification reconnue",
+          "Accès Data Center (6 mois)"
+        ],
+        buttonText: "S'inscrire",
+        popular: true
+      },
+      {
+        id: "bootcamp",
+        title: "Bootcamp IA & Innovation",
+        subtitle: "Pour les technologues",
+        price: "$499",
+        features: [
+          "Formation intensive (12 sem.)",
+          "Projets pratiques (HubTech)",
+          "Placement en entreprise"
+        ],
+        buttonText: "S'inscrire",
+        popular: false
+      }
+    ],
+    donation: {
+      title: "Soutenir PozitivEx+",
+      description: "Vos dons nous aident à financer des bourses d'études pour les jeunes de la Caraïbe, à soutenir des projets d'innovation et à maintenir notre plateforme accessible.",
+      buttonText: "Faire un don"
+    }
+  };
+
+  const activePricing = pricingData || defaultPricing;
 
   return (
     <div className="flex flex-col gap-24 pb-16 pt-12">
@@ -395,64 +456,78 @@ export default function Home() {
       {/* 7. Formations & Tarifs */}
       <section className="container mx-auto px-4 mt-10">
         <div className="text-center mb-10">
-          <span className="border border-blue-500/30 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full mb-3 inline-block">Academy & Solution</span>
-          <h2 className="text-3xl font-bold text-white mb-3">Formations & Tarifs</h2>
-          <p className="text-slate-400 text-sm max-w-xl mx-auto">Investissez dans vos compétences ou soutenez notre mission de développement économique dans la Caraïbe.</p>
+          {activePricing.header?.badge && (
+            <span className="border border-blue-500/30 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full mb-3 inline-block">
+              {activePricing.header.badge}
+            </span>
+          )}
+          <h2 className="text-3xl font-bold text-white mb-3">
+            {activePricing.header?.title || "Formations & Tarifs"}
+          </h2>
+          {activePricing.header?.description && (
+            <p className="text-slate-400 text-sm max-w-xl mx-auto">
+              {activePricing.header.description}
+            </p>
+          )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
-          {/* Plan 1 */}
-          <div className="bg-[#131B2F] border border-[#1E293B] p-8 rounded-2xl flex flex-col relative">
-            <h3 className="text-white font-bold text-lg mb-1">Masterclass Entrepreneuriat</h3>
-            <p className="text-slate-400 text-xs mb-4">Pour les porteurs de projets</p>
-            <div className="text-3xl font-bold text-white mb-6">$149</div>
-            <ul className="space-y-3 mb-8 flex-1 text-sm text-slate-300">
-              <li className="flex items-center gap-2"><span className="text-blue-500">•</span> Modules en ligne</li>
-              <li className="flex items-center gap-2"><span className="text-blue-500">•</span> Accès à la communauté</li>
-              <li className="flex items-center gap-2"><span className="text-blue-500">•</span> Certificat de participation</li>
-            </ul>
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-sm font-bold">S'inscrire</button>
-          </div>
-          {/* Plan 2 */}
-          <div className="bg-gradient-to-b from-[#1E293B] to-[#131B2F] border border-blue-500 p-8 rounded-2xl flex flex-col relative transform md:-translate-y-4 shadow-2xl shadow-blue-900/20">
-            <span className="absolute -top-3 right-6 bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded">Populaire</span>
-            <h3 className="text-white font-bold text-lg mb-1">Certificat Intelligence Éco.</h3>
-            <p className="text-slate-400 text-xs mb-4">Pour les professionnels</p>
-            <div className="text-3xl font-bold text-white mb-6">$299</div>
-            <ul className="space-y-3 mb-8 flex-1 text-sm text-slate-300">
-              <li className="flex items-center gap-2"><span className="text-blue-500">•</span> Programme complet (8 semaines)</li>
-              <li className="flex items-center gap-2"><span className="text-blue-500">•</span> Mentorat personnalisé</li>
-              <li className="flex items-center gap-2"><span className="text-blue-500">•</span> Certification reconnue</li>
-              <li className="flex items-center gap-2"><span className="text-blue-500">•</span> Accès Data Center (6 mois)</li>
-            </ul>
-            <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded text-sm font-bold">S'inscrire</button>
-          </div>
-          {/* Plan 3 */}
-          <div className="bg-[#131B2F] border border-[#1E293B] p-8 rounded-2xl flex flex-col relative">
-            <h3 className="text-white font-bold text-lg mb-1">Bootcamp IA & Innovation</h3>
-            <p className="text-slate-400 text-xs mb-4">Pour les technologues</p>
-            <div className="text-3xl font-bold text-white mb-6">$499</div>
-            <ul className="space-y-3 mb-8 flex-1 text-sm text-slate-300">
-              <li className="flex items-center gap-2"><span className="text-blue-500">•</span> Formation intensive (12 sem.)</li>
-              <li className="flex items-center gap-2"><span className="text-blue-500">•</span> Projets pratiques (HubTech)</li>
-              <li className="flex items-center gap-2"><span className="text-blue-500">•</span> Placement en entreprise</li>
-            </ul>
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-sm font-bold">S'inscrire</button>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10 items-stretch">
+          {activePricing.plans?.map((plan: any, idx: number) => {
+            const isPopular = !!plan.popular;
+            return (
+              <div
+                key={plan.id || idx}
+                className={
+                  isPopular
+                    ? "bg-gradient-to-b from-[#1E293B] to-[#131B2F] border border-blue-500 p-8 rounded-2xl flex flex-col relative transform md:-translate-y-4 shadow-2xl shadow-blue-900/20"
+                    : "bg-[#131B2F] border border-[#1E293B] p-8 rounded-2xl flex flex-col relative"
+                }
+              >
+                {isPopular && (
+                  <span className="absolute -top-3 right-6 bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded">
+                    Populaire
+                  </span>
+                )}
+                <h3 className="text-white font-bold text-lg mb-1">{plan.title}</h3>
+                {plan.subtitle && <p className="text-slate-400 text-xs mb-4">{plan.subtitle}</p>}
+                <div className="text-3xl font-bold text-white mb-6">{plan.price}</div>
+                <ul className="space-y-3 mb-8 flex-1 text-sm text-slate-300">
+                  {plan.features?.map((feat: string, fIdx: number) => (
+                    <li key={fIdx} className="flex items-center gap-2">
+                      <span className="text-blue-500">•</span> {feat}
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  className={
+                    isPopular
+                      ? "w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded text-sm font-bold transition-colors"
+                      : "w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-sm font-bold transition-colors"
+                  }
+                >
+                  {plan.buttonText || "S'inscrire"}
+                </button>
+              </div>
+            );
+          })}
         </div>
 
         {/* Donation Banner */}
-        <div className="max-w-4xl mx-auto border border-orange-500/30 bg-gradient-to-r from-[#131B2F] to-[#1E293B] p-8 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="text-orange-500 font-bold text-lg mb-2 flex items-center gap-2">
-              <Shield className="h-5 w-5" /> Soutenir PozitivEx+
-            </h3>
-            <p className="text-slate-300 text-sm max-w-lg">Vos dons nous aident à financer des bourses d'études pour les jeunes de la Caraïbe, à soutenir des projets d'innovation et à maintenir notre plateforme accessible.</p>
+        {activePricing.donation && (
+          <div className="max-w-4xl mx-auto border border-orange-500/30 bg-gradient-to-r from-[#131B2F] to-[#1E293B] p-8 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="text-orange-500 font-bold text-lg mb-2 flex items-center gap-2">
+                <Shield className="h-5 w-5" /> {activePricing.donation.title || "Soutenir PozitivEx+"}
+              </h3>
+              <p className="text-slate-300 text-sm max-w-lg">
+                {activePricing.donation.description}
+              </p>
+            </div>
+            <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded text-sm font-bold flex-shrink-0 flex items-center gap-2">
+              {activePricing.donation.buttonText || "Faire un don"}
+            </button>
           </div>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded text-sm font-bold flex-shrink-0 flex items-center gap-2">
-            Faire un don
-          </button>
-        </div>
+        )}
       </section>
 
       {/* 8. Assistant IA */}
