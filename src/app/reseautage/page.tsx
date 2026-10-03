@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   Users, Search, MapPin, Building2, Briefcase, Award, 
@@ -135,7 +135,17 @@ const EVENTS = [
 ];
 
 export default function ReseautagePage() {
+  const [members, setMembers] = useState<Member[]>(MEMBERS);
   const [selectedCategory, setSelectedCategory] = useState<string>("Tous");
+
+  useEffect(() => {
+    fetch('/api/admin/members')
+      .then(r => (r.ok ? r.json() : []))
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) setMembers(data);
+      })
+      .catch(() => {});
+  }, []);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("Tous");
   const [contactModal, setContactModal] = useState<Member | null>(null);
@@ -144,7 +154,7 @@ export default function ReseautagePage() {
   const categories = ["Tous", "Entreprise", "Investisseur", "Startup", "Expert"];
   const countries = ["Tous", "Haïti", "Rép. Dominicaine", "Jamaïque", "Diaspora"];
 
-  const filteredMembers = MEMBERS.filter(m => {
+  const filteredMembers = members.filter(m => {
     const matchCat = selectedCategory === "Tous" || m.category === selectedCategory;
     const matchCountry = selectedCountry === "Tous" || m.country.toLowerCase().includes(selectedCountry.toLowerCase());
     const matchSearch = 

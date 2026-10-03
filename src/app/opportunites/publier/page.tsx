@@ -18,8 +18,19 @@ export default function PublierOpportunitePage() {
     requirements: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      await fetch('/api/admin/opportunities', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          flag: form.country.toLowerCase().includes('haïti') || form.country.toLowerCase().includes('haiti') ? '🇭🇹' : '🌐',
+          deadline: 'À déterminer'
+        })
+      });
+    } catch (err) {}
     setSuccess(true);
   };
 

@@ -1,0 +1,25 @@
+{
+  "hero": {
+    "badge": "Plateforme Économique Intelligente",
+    "titleLine1": "Connecting the Caribbean",
+    "titleLine2": "to Global Opportunities",
+    "subtitle": "Connecter la Caraïbe aux opportunités mondiales grâce à l'intelligence économique, à l'innovation, aux affaires et à la technologie.",
+    "btn1Text": "Explorer les Opportunités +",
+    "btn1Link": "/opportunites",
+    "btn2Text": "Devenir membre",
+    "btn2Link": "/inscription",
+    "btn3Text": "Investir dans la Caraïbe",
+    "btn3Link": "/finance"
+  },
+  "aiAssistant": {
+    "badge": "Intelligence Artificielle",
+    "title": "Votre Assistant Stratégique",
+    "description": "Propulsé par l'IA, notre assistant est capable de rechercher des opportunités, générer des rapports, produire des analyses et identifier vos futurs partenaires.",
+    "features": [
+      "Recherche d'opportunités",
+      "Génération de rapports",
+      "Analyses prédictives",
+      "Matching de partenaires"
+    ]
+  }
+}

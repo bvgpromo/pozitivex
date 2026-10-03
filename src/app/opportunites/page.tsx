@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   Briefcase, PlusCircle, Search, MapPin, DollarSign, 
@@ -78,7 +78,17 @@ const OPPORTUNITIES: Opportunity[] = [
 ];
 
 export default function OpportunitesPage() {
+  const [opportunities, setOpportunities] = useState<Opportunity[]>(OPPORTUNITIES);
   const [selectedCat, setSelectedCat] = useState("Tous");
+
+  useEffect(() => {
+    fetch('/api/admin/opportunities')
+      .then(r => (r.ok ? r.json() : []))
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) setOpportunities(data);
+      })
+      .catch(() => {});
+  }, []);
   const [search, setSearch] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("Tous");
   const [applyModal, setApplyModal] = useState<Opportunity | null>(null);
@@ -87,7 +97,7 @@ export default function OpportunitesPage() {
   const categories = ["Tous", "Financement", "Partenariat", "Appel d'Offres", "Agro-Export"];
   const countries = ["Tous", "Haïti", "Rép. Dominicaine / Jamaïque"];
 
-  const filtered = OPPORTUNITIES.filter(op => {
+  const filtered = opportunities.filter(op => {
     const matchCat = selectedCat === "Tous" || op.category === selectedCat;
     const matchCountry = selectedCountry === "Tous" || op.country.includes(selectedCountry);
     const matchSearch = 

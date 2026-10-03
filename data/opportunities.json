@@ -1,0 +1,70 @@
+[
+  {
+    "id": "opp-1",
+    "title": "Recherche d'Investisseurs pour Usine Solaire de Traitement de Cacao Bio",
+    "category": "Financement",
+    "location": "Cap-Haïtien",
+    "country": "Haïti",
+    "flag": "🇭🇹",
+    "budget": "$350,000 USD",
+    "deadline": "15 Décembre 2026",
+    "company": "NordAgro Coopérative S.A.",
+    "description": "Projet de modernisation de la chaîne de fermentation et de séchage solaire de cacao d'exportation certifié équitable. Rendement prévisionnel (TRI) : 18.5% sur 5 ans.",
+    "requirements": [
+      "Ticket d'entrée min : $25,000",
+      "Participation au capital ou obligation convertible",
+      "Audits disponibles sous NDA"
+    ]
+  },
+  {
+    "id": "opp-2",
+    "title": "Appel d'Offres : Déploiement de 15 Micro-Réseaux Hybrides (Solaire + Stockage)",
+    "category": "Appel d'Offres",
+    "location": "Région Sud & Grand'Anse",
+    "country": "Haïti",
+    "flag": "🇭🇹",
+    "budget": "$1,200,000 USD",
+    "deadline": "30 Novembre 2026",
+    "company": "Consortium Énergie Propre Caraïbe",
+    "description": "Fourniture, installation et maintenance d'équipements photovoltaïques pour centres de santé et coopératives agricoles isolées.",
+    "requirements": [
+      "Entreprise enregistrée avec min. 3 ans d'expérience",
+      "Garantie matériel 10 ans",
+      "Capacité d'intervention rapide"
+    ]
+  },
+  {
+    "id": "opp-3",
+    "title": "Partenariat Commercial & Distribution : Passerelle FinTech Transfrontalière",
+    "category": "Partenariat",
+    "location": "Santo Domingo & Kingston",
+    "country": "Rép. Dominicaine / Jamaïque",
+    "flag": "🇩🇴",
+    "budget": "Partenariat B2B / Revenus partagés",
+    "deadline": "20 Janvier 2027",
+    "company": "CaribPay Solutions",
+    "description": "Recherche de banques, institutions de microfinance et distributeurs agréés pour connecter les réseaux marchands entre l'île d'Hispaniola et la Jamaïque.",
+    "requirements": [
+      "Licence financière ou statut d'agent agréé",
+      "Infrastructure API moderne",
+      "Conformité KYC/AML"
+    ]
+  },
+  {
+    "id": "opp-4",
+    "title": "Fourniture Régulière de Fruits Tropicaux & Huiles Essentielles (Export Caraïbe-Europe)",
+    "category": "Agro-Export",
+    "location": "Port-au-Prince / Les Cayes",
+    "country": "Haïti",
+    "flag": "🇭🇹",
+    "budget": "$80,000 USD / mois",
+    "deadline": "10 Décembre 2026",
+    "company": "Caraïbes Export Trading Ltd",
+    "description": "Contrat d'achat à terme de mangues Franciques, papayes séchées et huile essentielle de vétiver pour grossistes européens et caribéens.",
+    "requirements": [
+      "Certification phytosanitaire",
+      "Capacité d'emballage aux normes d'exportation",
+      "Traçabilité des parcelles"
+    ]
+  }
+]

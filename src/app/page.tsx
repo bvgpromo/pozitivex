@@ -19,6 +19,7 @@ export default function Home() {
   const [videoList, setVideoList] = useState<any[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
   const [pricingData, setPricingData] = useState<any>(null);
+  const [homepageData, setHomepageData] = useState<any>(null);
 
   useEffect(() => {
     fetch('/api/admin/articles')
@@ -39,6 +40,13 @@ export default function Home() {
       .then(r => (r.ok ? r.json() : null))
       .then(data => {
         if (data && data.plans) setPricingData(data);
+      })
+      .catch(() => {});
+
+    fetch('/api/admin/homepage')
+      .then(r => (r.ok ? r.json() : null))
+      .then(data => {
+        if (data && data.hero) setHomepageData(data);
       })
       .catch(() => {});
   }, []);
@@ -122,29 +130,64 @@ export default function Home() {
   };
 
   const activePricing = pricingData || defaultPricing;
+  const defaultHomepage = {
+    hero: {
+      badge: "Plateforme Économique Intelligente",
+      titleLine1: "Connecting the Caribbean",
+      titleLine2: "to Global Opportunities",
+      subtitle: "Connecter la Caraïbe aux opportunités mondiales grâce à l'intelligence économique, à l'innovation, aux affaires et à la technologie.",
+      btn1Text: "Explorer les Opportunités +",
+      btn1Link: "/opportunites",
+      btn2Text: "Devenir membre",
+      btn2Link: "/inscription",
+      btn3Text: "Investir dans la Caraïbe",
+      btn3Link: "/finance"
+    },
+    aiAssistant: {
+      badge: "Intelligence Artificielle",
+      title: "Votre Assistant Stratégique",
+      description: "Propulsé par l'IA, notre assistant est capable de rechercher des opportunités, générer des rapports, produire des analyses et identifier vos futurs partenaires.",
+      features: [
+        "Recherche d'opportunités",
+        "Génération de rapports",
+        "Analyses prédictives",
+        "Matching de partenaires"
+      ]
+    }
+  };
+
+  const activeHp = homepageData || defaultHomepage;
+  const hero = activeHp.hero;
+  const ai = activeHp.aiAssistant;
+
 
   return (
     <div className="flex flex-col gap-24 pb-16 pt-12">
       
       {/* 1. Hero Section */}
       <section className="container mx-auto px-4 text-center max-w-5xl">
+        {hero.badge && (
+          <span className="border border-blue-500/30 text-blue-400 text-xs font-bold px-3 py-1 rounded-full mb-4 inline-block">
+            {hero.badge}
+          </span>
+        )}
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-          <span className="text-blue-500">Connecting the Caribbean</span> <br />
-          <span className="text-orange-500">to Global Opportunities</span>
+          <span className="text-blue-500">{hero.titleLine1}</span> <br />
+          <span className="text-orange-500">{hero.titleLine2}</span>
         </h1>
         <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-          Connecter la Caraïbe aux opportunités mondiales grâce à l'intelligence économique, à l'innovation, aux affaires et à la technologie.
+          {hero.subtitle}
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link href="/opportunites" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto text-center">
-            Explorer les Opportunités +
+          <Link href={hero.btn1Link || "/opportunites"} className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto text-center">
+            {hero.btn1Text}
           </Link>
-          <Link href="/inscription" className="inline-block bg-transparent border border-slate-600 text-white px-8 py-3 rounded text-sm font-bold hover:bg-slate-800 transition-colors w-full sm:w-auto text-center">
-            Devenir membre
+          <Link href={hero.btn2Link || "/inscription"} className="inline-block bg-transparent border border-slate-600 text-white px-8 py-3 rounded text-sm font-bold hover:bg-slate-800 transition-colors w-full sm:w-auto text-center">
+            {hero.btn2Text}
           </Link>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto">
-            Investir dans la Caraïbe
-          </button>
+          <Link href={hero.btn3Link || "/finance"} className="inline-block bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto text-center">
+            {hero.btn3Text}
+          </Link>
         </div>
       </section>
 

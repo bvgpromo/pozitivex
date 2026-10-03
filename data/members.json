@@ -1,0 +1,110 @@
+[
+  {
+    "id": "1",
+    "name": "Jean-Philippe V.",
+    "role": "Directeur Général",
+    "company": "Caraïbes Agro-Innovations",
+    "location": "Cap-Haïtien, Haïti",
+    "country": "Haïti",
+    "flag": "🇭🇹",
+    "category": "Entreprise",
+    "tags": [
+      "AgriTech",
+      "Export Cacao",
+      "Durabilité"
+    ],
+    "bio": "Transformation et exportation de produits agricoles certifiés bio avec traçabilité technologique pour le marché caribéen et international.",
+    "verified": true,
+    "avatarColor": "from-blue-600 to-cyan-500"
+  },
+  {
+    "id": "2",
+    "name": "Dr. Sarah Chen-Baptiste",
+    "role": "Managing Partner",
+    "company": "Antilles Venture Capital",
+    "location": "Kingston, Jamaïque",
+    "country": "Jamaïque",
+    "flag": "🇯🇲",
+    "category": "Investisseur",
+    "tags": [
+      "Fonds d'Amorçage",
+      "FinTech",
+      "IA"
+    ],
+    "bio": "Investissement en phase d'amorçage dans les startups tech à fort potentiel d'échelle régionale dans l'archipel caribéen.",
+    "verified": true,
+    "avatarColor": "from-purple-600 to-pink-500"
+  },
+  {
+    "id": "3",
+    "name": "Marc-Aurèle Dorcé",
+    "role": "Fondateur & CEO",
+    "company": "SolCarib Energy",
+    "location": "Port-au-Prince, Haïti",
+    "country": "Haïti",
+    "flag": "🇭🇹",
+    "category": "Startup",
+    "tags": [
+      "Énergie Solaire",
+      "Micro-grids",
+      "CleanTech"
+    ],
+    "bio": "Déploiement de micro-réseaux solaires autonomes pour les zones industrielles et agricoles décentralisées.",
+    "verified": true,
+    "avatarColor": "from-amber-500 to-orange-600"
+  },
+  {
+    "id": "4",
+    "name": "Elena Rodriguez",
+    "role": "Directrice Partenariats",
+    "company": "Hispaniola Trade Logistics",
+    "location": "Santo Domingo, Rép. Dominicaine",
+    "country": "Rép. Dominicaine",
+    "flag": "🇩🇴",
+    "category": "Entreprise",
+    "tags": [
+      "Logistique Portuaire",
+      "Supply Chain",
+      "B2B"
+    ],
+    "bio": "Facilitation du fret maritime et du dédouanement inter-îles pour accélérer le commerce transfrontalier en Caraïbe.",
+    "verified": true,
+    "avatarColor": "from-emerald-500 to-teal-600"
+  },
+  {
+    "id": "5",
+    "name": "Patrick Saint-Louis",
+    "role": "Consultant Stratégie & IA",
+    "company": "Diaspora Advisory Group",
+    "location": "Montréal & Miami",
+    "country": "Diaspora",
+    "flag": "🌐",
+    "category": "Expert",
+    "tags": [
+      "Transformation IA",
+      "Intelligence Éco",
+      "Gouvernance"
+    ],
+    "bio": "Accompagnement des PME et institutions caribéennes dans l'intégration de l'intelligence artificielle et l'optimisation décisionnelle.",
+    "verified": true,
+    "avatarColor": "from-indigo-600 to-blue-500"
+  },
+  {
+    "id": "6",
+    "name": "Nathalie Desroches",
+    "role": "Cofondatrice",
+    "company": "PayKreyòl Tech",
+    "location": "Port-au-Prince & Fort-de-France",
+    "country": "Haïti / Martinique",
+    "flag": "🇭🇹",
+    "category": "Startup",
+    "tags": [
+      "FinTech",
+      "Paiements Mobiles",
+      "Inclusion"
+    ],
+    "bio": "Passerelle de paiement interbancaire et solutions d'envois de fonds à bas coût pour les commerces caribéens.",
+    "verified": true,
+    "avatarColor": "from-rose-500 to-pink-600"
+  }
+]

@@ -24,6 +24,27 @@ const IconPricing = () => (
     <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
   </svg>
 );
+const IconHome = () => (
+  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+  </svg>
+);
+const IconBriefcase = () => (
+  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+  </svg>
+);
+const IconUsers = () => (
+  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </svg>
+);
+const IconSettings = () => (
+  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </svg>
+);
 const IconPage = () => (
   <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
     <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>
@@ -82,7 +103,7 @@ const S = {
   formGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' } as React.CSSProperties,
 };
 
-type Tab = 'articles' | 'videos' | 'tarifs' | 'pages';
+type Tab = 'articles' | 'videos' | 'tarifs' | 'accueil' | 'opportunites' | 'reseau' | 'parametres' | 'pages';
 
 // ─── Main Dashboard ──────────────────────────────────────────────────────────
 
@@ -104,10 +125,14 @@ export default function AdminDashboard() {
   );
 
   const tabs: { id: Tab; label: string; icon: React.ReactElement; color: string }[] = [
-    { id: 'articles', label: 'Articles', icon: <IconArticle />, color: '#3b82f6' },
-    { id: 'videos',   label: 'Vidéos', icon: <IconVideo />, color: '#8b5cf6' },
-    { id: 'tarifs',   label: 'Tarifs & Formations', icon: <IconPricing />, color: '#f59e0b' },
-    { id: 'pages',    label: 'Pages', icon: <IconPage />, color: '#10b981' },
+    { id: 'articles',     label: 'Articles',           icon: <IconArticle />,   color: '#3b82f6' },
+    { id: 'videos',       label: 'Vidéos',             icon: <IconVideo />,     color: '#8b5cf6' },
+    { id: 'tarifs',       label: 'Tarifs & Formations',icon: <IconPricing />,   color: '#f59e0b' },
+    { id: 'accueil',      label: 'Page d\'Accueil',    icon: <IconHome />,      color: '#06b6d4' },
+    { id: 'opportunites', label: 'Opportunités',       icon: <IconBriefcase />, color: '#10b981' },
+    { id: 'reseau',       label: 'Membres & Réseau',   icon: <IconUsers />,     color: '#ec4899' },
+    { id: 'parametres',   label: 'Paramètres Site',    icon: <IconSettings />,  color: '#f97316' },
+    { id: 'pages',        label: 'Pages',              icon: <IconPage />,      color: '#64748b' },
   ];
 
   return (
@@ -156,10 +181,14 @@ export default function AdminDashboard() {
         </div>
 
         <div style={S.content}>
-          {tab === 'articles' && <ArticlesManager />}
-          {tab === 'videos'   && <VideosManager />}
-          {tab === 'tarifs'   && <PricingManager />}
-          {tab === 'pages'    && <PagesManager />}
+          {tab === 'articles'     && <ArticlesManager />}
+          {tab === 'videos'       && <VideosManager />}
+          {tab === 'tarifs'       && <PricingManager />}
+          {tab === 'accueil'      && <HomepageManager />}
+          {tab === 'opportunites' && <OpportunitiesManager />}
+          {tab === 'reseau'       && <MembersManager />}
+          {tab === 'parametres'   && <SettingsManager />}
+          {tab === 'pages'        && <PagesManager />}
         </div>
       </div>
     </div>
@@ -552,6 +581,595 @@ function VideosManager() {
           })}
         </div>
       )}
+    </div>
+  );
+}
+
+// ─── Homepage Manager ────────────────────────────────────────────────────────
+
+function HomepageManager() {
+  const [data, setData]       = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving]   = useState(false);
+  const [msg, setMsg]         = useState('');
+
+  const load = async () => {
+    setLoading(true);
+    const r = await fetch('/api/admin/homepage');
+    if (r.ok) setData(await r.json());
+    setLoading(false);
+  };
+  useEffect(() => { load(); }, []);
+
+  const save = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    setMsg('');
+    const r = await fetch('/api/admin/homepage', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (r.ok) {
+      setMsg('✓ Page d\'accueil enregistrée avec succès !');
+      setTimeout(() => setMsg(''), 4000);
+    }
+    setSaving(false);
+  };
+
+  if (loading || !data) return <p style={{ color: '#475569', fontSize: '14px' }}>Chargement de la page d'accueil...</p>;
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div>
+          <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#e2e8f0' }}>Gestion de la Page d'Accueil</h2>
+          <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#64748b' }}>Personnalisez le Hero banner, les grands titres et l'assistant IA</p>
+        </div>
+        {msg && <span style={{ fontSize: '13px', color: '#10b981', fontWeight: 600, backgroundColor: '#10b98122', padding: '6px 14px', borderRadius: '20px' }}>{msg}</span>}
+      </div>
+
+      <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        {/* Hero Section */}
+        <div style={S.card}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#06b6d4' }}>
+            Section Hero (Haut de la page)
+          </h3>
+          <div style={S.formGrid}>
+            <div>
+              <div style={S.label}>Badge au-dessus du titre</div>
+              <input style={S.input} value={data.hero?.badge || ''} onChange={e => setData({ ...data, hero: { ...data.hero, badge: e.target.value } })} />
+            </div>
+            <div>
+              <div style={S.label}>Titre Ligne 1 (Bleu)</div>
+              <input style={S.input} value={data.hero?.titleLine1 || ''} onChange={e => setData({ ...data, hero: { ...data.hero, titleLine1: e.target.value } })} required />
+            </div>
+            <div>
+              <div style={S.label}>Titre Ligne 2 (Orange)</div>
+              <input style={S.input} value={data.hero?.titleLine2 || ''} onChange={e => setData({ ...data, hero: { ...data.hero, titleLine2: e.target.value } })} required />
+            </div>
+          </div>
+
+          <div style={{ marginTop: '14px' }}>
+            <div style={S.label}>Sous-titre / Description d'introduction</div>
+            <textarea style={{ ...S.textarea, minHeight: '75px' }} value={data.hero?.subtitle || ''} onChange={e => setData({ ...data, hero: { ...data.hero, subtitle: e.target.value } })} required />
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginTop: '14px' }}>
+            <div>
+              <div style={S.label}>Bouton 1 (Bleu)</div>
+              <input style={S.input} value={data.hero?.btn1Text || ''} onChange={e => setData({ ...data, hero: { ...data.hero, btn1Text: e.target.value } })} />
+            </div>
+            <div>
+              <div style={S.label}>Bouton 2 (Bordure)</div>
+              <input style={S.input} value={data.hero?.btn2Text || ''} onChange={e => setData({ ...data, hero: { ...data.hero, btn2Text: e.target.value } })} />
+            </div>
+            <div>
+              <div style={S.label}>Bouton 3 (Orange)</div>
+              <input style={S.input} value={data.hero?.btn3Text || ''} onChange={e => setData({ ...data, hero: { ...data.hero, btn3Text: e.target.value } })} />
+            </div>
+          </div>
+        </div>
+
+        {/* AI Assistant Section */}
+        <div style={S.card}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#38bdf8' }}>
+            Section Assistant Stratégique IA
+          </h3>
+          <div style={S.formGrid}>
+            <div>
+              <div style={S.label}>Titre de la section</div>
+              <input style={S.input} value={data.aiAssistant?.title || ''} onChange={e => setData({ ...data, aiAssistant: { ...data.aiAssistant, title: e.target.value } })} required />
+            </div>
+            <div>
+              <div style={S.label}>Badge</div>
+              <input style={S.input} value={data.aiAssistant?.badge || ''} onChange={e => setData({ ...data, aiAssistant: { ...data.aiAssistant, badge: e.target.value } })} />
+            </div>
+          </div>
+          <div style={{ marginTop: '14px' }}>
+            <div style={S.label}>Description</div>
+            <textarea style={{ ...S.textarea, minHeight: '65px' }} value={data.aiAssistant?.description || ''} onChange={e => setData({ ...data, aiAssistant: { ...data.aiAssistant, description: e.target.value } })} />
+          </div>
+        </div>
+
+        <button type="submit" disabled={saving} style={{ ...S.btn('#06b6d4'), color: '#000', fontWeight: 800, padding: '12px 28px', alignSelf: 'flex-start' }}>
+          {saving ? 'Enregistrement...' : '💾 Enregistrer la Page d\'Accueil'}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+// ─── Opportunities Manager ───────────────────────────────────────────────────
+
+function OpportunitiesManager() {
+  const [items, setItems]       = useState<any[]>([]);
+  const [loading, setLoading]   = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [editId, setEditId]     = useState<string | null>(null);
+  const [form, setForm]         = useState<any>({
+    title: '', category: 'Financement', location: '', country: 'Haïti', flag: '🇭🇹',
+    budget: '', deadline: '', company: '', description: '', requirements: ''
+  });
+
+  const load = async () => {
+    setLoading(true);
+    const r = await fetch('/api/admin/opportunities');
+    if (r.ok) setItems(await r.json());
+    setLoading(false);
+  };
+  useEffect(() => { load(); }, []);
+
+  const save = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const payload = {
+      ...form,
+      requirements: typeof form.requirements === 'string'
+        ? form.requirements.split('\n').map((s: string) => s.trim()).filter(Boolean)
+        : form.requirements
+    };
+    const url = editId ? `/api/admin/opportunities/${editId}` : '/api/admin/opportunities';
+    const method = editId ? 'PUT' : 'POST';
+    await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    reset();
+    load();
+  };
+
+  const reset = () => {
+    setForm({ title: '', category: 'Financement', location: '', country: 'Haïti', flag: '🇭🇹', budget: '', deadline: '', company: '', description: '', requirements: '' });
+    setEditId(null);
+    setShowForm(false);
+  };
+
+  const edit = (op: any) => {
+    setForm({
+      ...op,
+      requirements: Array.isArray(op.requirements) ? op.requirements.join('\n') : (op.requirements || '')
+    });
+    setEditId(op.id);
+    setShowForm(true);
+  };
+
+  const del = async (id: string) => {
+    if (confirm('Supprimer cette opportunité ?')) {
+      await fetch(`/api/admin/opportunities/${id}`, { method: 'DELETE' });
+      load();
+    }
+  };
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div>
+          <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#e2e8f0' }}>Gestion de la Bourse d'Opportunités</h2>
+          <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#64748b' }}>Ajoutez, modifiez ou retirez les appels d'offres et projets d'investissement</p>
+        </div>
+        {!showForm && (
+          <button onClick={() => setShowForm(true)} style={{ ...S.btn('#10b981'), display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <IconPlus /> Nouvelle Opportunité
+          </button>
+        )}
+      </div>
+
+      {showForm && (
+        <div style={{ ...S.card, borderColor: '#10b98155' }}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#10b981' }}>
+            {editId ? 'Modifier l\'opportunité' : 'Créer une opportunité'}
+          </h3>
+          <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div style={S.formGrid}>
+              <div>
+                <div style={S.label}>Titre du projet / appel d'offres *</div>
+                <input style={S.input} value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
+              </div>
+              <div>
+                <div style={S.label}>Catégorie</div>
+                <select style={S.input} value={form.category} onChange={e => setForm({ ...form, category: e.target.value })}>
+                  <option value="Financement">Financement</option>
+                  <option value="Partenariat">Partenariat</option>
+                  <option value="Appel d'Offres">Appel d'Offres</option>
+                  <option value="Agro-Export">Agro-Export</option>
+                </select>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+              <div>
+                <div style={S.label}>Pays</div>
+                <input style={S.input} value={form.country} onChange={e => setForm({ ...form, country: e.target.value })} required />
+              </div>
+              <div>
+                <div style={S.label}>Drapeau (Emoji)</div>
+                <input style={S.input} value={form.flag} onChange={e => setForm({ ...form, flag: e.target.value })} />
+              </div>
+              <div>
+                <div style={S.label}>Ville / Région</div>
+                <input style={S.input} value={form.location} onChange={e => setForm({ ...form, location: e.target.value })} />
+              </div>
+              <div>
+                <div style={S.label}>Budget / Montant</div>
+                <input style={S.input} value={form.budget} onChange={e => setForm({ ...form, budget: e.target.value })} placeholder="Ex: $350,000 USD" />
+              </div>
+              <div>
+                <div style={S.label}>Date limite</div>
+                <input style={S.input} value={form.deadline} onChange={e => setForm({ ...form, deadline: e.target.value })} placeholder="Ex: 15 Déc 2026" />
+              </div>
+            </div>
+
+            <div>
+              <div style={S.label}>Entreprise / Organisation porteuse *</div>
+              <input style={S.input} value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} required />
+            </div>
+
+            <div>
+              <div style={S.label}>Description du projet *</div>
+              <textarea style={{ ...S.textarea, minHeight: '80px' }} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} required />
+            </div>
+
+            <div>
+              <div style={S.label}>Critères & Exigences (1 par ligne)</div>
+              <textarea style={{ ...S.textarea, minHeight: '70px' }} value={form.requirements} onChange={e => setForm({ ...form, requirements: e.target.value })} placeholder="Critère 1&#10;Critère 2" />
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button type="submit" style={S.btn('#10b981')}>Enregistrer</button>
+              <button type="button" onClick={reset} style={{ ...S.btn('#475569'), backgroundColor: 'transparent', border: '1px solid #475569' }}>Annuler</button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {loading ? (
+        <p style={{ color: '#475569', fontSize: '14px' }}>Chargement des opportunités...</p>
+      ) : (
+        <div style={{ ...S.card, padding: 0, overflow: 'hidden' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#07101f' }}>
+                <th style={{ textAlign: 'left', padding: '12px 16px', color: '#64748b' }}>Titre</th>
+                <th style={{ textAlign: 'left', padding: '12px 16px', color: '#64748b' }}>Catégorie</th>
+                <th style={{ textAlign: 'left', padding: '12px 16px', color: '#64748b' }}>Pays</th>
+                <th style={{ textAlign: 'left', padding: '12px 16px', color: '#64748b' }}>Budget</th>
+                <th style={{ textAlign: 'right', padding: '12px 16px', color: '#64748b' }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map(op => (
+                <tr key={op.id} style={{ borderBottom: '1px solid #1e293b' }}>
+                  <td style={{ padding: '12px 16px', fontWeight: 600, color: '#f1f5f9' }}>{op.title}</td>
+                  <td style={{ padding: '12px 16px' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#38bdf8', backgroundColor: '#0284c722', padding: '2px 8px', borderRadius: '4px' }}>{op.category}</span>
+                  </td>
+                  <td style={{ padding: '12px 16px', color: '#94a3b8' }}>{op.flag} {op.country}</td>
+                  <td style={{ padding: '12px 16px', fontWeight: 700, color: '#10b981' }}>{op.budget}</td>
+                  <td style={{ padding: '12px 16px', textAlign: 'right' }}>
+                    <button onClick={() => edit(op)} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', marginRight: '8px' }}><IconEdit /></button>
+                    <button onClick={() => del(op.id)} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer' }}><IconTrash /></button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Members Manager ─────────────────────────────────────────────────────────
+
+function MembersManager() {
+  const [items, setItems]       = useState<any[]>([]);
+  const [loading, setLoading]   = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [editId, setEditId]     = useState<string | null>(null);
+  const [form, setForm]         = useState<any>({
+    name: '', role: '', company: '', location: '', country: 'Haïti', flag: '🇭🇹',
+    category: 'Entreprise', tags: '', bio: '', verified: true
+  });
+
+  const load = async () => {
+    setLoading(true);
+    const r = await fetch('/api/admin/members');
+    if (r.ok) setItems(await r.json());
+    setLoading(false);
+  };
+  useEffect(() => { load(); }, []);
+
+  const save = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const payload = {
+      ...form,
+      tags: typeof form.tags === 'string'
+        ? form.tags.split(',').map((s: string) => s.trim()).filter(Boolean)
+        : form.tags
+    };
+    const url = editId ? `/api/admin/members/${editId}` : '/api/admin/members';
+    const method = editId ? 'PUT' : 'POST';
+    await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    reset();
+    load();
+  };
+
+  const reset = () => {
+    setForm({ name: '', role: '', company: '', location: '', country: 'Haïti', flag: '🇭🇹', category: 'Entreprise', tags: '', bio: '', verified: true });
+    setEditId(null);
+    setShowForm(false);
+  };
+
+  const edit = (m: any) => {
+    setForm({
+      ...m,
+      tags: Array.isArray(m.tags) ? m.tags.join(', ') : (m.tags || '')
+    });
+    setEditId(m.id);
+    setShowForm(true);
+  };
+
+  const del = async (id: string) => {
+    if (confirm('Supprimer ce membre du réseau ?')) {
+      await fetch(`/api/admin/members/${id}`, { method: 'DELETE' });
+      load();
+    }
+  };
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div>
+          <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#e2e8f0' }}>Gestion du Réseau d'Affaires & Membres</h2>
+          <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#64748b' }}>Gérez les profils visibles dans l'annuaire d'entreprises et d'experts</p>
+        </div>
+        {!showForm && (
+          <button onClick={() => setShowForm(true)} style={{ ...S.btn('#ec4899'), display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <IconPlus /> Nouveau Membre / Entreprise
+          </button>
+        )}
+      </div>
+
+      {showForm && (
+        <div style={{ ...S.card, borderColor: '#ec489955' }}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#ec4899' }}>
+            {editId ? 'Modifier le membre' : 'Ajouter un membre'}
+          </h3>
+          <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div style={S.formGrid}>
+              <div>
+                <div style={S.label}>Nom complet du dirigeant / expert *</div>
+                <input style={S.input} value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
+              </div>
+              <div>
+                <div style={S.label}>Rôle / Poste *</div>
+                <input style={S.input} value={form.role} onChange={e => setForm({ ...form, role: e.target.value })} placeholder="Ex: Directeur Général / Fondateur" required />
+              </div>
+            </div>
+
+            <div style={S.formGrid}>
+              <div>
+                <div style={S.label}>Entreprise / Organisation *</div>
+                <input style={S.input} value={form.company} onChange={e => setForm({ ...form, company: e.target.value })} required />
+              </div>
+              <div>
+                <div style={S.label}>Kategori</div>
+                <select style={S.input} value={form.category} onChange={e => setForm({ ...form, category: e.target.value })}>
+                  <option value="Entreprise">Entreprise</option>
+                  <option value="Investisseur">Investisseur</option>
+                  <option value="Startup">Startup</option>
+                  <option value="Expert">Expert</option>
+                </select>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+              <div>
+                <div style={S.label}>Peyi</div>
+                <input style={S.input} value={form.country} onChange={e => setForm({ ...form, country: e.target.value })} required />
+              </div>
+              <div>
+                <div style={S.label}>Drapeau (Emoji)</div>
+                <input style={S.input} value={form.flag} onChange={e => setForm({ ...form, flag: e.target.value })} />
+              </div>
+              <div>
+                <div style={S.label}>Ville / Localisation</div>
+                <input style={S.input} value={form.location} onChange={e => setForm({ ...form, location: e.target.value })} />
+              </div>
+              <div>
+                <div style={S.label}>Tags (séparés par virgules)</div>
+                <input style={S.input} value={form.tags} onChange={e => setForm({ ...form, tags: e.target.value })} placeholder="AgriTech, Export, Solaire" />
+              </div>
+            </div>
+
+            <div>
+              <div style={S.label}>Biographie / Présentation de l'activité *</div>
+              <textarea style={{ ...S.textarea, minHeight: '80px' }} value={form.bio} onChange={e => setForm({ ...form, bio: e.target.value })} required />
+            </div>
+
+            <div>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '13px', color: '#e2e8f0' }}>
+                <input type="checkbox" checked={!!form.verified} onChange={e => setForm({ ...form, verified: e.target.checked })} />
+                Profil vérifié avec badge de confiance
+              </label>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button type="submit" style={S.btn('#ec4899')}>Enregistrer</button>
+              <button type="button" onClick={reset} style={{ ...S.btn('#475569'), backgroundColor: 'transparent', border: '1px solid #475569' }}>Annuler</button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {loading ? (
+        <p style={{ color: '#475569', fontSize: '14px' }}>Chargement des membres...</p>
+      ) : (
+        <div style={{ ...S.card, padding: 0, overflow: 'hidden' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid #1e293b', backgroundColor: '#07101f' }}>
+                <th style={{ textAlign: 'left', padding: '12px 16px', color: '#64748b' }}>Nom & Poste</th>
+                <th style={{ textAlign: 'left', padding: '12px 16px', color: '#64748b' }}>Entreprise</th>
+                <th style={{ textAlign: 'left', padding: '12px 16px', color: '#64748b' }}>Kategori</th>
+                <th style={{ textAlign: 'left', padding: '12px 16px', color: '#64748b' }}>Peyi</th>
+                <th style={{ textAlign: 'right', padding: '12px 16px', color: '#64748b' }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map(m => (
+                <tr key={m.id} style={{ borderBottom: '1px solid #1e293b' }}>
+                  <td style={{ padding: '12px 16px', fontWeight: 600, color: '#f1f5f9' }}>
+                    {m.name} {m.verified && <span style={{ color: '#38bdf8' }}>✓</span>}
+                    <div style={{ fontSize: '11px', color: '#94a3b8' }}>{m.role}</div>
+                  </td>
+                  <td style={{ padding: '12px 16px', color: '#cbd5e1' }}>{m.company}</td>
+                  <td style={{ padding: '12px 16px' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#ec4899', backgroundColor: '#ec489922', padding: '2px 8px', borderRadius: '4px' }}>{m.category}</span>
+                  </td>
+                  <td style={{ padding: '12px 16px', color: '#94a3b8' }}>{m.flag} {m.country}</td>
+                  <td style={{ padding: '12px 16px', textAlign: 'right' }}>
+                    <button onClick={() => edit(m)} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', marginRight: '8px' }}><IconEdit /></button>
+                    <button onClick={() => del(m.id)} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer' }}><IconTrash /></button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Settings Manager ────────────────────────────────────────────────────────
+
+function SettingsManager() {
+  const [data, setData]       = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving]   = useState(false);
+  const [msg, setMsg]         = useState('');
+
+  const load = async () => {
+    setLoading(true);
+    const r = await fetch('/api/admin/settings');
+    if (r.ok) setData(await r.json());
+    setLoading(false);
+  };
+  useEffect(() => { load(); }, []);
+
+  const save = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    setMsg('');
+    const r = await fetch('/api/admin/settings', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (r.ok) {
+      setMsg('✓ Paramètres enregistrés avec succès !');
+      setTimeout(() => setMsg(''), 4000);
+    }
+    setSaving(false);
+  };
+
+  if (loading || !data) return <p style={{ color: '#475569', fontSize: '14px' }}>Chargement des paramètres...</p>;
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div>
+          <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#e2e8f0' }}>Paramètres Généraux du Site</h2>
+          <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#64748b' }}>Configurez le nom, coordonnées de contact et liens réseaux sociaux</p>
+        </div>
+        {msg && <span style={{ fontSize: '13px', color: '#10b981', fontWeight: 600, backgroundColor: '#10b98122', padding: '6px 14px', borderRadius: '20px' }}>{msg}</span>}
+      </div>
+
+      <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={S.card}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#f97316' }}>Identité de la Plateforme</h3>
+          <div style={S.formGrid}>
+            <div>
+              <div style={S.label}>Nom de la plateforme</div>
+              <input style={S.input} value={data.siteName || ''} onChange={e => setData({ ...data, siteName: e.target.value })} required />
+            </div>
+            <div>
+              <div style={S.label}>Slogan principal</div>
+              <input style={S.input} value={data.tagline || ''} onChange={e => setData({ ...data, tagline: e.target.value })} required />
+            </div>
+          </div>
+          <div style={{ marginTop: '14px' }}>
+            <div style={S.label}>Description globale</div>
+            <textarea style={{ ...S.textarea, minHeight: '60px' }} value={data.description || ''} onChange={e => setData({ ...data, description: e.target.value })} />
+          </div>
+        </div>
+
+        <div style={S.card}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#38bdf8' }}>Coordonnées de Contact</h3>
+          <div style={S.formGrid}>
+            <div>
+              <div style={S.label}>Email de contact officiel</div>
+              <input style={S.input} value={data.contactEmail || ''} onChange={e => setData({ ...data, contactEmail: e.target.value })} />
+            </div>
+            <div>
+              <div style={S.label}>Téléphone / WhatsApp</div>
+              <input style={S.input} value={data.contactPhone || ''} onChange={e => setData({ ...data, contactPhone: e.target.value })} />
+            </div>
+            <div>
+              <div style={S.label}>Adresses physiques / Bureaux</div>
+              <input style={S.input} value={data.address || ''} onChange={e => setData({ ...data, address: e.target.value })} />
+            </div>
+            <div>
+              <div style={S.label}>Mention Copyright</div>
+              <input style={S.input} value={data.copyright || ''} onChange={e => setData({ ...data, copyright: e.target.value })} />
+            </div>
+          </div>
+        </div>
+
+        <div style={S.card}>
+          <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#8b5cf6' }}>Réseaux Sociaux</h3>
+          <div style={S.formGrid}>
+            <div>
+              <div style={S.label}>Lien LinkedIn</div>
+              <input style={S.input} value={data.socials?.linkedin || ''} onChange={e => setData({ ...data, socials: { ...data.socials, linkedin: e.target.value } })} />
+            </div>
+            <div>
+              <div style={S.label}>Lien Twitter / X</div>
+              <input style={S.input} value={data.socials?.twitter || ''} onChange={e => setData({ ...data, socials: { ...data.socials, twitter: e.target.value } })} />
+            </div>
+            <div>
+              <div style={S.label}>Lien Facebook</div>
+              <input style={S.input} value={data.socials?.facebook || ''} onChange={e => setData({ ...data, socials: { ...data.socials, facebook: e.target.value } })} />
+            </div>
+            <div>
+              <div style={S.label}>Numéro WhatsApp Business</div>
+              <input style={S.input} value={data.socials?.whatsapp || ''} onChange={e => setData({ ...data, socials: { ...data.socials, whatsapp: e.target.value } })} />
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" disabled={saving} style={{ ...S.btn('#f97316'), color: '#fff', fontWeight: 800, padding: '12px 28px', alignSelf: 'flex-start' }}>
+          {saving ? 'Enregistrement...' : '💾 Enregistrer les Paramètres'}
+        </button>
+      </form>
     </div>
   );
 }
