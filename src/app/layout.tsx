@@ -43,21 +43,23 @@ export default function RootLayout({
             
             <div>
               <h4 className="text-white font-bold mb-4">Plateforme</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li>Magazine</li>
-                <li>Actualités</li>
-                <li>Opportunités</li>
-                <li>Réseau</li>
+              <ul className="space-y-2 text-xs text-slate-400">
+                <li><Link href="/magazine" className="hover:text-blue-400 transition-colors">Magazine & Actualités</Link></li>
+                <li><Link href="/intelligence" className="hover:text-blue-400 transition-colors">Intelligence Économique</Link></li>
+                <li><Link href="/opportunites" className="hover:text-blue-400 transition-colors">Opportunités d'Affaires</Link></li>
+                <li><Link href="/reseautage" className="hover:text-blue-400 transition-colors">Réseau d'Affaires</Link></li>
+                <li><Link href="/emplois" className="hover:text-blue-400 transition-colors">Emplois & Recrutement</Link></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-white font-bold mb-4">Programmes</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li>PozitivEx+ Academy</li>
-                <li>PozitivEx+ Business Network</li>
-                <li>PozitivEx+ Invest</li>
-                <li>PozitivEx+ Data</li>
+              <h4 className="text-white font-bold mb-4">Programmes & Solutions</h4>
+              <ul className="space-y-2 text-xs text-slate-400">
+                <li><Link href="/formations" className="hover:text-blue-400 transition-colors">PozitivEx+ Academy</Link></li>
+                <li><Link href="/programmes" className="hover:text-blue-400 transition-colors">Nos Programmes Stratégiques</Link></li>
+                <li><Link href="/finance" className="hover:text-blue-400 transition-colors">Financement & Investissement</Link></li>
+                <li><Link href="/data-center" className="hover:text-blue-400 transition-colors">Data Center Caraïbe</Link></li>
+                <li><Link href="/services" className="hover:text-blue-400 transition-colors">Services aux Entreprises</Link></li>
               </ul>
             </div>
 
