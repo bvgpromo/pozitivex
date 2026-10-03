@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from "react";
@@ -97,7 +98,7 @@ export default function AdminDashboard() {
     </div>
   );
 
-  const tabs: { id: Tab; label: string; icon: JSX.Element; color: string }[] = [
+  const tabs: { id: Tab; label: string; icon: React.ReactElement; color: string }[] = [
     { id: 'articles', label: 'Articles', icon: <IconArticle />, color: '#3b82f6' },
     { id: 'videos',   label: 'Vidéos', icon: <IconVideo />, color: '#8b5cf6' },
     { id: 'pages',    label: 'Pages', icon: <IconPage />, color: '#10b981' },
