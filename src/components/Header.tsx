@@ -10,10 +10,10 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 bg-[#0B1120]/95 backdrop-blur-md border-b border-[#1E293B] z-50">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div className="container mx-auto px-4 py-2 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex-shrink-0">
-            <Image src="/logo.png" alt="PozitivEx+" width={160} height={50} className="object-contain h-8 sm:h-10 w-auto drop-shadow-md" priority />
+            <Image src="/logo.png" alt="PozitivEx+" width={242} height={104} className="object-contain h-12 sm:h-14 lg:h-16 w-auto drop-shadow-md" priority />
           </div>
         </Link>
         
