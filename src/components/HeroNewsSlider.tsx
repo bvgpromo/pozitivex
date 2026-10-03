@@ -109,7 +109,7 @@ export default function HeroNewsSlider({ articles }: HeroNewsSliderProps) {
         {/* Main Slider (8 cols on desktop) */}
         <div className="lg:col-span-8 flex flex-col">
           <div
-            className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#1E293B] bg-[#0c1322] shadow-2xl shadow-blue-950/40 group flex-1 h-[320px] sm:h-[390px] md:h-[450px]"
+            className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#1E293B] bg-[#0c1322] shadow-2xl shadow-blue-950/40 group flex-1 min-h-[320px] sm:min-h-[390px] md:min-h-[450px]"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             onTouchStart={handleTouchStart}
