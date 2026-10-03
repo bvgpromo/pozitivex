@@ -5,6 +5,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
+import ImageExtension from "@tiptap/extension-image";
 import { TextStyle, FontSize, FontFamily, Color } from "@tiptap/extension-text-style";
 
 interface RichEditorProps {
@@ -88,6 +89,42 @@ const COLORS = [
   { label: "Violet", value: "#8b5cf6" },
 ];
 
+// Helper to compress and convert image file to Data URL
+function processImageFile(file: File, callback: (dataUrl: string) => void) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const rawResult = e.target?.result as string;
+    const img = new Image();
+    img.onload = () => {
+      const maxDim = 1200;
+      let width = img.width;
+      let height = img.height;
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, width, height);
+        callback(canvas.toDataURL("image/jpeg", 0.85));
+      } else {
+        callback(rawResult);
+      }
+    };
+    img.onerror = () => callback(rawResult);
+    img.src = rawResult;
+  };
+  reader.readAsDataURL(file);
+}
+
 export default function RichEditor({
   value,
   onChange,
@@ -102,6 +139,10 @@ export default function RichEditor({
       FontSize,
       FontFamily,
       Color,
+      ImageExtension.configure({
+        inline: true,
+        allowBase64: true,
+      }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
     content: value,
@@ -343,6 +384,38 @@ export default function RichEditor({
 
         <div style={DIV} />
 
+        {/* Insérer une photo dans le texte */}
+        <label
+          title="Insérer une photo dans l'article"
+          style={{
+            ...btnS(),
+            backgroundColor: "#2563eb",
+            color: "#ffffff",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "5px",
+            cursor: "pointer",
+          }}
+        >
+          📷 Photo
+          <input
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                processImageFile(file, (dataUrl) => {
+                  editor.chain().focus().setImage({ src: dataUrl }).run();
+                });
+                e.target.value = "";
+              }
+            }}
+          />
+        </label>
+
+        <div style={DIV} />
+
         {/* Extras */}
         <button
           type="button"
@@ -417,6 +490,7 @@ export default function RichEditor({
           .ProseMirror code { background: #1e293b; border-radius: 4px; padding: 2px 6px; font-family: monospace; font-size: 0.85em; color: #7dd3fc; }
           .ProseMirror hr { border: none; border-top: 1px solid #1e293b; margin: 12px 0; }
           .ProseMirror p { margin: 0.25em 0; }
+          .ProseMirror img { max-width: 100%; height: auto; border-radius: 8px; margin: 12px 0; display: block; border: 1px solid #334155; }
           .ProseMirror:focus { outline: none; }
         `}</style>
         <EditorContent editor={editor} />

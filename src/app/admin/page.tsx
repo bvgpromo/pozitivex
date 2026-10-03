@@ -167,6 +167,7 @@ function ArticlesManager() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm]         = useState({ title: '', content: '', imageUrl: '' });
   const [editId, setEditId]     = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const load = async () => { setLoading(true); const r = await fetch('/api/admin/articles'); if (r.ok) setItems(await r.json()); setLoading(false); };
   useEffect(() => { load(); }, []);
@@ -178,9 +179,47 @@ function ArticlesManager() {
     await fetch(url, { method, body: JSON.stringify(form), headers: { 'Content-Type': 'application/json' } });
     reset(); load();
   };
-  const reset = () => { setForm({ title: '', content: '', imageUrl: '' }); setEditId(null); setShowForm(false); };
+  const reset = () => { setForm({ title: '', content: '', imageUrl: '' }); setEditId(null); setShowForm(false); setUploading(false); };
   const edit  = (item: any) => { setForm({ title: item.title, content: item.content, imageUrl: item.imageUrl || '' }); setEditId(item.id); setShowForm(true); };
   const del   = async (id: string) => { if (confirm("Supprimer cet article ?")) { await fetch(`/api/admin/articles/${id}`, { method: 'DELETE' }); load(); } };
+
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const raw = ev.target?.result as string;
+      const img = new Image();
+      img.onload = () => {
+        const maxDim = 1200;
+        let w = img.width;
+        let h = img.height;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+          else { w = Math.round((w * maxDim) / h); h = maxDim; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, w, h);
+          setForm(f => ({ ...f, imageUrl: canvas.toDataURL('image/jpeg', 0.85) }));
+        } else {
+          setForm(f => ({ ...f, imageUrl: raw }));
+        }
+        setUploading(false);
+      };
+      img.onerror = () => {
+        setForm(f => ({ ...f, imageUrl: raw }));
+        setUploading(false);
+      };
+      img.src = raw;
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
 
   return (
     <div>
@@ -201,10 +240,90 @@ function ArticlesManager() {
               <div style={S.label}>Titre</div>
               <input style={S.input} placeholder="Titre de l'article" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
             </div>
+
+            {/* Photo / Image de couverture */}
             <div>
-              <div style={S.label}>URL Image (optionnel)</div>
-              <input style={S.input} placeholder="https://..." value={form.imageUrl} onChange={e => setForm({ ...form, imageUrl: e.target.value })} />
+              <div style={S.label}>Photo / Image de couverture</div>
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap', marginBottom: form.imageUrl ? '10px' : '0' }}>
+                <label style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '9px 16px',
+                  backgroundColor: '#2563eb',
+                  color: '#fff',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  transition: 'background .15s',
+                }}>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>{uploading ? 'Chargement de la photo...' : 'Uploader une photo'}</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={handlePhotoUpload}
+                    disabled={uploading}
+                  />
+                </label>
+                <span style={{ color: '#64748b', fontSize: '13px' }}>ou lien web :</span>
+                <input
+                  style={{ ...S.input, flex: 1, minWidth: '220px' }}
+                  placeholder="https://exemple.com/photo.jpg"
+                  value={form.imageUrl}
+                  onChange={e => setForm({ ...form, imageUrl: e.target.value })}
+                />
+              </div>
+
+              {/* Aperçu de la photo sélectionnée */}
+              {form.imageUrl && (
+                <div style={{
+                  position: 'relative',
+                  display: 'inline-block',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  border: '1px solid #334155',
+                  marginTop: '8px',
+                  backgroundColor: '#0f172a',
+                }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={form.imageUrl}
+                    alt="Aperçu photo"
+                    style={{ maxHeight: '140px', width: 'auto', display: 'block', objectFit: 'cover' }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setForm({ ...form, imageUrl: '' })}
+                    style={{
+                      position: 'absolute',
+                      top: '6px',
+                      right: '6px',
+                      backgroundColor: '#ef4444ee',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: '24px',
+                      height: '24px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                    }}
+                    title="Supprimer la photo"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
             </div>
+
             <div>
               <div style={S.label}>Contenu</div>
               <RichEditor value={form.content} onChange={(val) => setForm({ ...form, content: val })} placeholder="Contenu de l'article..." />
@@ -222,10 +341,26 @@ function ArticlesManager() {
           {items.length === 0 && <p style={{ color: '#475569', fontSize: '14px', fontStyle: 'italic' }}>Aucun article pour l'instant.</p>}
           {items.map(item => (
             <div key={item.id} style={S.row}>
+              {item.imageUrl && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  style={{
+                    width: '52px',
+                    height: '52px',
+                    borderRadius: '6px',
+                    objectFit: 'cover',
+                    marginRight: '14px',
+                    border: '1px solid #1e293b',
+                    flexShrink: 0,
+                  }}
+                />
+              )}
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '14px', marginBottom: '3px' }}>{item.title}</div>
                 <div style={{ fontSize: '12px', color: '#475569', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '600px' }}>
-                  {item.content?.substring(0, 100)}...
+                  {item.content?.replace(/<[^>]*>/g, '').substring(0, 100)}...
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '8px', marginLeft: '12px', flexShrink: 0 }}>
