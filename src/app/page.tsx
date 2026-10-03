@@ -202,7 +202,7 @@ export default function Home() {
       </section>
 
       {/* Featured Actualités Slideshow */}
-      <section className="container mx-auto px-4 -mt-10 sm:-mt-8">
+      <section className="w-full mx-auto px-2 sm:px-6 -mt-8 sm:-mt-6">
         <HeroNewsSlider articles={articles} />
       </section>
 
