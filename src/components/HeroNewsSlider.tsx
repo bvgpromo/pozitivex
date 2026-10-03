@@ -17,6 +17,16 @@ interface HeroNewsSliderProps {
   articles: Article[];
 }
 
+// Image avec repli automatique si l'URL ne se charge pas
+function SafeImg({ src, alt, className }: { src?: string; alt: string; className?: string }) {
+  const [failed, setFailed] = useState(false);
+  if (!src || failed) {
+    return <div className="w-full h-full bg-gradient-to-br from-blue-900/60 via-[#0B1120] to-orange-950/50" />;
+  }
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={src} alt={alt} className={className} onError={() => setFailed(true)} />;
+}
+
 export default function HeroNewsSlider({ articles }: HeroNewsSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -41,7 +51,7 @@ export default function HeroNewsSlider({ articles }: HeroNewsSliderProps) {
       id: "3",
       title: "Nouveau projet d'énergie solaire approuvé",
       category: "Énergie",
-      imageUrl: "https://images.unsplash.com/photo-1509391365360-2e959784a276?q=80&w=1200",
+      imageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1200",
       date: "Il y a 5h"
     },
     {
@@ -126,11 +136,7 @@ export default function HeroNewsSlider({ articles }: HeroNewsSliderProps) {
               >
                 {item.imageUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={item.imageUrl}
-                    alt={item.title}
-                    className="w-full h-full object-cover object-center filter brightness-[0.85]"
-                  />
+                  <SafeImg src={item.imageUrl} alt={item.title} className="w-full h-full object-cover object-center filter brightness-[0.85]" />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-blue-950 via-[#0B1120] to-orange-950" />
                 )}
@@ -234,7 +240,7 @@ export default function HeroNewsSlider({ articles }: HeroNewsSliderProps) {
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl overflow-hidden flex-shrink-0 bg-[#0B1120] border border-[#1E293B]">
                     {art.imageUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={art.imageUrl} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      <SafeImg src={art.imageUrl} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     ) : (
                       <div className="w-full h-full bg-blue-900/40" />
                     )}
