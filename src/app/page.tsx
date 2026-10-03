@@ -168,42 +168,42 @@ export default function Home() {
       
       {/* 1. Hero Section & Slideshow */}
       <section className="container mx-auto px-4 text-center max-w-4xl">
-        <div className="inline-flex items-center gap-2 border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-bold px-3.5 py-1.5 rounded-full mb-4 shadow-sm">
+        <div className="inline-flex items-center gap-2 border border-blue-500/30 bg-blue-500/10 text-blue-400 text-[11px] sm:text-xs font-bold px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full mb-3 sm:mb-4 shadow-sm">
           <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
           {hero.badge || "Plateforme Économique Intelligente"}
         </div>
 
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-4 leading-tight tracking-tight">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3 sm:mb-4 leading-tight tracking-tight">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500">{hero.titleLine1}</span> <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500">{hero.titleLine2}</span>
         </h1>
 
-        <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto mb-2 leading-relaxed">
+        <p className="text-slate-400 text-xs sm:text-sm md:text-base max-w-xl mx-auto mb-2 sm:mb-3 leading-relaxed px-2">
           {hero.subtitle || "La plateforme de référence pour l'intelligence économique, l'innovation et l'investissement en Caraïbe."}
         </p>
       </section>
 
       {/* Featured Actualités Slideshow */}
-      <section className="w-full mx-auto px-2 sm:px-6 -mt-8 sm:-mt-6">
+      <section className="w-full mx-auto px-2 sm:px-4 -mt-4 sm:-mt-6">
         <HeroNewsSlider articles={articles} />
       </section>
 
       {/* Action Buttons & Trust Metrics (Anba Slidshow a) */}
-      <section className="container mx-auto px-4 text-center -mt-8 sm:-mt-6">
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-4">
-          <Link href={hero.btn1Link || "/opportunites"} className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3.5 rounded-xl text-sm font-bold shadow-lg shadow-blue-600/30 transition-all hover:scale-105">
+      <section className="container mx-auto px-4 text-center mt-2 sm:mt-0">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 max-w-md sm:max-w-none mx-auto">
+          <Link href={hero.btn1Link || "/opportunites"} className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-7 py-3 sm:py-3.5 rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/30 transition-all hover:scale-105 text-center">
             {hero.btn1Text || "Explorer les Opportunités +"}
           </Link>
-          <Link href={hero.btn2Link || "/inscription"} className="bg-[#131B2F] hover:bg-[#1E293B] border border-[#1E293B] text-slate-200 px-8 py-3.5 rounded-xl text-sm font-bold transition-colors">
+          <Link href={hero.btn2Link || "/inscription"} className="w-full sm:w-auto bg-[#131B2F] hover:bg-[#1E293B] border border-[#1E293B] text-slate-200 px-7 py-3 sm:py-3.5 rounded-xl text-xs sm:text-sm font-bold transition-colors text-center">
             {hero.btn2Text || "Devenir membre"}
           </Link>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs text-slate-400 font-medium">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-6 text-[10px] sm:text-xs text-slate-400 font-medium">
           <span className="flex items-center gap-1.5"><span className="text-blue-400">✦</span> 1 200+ Membres B2B</span>
-          <span className="text-slate-600">•</span>
+          <span className="text-slate-600 hidden sm:inline">•</span>
           <span className="flex items-center gap-1.5"><span className="text-orange-400">✦</span> Veille Économique Caraïbe</span>
-          <span className="text-slate-600">•</span>
+          <span className="text-slate-600 hidden sm:inline">•</span>
           <span className="flex items-center gap-1.5"><span className="text-emerald-400">✦</span> Opportunités Qualifiées</span>
         </div>
       </section>

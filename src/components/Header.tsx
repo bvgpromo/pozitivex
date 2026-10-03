@@ -13,12 +13,12 @@ export default function Header() {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex-shrink-0">
-            <Image src="/logo.png" alt="PozitivEx+" width={170} height={55} className="object-contain h-9 sm:h-11 w-auto drop-shadow-md" priority />
+            <Image src="/logo.png" alt="PozitivEx+" width={160} height={50} className="object-contain h-8 sm:h-10 w-auto drop-shadow-md" priority />
           </div>
         </Link>
         
-        {/* Desktop Navigation */}
-        <nav className="hidden xl:flex items-center gap-6 text-xs font-bold text-slate-300 uppercase tracking-wider">
+        {/* Desktop Navigation (>= lg) */}
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-xs font-bold text-slate-300 uppercase tracking-wider">
           <Link href="/intelligence" className="hover:text-blue-400 transition-colors whitespace-nowrap">Intelligence</Link>
           <Link href="/magazine" className="hover:text-blue-400 transition-colors whitespace-nowrap">Actualités</Link>
           <Link href="/opportunites" className="hover:text-blue-400 transition-colors whitespace-nowrap">Opportunités</Link>
@@ -44,9 +44,9 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Mobile Menu Toggle Button */}
+        {/* Mobile Menu Toggle Button (< lg) */}
         <button 
-          className="xl:hidden p-2 text-slate-300 hover:bg-[#1E293B] rounded-md transition-colors"
+          className="lg:hidden p-2 text-slate-300 hover:bg-[#1E293B] rounded-lg transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Menu"
         >
@@ -54,23 +54,23 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile Drawer Menu */}
       {isMobileMenuOpen && (
-        <div className="xl:hidden border-t border-[#1E293B] bg-[#0B1120]">
-          <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
-            <Link onClick={() => setIsMobileMenuOpen(false)} href="/intelligence" className="text-slate-300 hover:text-blue-400 font-medium py-1">Intelligence</Link>
-            <Link onClick={() => setIsMobileMenuOpen(false)} href="/magazine" className="text-slate-300 hover:text-blue-400 font-medium py-1">Actualités</Link>
-            <Link onClick={() => setIsMobileMenuOpen(false)} href="/opportunites" className="text-slate-300 hover:text-blue-400 font-medium py-1">Opportunités</Link>
-            <Link onClick={() => setIsMobileMenuOpen(false)} href="/reseautage" className="text-slate-300 hover:text-blue-400 font-medium py-1">Réseau d'Affaires</Link>
-            <Link onClick={() => setIsMobileMenuOpen(false)} href="/data-center" className="text-slate-300 hover:text-blue-400 font-medium py-1">Data Center</Link>
-            <Link onClick={() => setIsMobileMenuOpen(false)} href="/programmes" className="text-slate-300 hover:text-blue-400 font-medium py-1">Programmes</Link>
-            <Link onClick={() => setIsMobileMenuOpen(false)} href="/formations" className="text-slate-300 hover:text-blue-400 font-medium py-1">Formations</Link>
+        <div className="lg:hidden border-t border-[#1E293B] bg-[#0B1120] max-h-[85vh] overflow-y-auto">
+          <div className="container mx-auto px-4 py-5 flex flex-col gap-3">
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/intelligence" className="text-slate-300 hover:text-blue-400 font-medium py-1.5 border-b border-[#1E293B]/40">Intelligence Économique</Link>
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/magazine" className="text-slate-300 hover:text-blue-400 font-medium py-1.5 border-b border-[#1E293B]/40">Actualités & Magazine</Link>
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/opportunites" className="text-slate-300 hover:text-blue-400 font-medium py-1.5 border-b border-[#1E293B]/40">Opportunités d'Affaires</Link>
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/reseautage" className="text-slate-300 hover:text-blue-400 font-medium py-1.5 border-b border-[#1E293B]/40">Réseau d'Affaires</Link>
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/data-center" className="text-slate-300 hover:text-blue-400 font-medium py-1.5 border-b border-[#1E293B]/40">Data Center Caraïbe</Link>
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/programmes" className="text-slate-300 hover:text-blue-400 font-medium py-1.5 border-b border-[#1E293B]/40">Programmes Stratégiques</Link>
+            <Link onClick={() => setIsMobileMenuOpen(false)} href="/formations" className="text-slate-300 hover:text-blue-400 font-medium py-1.5 border-b border-[#1E293B]/40">Formations & Tarifs</Link>
             <hr className="border-[#1E293B] my-2" />
             <div className="flex flex-col gap-2 pt-1">
-              <Link onClick={() => setIsMobileMenuOpen(false)} href="/connexion" className="text-slate-300 hover:text-white font-medium py-1.5 flex items-center gap-2">
-                <User className="h-4 w-4" /> Connexion
+              <Link onClick={() => setIsMobileMenuOpen(false)} href="/connexion" className="text-slate-300 hover:text-white font-medium py-2 flex items-center justify-center gap-2 border border-[#1E293B] rounded-xl">
+                <User className="h-4 w-4" /> Connexion Membre
               </Link>
-              <Link onClick={() => setIsMobileMenuOpen(false)} href="/inscription" className="bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-2.5 rounded-lg">
+              <Link onClick={() => setIsMobileMenuOpen(false)} href="/inscription" className="bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-2.5 rounded-xl">
                 Devenir membre
               </Link>
             </div>
