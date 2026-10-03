@@ -1,1 +1,56 @@
-[]
+[
+  {
+    "id": "1",
+    "title": "L'avenir de l'agriculture technologique dans la Caraïbe",
+    "category": "Innovation",
+    "imageUrl": "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=1200",
+    "content": "<p>Une analyse approfondie des nouvelles méthodes agricoles et de leur impact sur l'économie régionale dans la Caraïbe.</p><h2>L'émergence des technologies agricoles</h2><p>L'intégration de capteurs connectés, de drones de surveillance et de systèmes d'irrigation intelligents révolutionne les rendements agricoles traditionnels.</p><blockquote>L'innovation agricole n'est plus une option, c'est le moteur de la souveraineté alimentaire caribéenne.</blockquote><h3>Les bénéfices économiques majeurs</h3><ul><li>Réduction des pertes d'eau de plus de 40%</li><li>Augmentation de la productivité des cultures maraîchères</li><li>Meilleure prévision des récoltes face aux aléas climatiques</li></ul><p>En modernisant le secteur, de nouvelles opportunités d'investissement s'ouvrent pour les jeunes entrepreneurs et les entreprises régionales.</p>",
+    "date": "03 Oct 2026",
+    "createdAt": "2026-10-02T20:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "title": "Croissance des investissements régionaux en T3",
+    "category": "Économie",
+    "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200",
+    "content": "<p>Le troisième trimestre enregistre une hausse notable des capitaux alloués aux PME et aux infrastructures clés.</p><p>Les analystes prévoient le maintien de cette tendance positive pour la fin de l'exercice fiscal grâce à un dynamisme accru dans les services et l'énergie renouvelable.</p>",
+    "date": "Il y a 2h",
+    "createdAt": "2026-10-02T21:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "title": "Nouveau projet d'énergie solaire approuvé",
+    "category": "Énergie",
+    "imageUrl": "https://images.unsplash.com/photo-1509391365360-2e959784a276?q=80&w=1200",
+    "content": "<p>Un parc solaire de grande envergure vient d'obtenir les autorisations environnementales pour son déploiement.</p><p>Ce projet vise à alimenter plus de 25 000 foyers en énergie verte et à stabiliser le réseau électrique avec des solutions de stockage par batterie.</p>",
+    "date": "Il y a 5h",
+    "createdAt": "2026-10-02T18:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "title": "Lancement du Caribbean Tech Hub",
+    "category": "Technologie",
+    "imageUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200",
+    "content": "<p>Un nouvel incubateur dédié aux startups technologiques régionales ouvre ses portes ce mois-ci.</p><p>Des programmes de mentorat intensif et des financements d'amorçage seront proposés aux jeunes talents et porteurs de projets innovants.</p>",
+    "date": "Hier",
+    "createdAt": "2026-10-01T15:00:00.000Z"
+  },
+  {
+    "id": "5",
+    "title": "Les banques régionales annoncent de nouveaux taux",
+    "category": "Finance",
+    "imageUrl": "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1200",
+    "content": "<p>Afin de stimuler la création d'entreprises et soutenir l'investissement productif, les institutions bancaires locales ont dévoilé de nouveaux barèmes de crédit avantageux pour les PME.</p>",
+    "date": "Hier",
+    "createdAt": "2026-10-01T10:00:00.000Z"
+  },
+  {
+    "id": "6",
+    "title": "Amélioration des infrastructures portuaires",
+    "category": "Transport",
+    "imageUrl": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1200",
+    "content": "<p>Des investissements majeurs dans les terminaux de fret vont permettre d'accélérer les échanges commerciaux maritimes et de fluidifier le transit des conteneurs.</p>",
+    "date": "03 Oct 2026",
+    "createdAt": "2026-09-30T12:00:00.000Z"
+  }
+]

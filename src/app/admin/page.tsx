@@ -165,7 +165,7 @@ function ArticlesManager() {
   const [items, setItems]       = useState<any[]>([]);
   const [loading, setLoading]   = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm]         = useState({ title: '', content: '', imageUrl: '' });
+  const [form, setForm]         = useState({ title: '', content: '', imageUrl: '', category: 'Innovation' });
   const [editId, setEditId]     = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
 
@@ -179,8 +179,8 @@ function ArticlesManager() {
     await fetch(url, { method, body: JSON.stringify(form), headers: { 'Content-Type': 'application/json' } });
     reset(); load();
   };
-  const reset = () => { setForm({ title: '', content: '', imageUrl: '' }); setEditId(null); setShowForm(false); setUploading(false); };
-  const edit  = (item: any) => { setForm({ title: item.title, content: item.content, imageUrl: item.imageUrl || '' }); setEditId(item.id); setShowForm(true); };
+  const reset = () => { setForm({ title: '', content: '', imageUrl: '', category: 'Innovation' }); setEditId(null); setShowForm(false); setUploading(false); };
+  const edit  = (item: any) => { setForm({ title: item.title, content: item.content, imageUrl: item.imageUrl || '', category: item.category || 'Innovation' }); setEditId(item.id); setShowForm(true); };
   const del   = async (id: string) => { if (confirm("Supprimer cet article ?")) { await fetch(`/api/admin/articles/${id}`, { method: 'DELETE' }); load(); } };
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -236,9 +236,23 @@ function ArticlesManager() {
             {editId ? "✏️ Modifier l'article" : "➕ Ajouter un article"}
           </h3>
           <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            <div>
-              <div style={S.label}>Titre</div>
-              <input style={S.input} placeholder="Titre de l'article" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
+            <div style={S.formGrid}>
+              <div>
+                <div style={S.label}>Titre</div>
+                <input style={S.input} placeholder="Titre de l'article" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
+              </div>
+              <div>
+                <div style={S.label}>Catégorie</div>
+                <select
+                  style={{ ...S.input, cursor: 'pointer' }}
+                  value={form.category}
+                  onChange={e => setForm({ ...form, category: e.target.value })}
+                >
+                  {['Innovation', 'Économie', 'Technologie', 'Énergie', 'Finance', 'Transport', 'Agriculture', 'Entrepreneuriat'].map(c => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             {/* Photo / Image de couverture */}
@@ -358,7 +372,10 @@ function ArticlesManager() {
                 />
               )}
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '14px', marginBottom: '3px' }}>{item.title}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+                  <span style={{ fontSize: '10px', color: '#f97316', fontWeight: 700, textTransform: 'uppercase' }}>● {item.category || 'Actualité'}</span>
+                  <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '14px' }}>{item.title}</div>
+                </div>
                 <div style={{ fontSize: '12px', color: '#475569', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '600px' }}>
                   {item.content?.replace(/<[^>]*>/g, '').substring(0, 100)}...
                 </div>

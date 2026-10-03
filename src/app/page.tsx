@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Play, TrendingUp, Lightbulb, GraduationCap, Users, Shield, Zap, Search, ChevronRight, Briefcase } from "lucide-react";
@@ -13,6 +13,32 @@ export default function Home() {
     { id: "atUomXZm1Gg", tag: "TOURISME", title: "Redéfinir le tourisme écologique et durable" }
   ];
   const [mainVideo, setMainVideo] = useState(playlist[0]);
+  const [articles, setArticles] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('/api/admin/articles')
+      .then(r => (r.ok ? r.json() : []))
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) setArticles(data);
+      })
+      .catch(() => {});
+  }, []);
+
+  const featured = articles[0] || {
+    id: "1",
+    title: "L'avenir de l'agriculture technologique dans la Caraïbe",
+    category: "Innovation",
+    imageUrl: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=1200",
+    content: "Analyse approfondie des nouvelles méthodes agricoles et de leur impact sur l'économie régionale.",
+  };
+
+  const newsList = articles.length > 1 ? articles.slice(1, 6) : [
+    { id: "2", category: "Économie", title: "Croissance des investissements régionaux en T3", date: "Il y a 2h" },
+    { id: "3", category: "Énergie", title: "Nouveau projet d'énergie solaire approuvé", date: "Il y a 5h" },
+    { id: "4", category: "Technologie", title: "Lancement du Caribbean Tech Hub", date: "Hier" },
+    { id: "5", category: "Finance", title: "Les banques régionales annoncent de nouveaux taux", date: "Hier" },
+    { id: "6", category: "Transport", title: "Amélioration des infrastructures portuaires", date: "03 Oct 2026" },
+  ];
 
   return (
     <div className="flex flex-col gap-24 pb-16 pt-12">
@@ -104,24 +130,48 @@ export default function Home() {
               <span className="bg-[#1E293B] p-2 rounded-lg text-blue-400"><Search className="h-5 w-5" /></span>
               Magazine Économique
             </h2>
-            <div className="bg-[#131B2F] rounded-2xl border border-[#1E293B] overflow-hidden group cursor-pointer">
-              <div className="h-48 bg-gradient-to-b from-orange-500/20 to-[#131B2F] relative p-4 flex flex-col justify-between border-b border-[#1E293B]">
-                <span className="bg-blue-600 text-xs text-white px-3 py-1 rounded-full w-max">Innovation</span>
-                {/* Mock image area */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-4 opacity-50">
-                   <div className="w-16 h-16 bg-white/10 rounded-lg"></div>
-                   <div className="w-16 h-16 bg-white/10 rounded-lg"></div>
-                </div>
+            <Link
+              href={`/articles/${featured.id}`}
+              className="block bg-[#131B2F] rounded-2xl border border-[#1E293B] overflow-hidden group cursor-pointer hover:border-blue-500/50 transition-all hover:-translate-y-1 shadow-xl"
+            >
+              <div className="h-52 relative overflow-hidden bg-[#0F172A] border-b border-[#1E293B]">
+                {featured.imageUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={featured.imageUrl}
+                    alt={featured.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-b from-orange-500/20 to-[#131B2F] flex items-center justify-center">
+                    <Search className="w-12 h-12 text-blue-400/40" />
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#131B2F] via-transparent to-transparent opacity-80" />
+                <span className="absolute top-4 left-4 bg-blue-600 text-xs text-white px-3 py-1 rounded-full font-semibold shadow-md">
+                  {featured.category || "Innovation"}
+                </span>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">L'avenir de l'agriculture technologique dans la Caraïbe</h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-6">Analyse approfondie des nouvelles méthodes agricoles et de leur impact sur l'économie régionale.</p>
-                <div className="flex gap-3">
-                   <div className="border border-[#1E293B] px-3 py-1.5 rounded text-xs text-slate-300">Interview</div>
-                   <div className="border border-[#1E293B] px-3 py-1.5 rounded text-xs text-slate-300">Innovation</div>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors line-clamp-2">
+                  {featured.title}
+                </h3>
+                <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-2">
+                  {featured.content?.replace(/<[^>]*>/g, "")}
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="border border-[#1E293B] px-3 py-1.5 rounded text-xs text-slate-300">
+                    {featured.category || "Analyse"}
+                  </div>
+                  <div className="border border-[#1E293B] px-3 py-1.5 rounded text-xs text-slate-300">
+                    PozitivEx+
+                  </div>
+                  <span className="ml-auto text-xs text-blue-400 font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                    Lire l'article <ChevronRight className="w-3.5 h-3.5" />
+                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
 
           {/* Actualités */}
@@ -131,27 +181,30 @@ export default function Home() {
               Actualités & Veille
             </h2>
             <div className="flex flex-col gap-4">
-              {[
-                { tag: "Économie", title: "Croissance des investissements régionaux en T3", date: "Il y a 2h" },
-                { tag: "Énergie", title: "Nouveau projet d'énergie solaire approuvé", date: "Il y a 5h" },
-                { tag: "Technologie", title: "Lancement du Caribbean Tech Hub", date: "Hier" },
-                { tag: "Finance", title: "Les banques régionales annoncent de nouveaux taux", date: "Hier" },
-                { tag: "Transport", title: "Amélioration des infrastructures portuaires", date: "03 Oct 2024" },
-              ].map((news, i) => (
-                <div key={i} className="bg-[#131B2F] p-4 rounded-xl border border-[#1E293B] flex flex-col hover:border-slate-600 cursor-pointer transition-colors">
+              {newsList.map((news: any, i: number) => (
+                <Link
+                  key={news.id || i}
+                  href={`/articles/${news.id}`}
+                  className="bg-[#131B2F] p-4 rounded-xl border border-[#1E293B] flex flex-col hover:border-slate-600 cursor-pointer transition-all hover:bg-[#1a233a] group"
+                >
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-[10px] text-orange-500 font-bold flex items-center gap-1.5 uppercase">
-                      <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span> {news.tag}
+                    <span className="text-[10px] text-orange-500 font-bold flex items-center gap-1.5 uppercase tracking-wider">
+                      <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span> {news.category || news.tag || "Économie"}
                     </span>
-                    <span className="text-[10px] text-slate-500">{news.date}</span>
+                    <span className="text-[10px] text-slate-500">{news.date || "Récent"}</span>
                   </div>
-                  <h4 className="text-white text-sm font-medium">{news.title}</h4>
-                </div>
+                  <h4 className="text-white text-sm font-medium group-hover:text-blue-400 transition-colors line-clamp-2">
+                    {news.title}
+                  </h4>
+                </Link>
               ))}
             </div>
-            <button className="w-full text-center mt-6 text-sm text-orange-500 font-medium hover:text-orange-400 transition-colors flex justify-center items-center gap-1">
+            <Link
+              href="/articles"
+              className="w-full text-center mt-6 text-sm text-orange-500 font-medium hover:text-orange-400 transition-colors flex justify-center items-center gap-1 py-2"
+            >
               Voir toutes les actualités <ChevronRight className="h-4 w-4" />
-            </button>
+            </Link>
           </div>
           
         </div>
