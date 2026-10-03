@@ -206,7 +206,7 @@ function ArticlesManager() {
               <input style={S.input} placeholder="https://..." value={form.imageUrl} onChange={e => setForm({ ...form, imageUrl: e.target.value })} />
             </div>
             <div>
-              <div style={S.label}>Kontni</div>
+              <div style={S.label}>Contenu</div>
               <RichEditor value={form.content} onChange={(val) => setForm({ ...form, content: val })} placeholder="Contenu de l'article..." />
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
@@ -261,7 +261,7 @@ function VideosManager() {
   };
   const reset = () => { setForm({ title: '', videoUrl: '' }); setEditId(null); setShowForm(false); };
   const edit  = (item: any) => { setForm({ title: item.title, videoUrl: item.videoUrl }); setEditId(item.id); setShowForm(true); };
-  const del   = async (id: string) => { if (confirm('Supprimer videyo sa?')) { await fetch(`/api/admin/videos/${id}`, { method: 'DELETE' }); load(); } };
+  const del   = async (id: string) => { if (confirm('Supprimer cette vidéo ?')) { await fetch(`/api/admin/videos/${id}`, { method: 'DELETE' }); load(); } };
 
   return (
     <div>
@@ -275,7 +275,7 @@ function VideosManager() {
       {showForm && (
         <div style={S.card}>
           <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#a78bfa' }}>
-            {editId ? '✏️ Modifier Videyo' : '➕ Ajouter Videyo'}
+            {editId ? '✏️ Modifier la vidéo' : '➕ Ajouter une vidéo'}
           </h3>
           <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div>
@@ -336,7 +336,7 @@ function PagesManager() {
   };
   const reset = () => { setForm({ title: '', slug: '', content: '' }); setEditId(null); setShowForm(false); };
   const edit  = (item: any) => { setForm({ title: item.title, slug: item.slug, content: item.content }); setEditId(item.id || item.slug); setShowForm(true); };
-  const del   = async (id: string) => { if (confirm('Supprimer paj sa?')) { await fetch(`/api/admin/pages/${id}`, { method: 'DELETE' }); load(); } };
+  const del   = async (id: string) => { if (confirm('Supprimer cette page ?')) { await fetch(`/api/admin/pages/${id}`, { method: 'DELETE' }); load(); } };
 
   return (
     <div>
@@ -350,7 +350,7 @@ function PagesManager() {
       {showForm && (
         <div style={S.card}>
           <h3 style={{ margin: '0 0 16px', fontSize: '14px', fontWeight: 700, color: '#34d399' }}>
-            {editId ? '✏️ Modifier Paj' : '➕ Ajouter Paj'}
+            {editId ? '✏️ Modifier la page' : '➕ Ajouter une page'}
           </h3>
           <form onSubmit={save} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <div style={S.formGrid}>
@@ -365,7 +365,7 @@ function PagesManager() {
               </div>
             </div>
             <div>
-              <div style={S.label}>Kontni</div>
+              <div style={S.label}>Contenu</div>
               <RichEditor value={form.content} onChange={(val) => setForm({ ...form, content: val })} placeholder="Contenu de la page..." />
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
