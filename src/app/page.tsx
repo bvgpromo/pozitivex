@@ -137,7 +137,7 @@ export default function Home() {
       badge: "Plateforme Économique Intelligente",
       titleLine1: "Connecting the Caribbean",
       titleLine2: "to Global Opportunities",
-      subtitle: "Connecter la Caraïbe aux opportunités mondiales grâce à l'intelligence économique, à l'innovation, aux affaires et à la technologie.",
+      subtitle: "La plateforme de référence pour l'intelligence économique, l'innovation et l'investissement en Caraïbe.",
       btn1Text: "Explorer les Opportunités +",
       btn1Link: "/opportunites",
       btn2Text: "Devenir membre",
@@ -167,31 +167,37 @@ export default function Home() {
     <div className="flex flex-col gap-16 md:gap-20 pb-16 pt-8">
       
       {/* 1. Hero Section & Slideshow */}
-      <section className="container mx-auto px-4 text-center max-w-5xl">
-        <div className="inline-flex items-center gap-2 border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-bold px-3.5 py-1.5 rounded-full mb-4 shadow-sm">
+      <section className="container mx-auto px-4 text-center max-w-4xl">
+        <div className="inline-flex items-center gap-2 border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-bold px-3.5 py-1.5 rounded-full mb-5 shadow-sm">
           <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-          {hero.badge || "Plateforme Économique & Réseau d'Affaires Caraïbe"}
+          {hero.badge || "Plateforme Économique Intelligente"}
         </div>
 
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-5 leading-tight tracking-tight">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-4 leading-tight tracking-tight">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500">{hero.titleLine1}</span> <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500">{hero.titleLine2}</span>
         </h1>
 
-        <p className="text-slate-400 text-sm sm:text-base md:text-lg max-w-3xl mx-auto mb-8 leading-relaxed">
-          {hero.subtitle}
+        <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto mb-6 leading-relaxed">
+          {hero.subtitle || "La plateforme de référence pour l'intelligence économique, l'innovation et l'investissement en Caraïbe."}
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md sm:max-w-none mx-auto mb-8">
-          <Link href={hero.btn1Link || "/opportunites"} className="w-full sm:w-auto inline-flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white px-7 py-3 rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/30 transition-all hover:scale-105 text-center">
-            {hero.btn1Text}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+          <Link href={hero.btn1Link || "/opportunites"} className="bg-blue-600 hover:bg-blue-500 text-white px-7 py-3 rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/30 transition-all hover:scale-105">
+            {hero.btn1Text || "Explorer les Opportunités +"}
           </Link>
-          <Link href={hero.btn2Link || "/inscription"} className="w-full sm:w-auto inline-flex items-center justify-center bg-[#131B2F] hover:bg-[#1E293B] border border-[#1E293B] text-slate-200 px-7 py-3 rounded-xl text-xs sm:text-sm font-bold transition-colors text-center">
-            {hero.btn2Text}
+          <Link href={hero.btn2Link || "/inscription"} className="bg-[#131B2F] hover:bg-[#1E293B] border border-[#1E293B] text-slate-200 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold transition-colors">
+            {hero.btn2Text || "Devenir membre"}
           </Link>
-          <Link href={hero.btn3Link || "/finance"} className="w-full sm:w-auto inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white px-7 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-lg shadow-orange-500/20 hover:scale-105 text-center">
-            {hero.btn3Text}
-          </Link>
+        </div>
+
+        {/* Minimalist Trust Metrics */}
+        <div className="flex items-center justify-center gap-4 text-[11px] sm:text-xs text-slate-500 font-medium">
+          <span>✦ 1 200+ Membres B2B</span>
+          <span>•</span>
+          <span>✦ Veille Économique Caraïbe</span>
+          <span>•</span>
+          <span>✦ Opportunités Qualifiées</span>
         </div>
       </section>
 
