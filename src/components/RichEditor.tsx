@@ -1,10 +1,42 @@
 "use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import React from "react";
+import { useEditor, EditorContent, Extension } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
+import TextStyle from "@tiptap/extension-text-style";
 
+// ─── FontSize Extension ──────────────────────────────────────────────────────
+const FontSize = Extension.create({
+  name: "fontSize",
+  addOptions() { return { types: ["textStyle"] }; },
+  addGlobalAttributes() {
+    return [{
+      types: this.options.types,
+      attributes: {
+        fontSize: {
+          default: null,
+          parseHTML: el => el.style.fontSize || null,
+          renderHTML: attrs => {
+            if (!attrs.fontSize) return {};
+            return { style: `font-size: ${attrs.fontSize}` };
+          },
+        },
+      },
+    }];
+  },
+  addCommands() {
+    return {
+      setFontSize: (size: string) => ({ chain }: any) =>
+        chain().setMark("textStyle", { fontSize: size }).run(),
+      unsetFontSize: () => ({ chain }: any) =>
+        chain().setMark("textStyle", { fontSize: null }).removeEmptyTextStyle().run(),
+    } as any;
+  },
+});
+
+// ─── Props ───────────────────────────────────────────────────────────────────
 interface RichEditorProps {
   value: string;
   onChange: (val: string) => void;
@@ -12,6 +44,7 @@ interface RichEditorProps {
   minHeight?: string;
 }
 
+// ─── Toolbar button style ────────────────────────────────────────────────────
 const btnStyle = (active = false): React.CSSProperties => ({
   background: active ? "#3b82f6" : "#1e293b",
   color: active ? "#fff" : "#94a3b8",
@@ -19,17 +52,36 @@ const btnStyle = (active = false): React.CSSProperties => ({
   borderRadius: "5px",
   padding: "4px 8px",
   cursor: "pointer",
-  fontSize: "13px",
+  fontSize: "12px",
   fontWeight: 600,
-  lineHeight: 1,
+  lineHeight: 1.2,
   minWidth: "28px",
+  transition: "background .1s",
 });
 
-export default function RichEditor({ value, onChange, placeholder, minHeight = "140px" }: RichEditorProps) {
+const divider: React.CSSProperties = {
+  width: "1px",
+  backgroundColor: "#1e293b",
+  margin: "0 4px",
+  alignSelf: "stretch",
+};
+
+const FONT_SIZES = [
+  { label: "Petit",      value: "12px" },
+  { label: "Normal",     value: "14px" },
+  { label: "Grand",      value: "18px" },
+  { label: "Très grand", value: "24px" },
+  { label: "Titre",      value: "32px" },
+];
+
+// ─── Component ───────────────────────────────────────────────────────────────
+export default function RichEditor({ value, onChange, placeholder, minHeight = "160px" }: RichEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit,
       Underline,
+      TextStyle,
+      FontSize,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
     content: value,
@@ -38,12 +90,14 @@ export default function RichEditor({ value, onChange, placeholder, minHeight = "
     },
     editorProps: {
       attributes: {
-        style: `min-height:${minHeight}; outline:none; color:#e2e8f0; font-size:14px; line-height:1.7;`,
+        style: `min-height:${minHeight}; outline:none; color:#e2e8f0; font-size:14px; line-height:1.8;`,
       },
     },
   });
 
   if (!editor) return null;
+
+  const currentFontSize = editor.getAttributes("textStyle").fontSize || "14px";
 
   return (
     <div style={{
@@ -52,67 +106,115 @@ export default function RichEditor({ value, onChange, placeholder, minHeight = "
       borderRadius: "8px",
       overflow: "hidden",
     }}>
-      {/* Toolbar */}
+      {/* ── Toolbar ── */}
       <div style={{
         display: "flex",
         gap: "4px",
         flexWrap: "wrap",
+        alignItems: "center",
         padding: "8px 10px",
         backgroundColor: "#0d1829",
         borderBottom: "1px solid #1e293b",
       }}>
-        <button type="button" title="Gras" onClick={() => editor.chain().focus().toggleBold().run()}
-          style={btnStyle(editor.isActive("bold"))}>B</button>
-        <button type="button" title="Italique" onClick={() => editor.chain().focus().toggleItalic().run()}
+
+        {/* Font size selector */}
+        <select
+          value={currentFontSize}
+          onChange={e => (editor.chain().focus() as any).setFontSize(e.target.value).run()}
+          style={{
+            backgroundColor: "#1e293b",
+            color: "#94a3b8",
+            border: "none",
+            borderRadius: "5px",
+            padding: "4px 6px",
+            fontSize: "12px",
+            cursor: "pointer",
+            outline: "none",
+          }}
+          title="Taille du texte"
+        >
+          {FONT_SIZES.map(s => (
+            <option key={s.value} value={s.value}>{s.label}</option>
+          ))}
+        </select>
+
+        <div style={divider} />
+
+        {/* Format */}
+        <button type="button" title="Gras (Ctrl+B)"
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          style={{ ...btnStyle(editor.isActive("bold")), fontWeight: 900 }}>B</button>
+        <button type="button" title="Italique (Ctrl+I)"
+          onClick={() => editor.chain().focus().toggleItalic().run()}
           style={{ ...btnStyle(editor.isActive("italic")), fontStyle: "italic" }}>I</button>
-        <button type="button" title="Souligné" onClick={() => editor.chain().focus().toggleUnderline().run()}
+        <button type="button" title="Souligné (Ctrl+U)"
+          onClick={() => editor.chain().focus().toggleUnderline().run()}
           style={{ ...btnStyle(editor.isActive("underline")), textDecoration: "underline" }}>U</button>
-        <button type="button" title="Barré" onClick={() => editor.chain().focus().toggleStrike().run()}
+        <button type="button" title="Barré"
+          onClick={() => editor.chain().focus().toggleStrike().run()}
           style={{ ...btnStyle(editor.isActive("strike")), textDecoration: "line-through" }}>S</button>
 
-        <div style={{ width: "1px", backgroundColor: "#1e293b", margin: "0 4px" }} />
+        <div style={divider} />
 
-        <button type="button" title="Titre 1" onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+        {/* Headings */}
+        <button type="button" title="Titre 1"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
           style={btnStyle(editor.isActive("heading", { level: 1 }))}>H1</button>
-        <button type="button" title="Titre 2" onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        <button type="button" title="Titre 2"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           style={btnStyle(editor.isActive("heading", { level: 2 }))}>H2</button>
-        <button type="button" title="Titre 3" onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+        <button type="button" title="Titre 3"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
           style={btnStyle(editor.isActive("heading", { level: 3 }))}>H3</button>
 
-        <div style={{ width: "1px", backgroundColor: "#1e293b", margin: "0 4px" }} />
+        <div style={divider} />
 
-        <button type="button" title="Liste à puces" onClick={() => editor.chain().focus().toggleBulletList().run()}
-          style={btnStyle(editor.isActive("bulletList"))}>≡</button>
-        <button type="button" title="Liste numérotée" onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        {/* Lists */}
+        <button type="button" title="Liste à puces"
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          style={btnStyle(editor.isActive("bulletList"))}>• —</button>
+        <button type="button" title="Liste numérotée"
+          onClick={() => editor.chain().focus().toggleOrderedList().run()}
           style={btnStyle(editor.isActive("orderedList"))}>1.</button>
 
-        <div style={{ width: "1px", backgroundColor: "#1e293b", margin: "0 4px" }} />
+        <div style={divider} />
 
-        <button type="button" title="Aligner à gauche" onClick={() => editor.chain().focus().setTextAlign("left").run()}
-          style={btnStyle(editor.isActive({ textAlign: "left" }))}>⬤◻◻</button>
-        <button type="button" title="Centrer" onClick={() => editor.chain().focus().setTextAlign("center").run()}
-          style={btnStyle(editor.isActive({ textAlign: "center" }))}>◻⬤◻</button>
-        <button type="button" title="Aligner à droite" onClick={() => editor.chain().focus().setTextAlign("right").run()}
-          style={btnStyle(editor.isActive({ textAlign: "right" }))}>◻◻⬤</button>
+        {/* Alignment */}
+        <button type="button" title="Aligner à gauche"
+          onClick={() => editor.chain().focus().setTextAlign("left").run()}
+          style={btnStyle(editor.isActive({ textAlign: "left" }))}>◀</button>
+        <button type="button" title="Centrer"
+          onClick={() => editor.chain().focus().setTextAlign("center").run()}
+          style={btnStyle(editor.isActive({ textAlign: "center" }))}>▬</button>
+        <button type="button" title="Aligner à droite"
+          onClick={() => editor.chain().focus().setTextAlign("right").run()}
+          style={btnStyle(editor.isActive({ textAlign: "right" }))}>▶</button>
 
-        <div style={{ width: "1px", backgroundColor: "#1e293b", margin: "0 4px" }} />
+        <div style={divider} />
 
-        <button type="button" title="Bloc de citation" onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        {/* Extra */}
+        <button type="button" title="Citation"
+          onClick={() => editor.chain().focus().toggleBlockquote().run()}
           style={btnStyle(editor.isActive("blockquote"))}>❝</button>
-        <button type="button" title="Code" onClick={() => editor.chain().focus().toggleCode().run()}
+        <button type="button" title="Code"
+          onClick={() => editor.chain().focus().toggleCode().run()}
           style={{ ...btnStyle(editor.isActive("code")), fontFamily: "monospace" }}>&lt;/&gt;</button>
-        <button type="button" title="Séparateur" onClick={() => editor.chain().focus().setHorizontalRule().run()}
+        <button type="button" title="Ligne horizontale"
+          onClick={() => editor.chain().focus().setHorizontalRule().run()}
           style={btnStyle()}>—</button>
 
-        <div style={{ width: "1px", backgroundColor: "#1e293b", margin: "0 4px" }} />
+        <div style={divider} />
 
-        <button type="button" title="Annuler" onClick={() => editor.chain().focus().undo().run()}
+        {/* Undo / Redo */}
+        <button type="button" title="Annuler (Ctrl+Z)"
+          onClick={() => editor.chain().focus().undo().run()}
           style={btnStyle()}>↩</button>
-        <button type="button" title="Rétablir" onClick={() => editor.chain().focus().redo().run()}
+        <button type="button" title="Rétablir (Ctrl+Y)"
+          onClick={() => editor.chain().focus().redo().run()}
           style={btnStyle()}>↪</button>
       </div>
 
-      {/* Editor area */}
+      {/* ── Editor area ── */}
       <div style={{ padding: "12px 14px", position: "relative" }}>
         {editor.isEmpty && placeholder && (
           <div style={{
@@ -123,15 +225,16 @@ export default function RichEditor({ value, onChange, placeholder, minHeight = "
           </div>
         )}
         <style>{`
-          .ProseMirror h1 { font-size: 1.6em; font-weight: 700; color: #f1f5f9; margin: 0.4em 0; }
-          .ProseMirror h2 { font-size: 1.3em; font-weight: 700; color: #e2e8f0; margin: 0.4em 0; }
-          .ProseMirror h3 { font-size: 1.1em; font-weight: 600; color: #cbd5e1; margin: 0.3em 0; }
-          .ProseMirror ul { padding-left: 1.4em; list-style: disc; }
-          .ProseMirror ol { padding-left: 1.4em; list-style: decimal; }
-          .ProseMirror blockquote { border-left: 3px solid #3b82f6; padding-left: 12px; color: #94a3b8; margin: 8px 0; }
-          .ProseMirror code { background: #1e293b; border-radius: 4px; padding: 2px 6px; font-family: monospace; font-size: 0.85em; color: #7dd3fc; }
-          .ProseMirror hr { border: none; border-top: 1px solid #1e293b; margin: 12px 0; }
-          .ProseMirror p { margin: 0.2em 0; }
+          .ProseMirror h1 { font-size:1.8em; font-weight:800; color:#f1f5f9; margin:.4em 0; }
+          .ProseMirror h2 { font-size:1.4em; font-weight:700; color:#e2e8f0; margin:.4em 0; }
+          .ProseMirror h3 { font-size:1.15em; font-weight:600; color:#cbd5e1; margin:.3em 0; }
+          .ProseMirror ul  { padding-left:1.4em; list-style:disc; }
+          .ProseMirror ol  { padding-left:1.4em; list-style:decimal; }
+          .ProseMirror blockquote { border-left:3px solid #3b82f6; padding-left:12px; color:#94a3b8; margin:8px 0; font-style:italic; }
+          .ProseMirror code { background:#1e293b; border-radius:4px; padding:2px 6px; font-family:monospace; font-size:.85em; color:#7dd3fc; }
+          .ProseMirror hr  { border:none; border-top:1px solid #1e293b; margin:12px 0; }
+          .ProseMirror p   { margin:.25em 0; }
+          .ProseMirror:focus { outline:none; }
         `}</style>
         <EditorContent editor={editor} />
       </div>
