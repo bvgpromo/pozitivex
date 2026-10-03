@@ -136,7 +136,7 @@ export default function Home() {
     hero: {
       badge: "",
       titleLine1: "POZITIVEX+",
-      titleLine2: "Intelligence. Innovation. Finance. Impact.",
+      titleLine2: "INTELLIGENCE. INNOVATION. FINANCE. IMPACT.",
       subtitle: "",
       btn1Text: "Explorer les Opportunités +",
       btn1Link: "/opportunites",
