@@ -13,7 +13,7 @@ export default function Header() {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex-shrink-0">
-            <Image src="/logo.png" alt="PozitivEx+" width={170} height={55} className="object-contain drop-shadow-md" priority />
+            <Image src="/logo.png" alt="PozitivEx+" width={170} height={55} className="object-contain h-9 sm:h-11 w-auto drop-shadow-md" priority />
           </div>
         </Link>
         

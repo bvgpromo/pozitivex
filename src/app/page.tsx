@@ -1,5 +1,7 @@
 "use client";
 
+import HeroNewsSlider from "@/components/HeroNewsSlider";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -162,33 +164,40 @@ export default function Home() {
 
 
   return (
-    <div className="flex flex-col gap-24 pb-16 pt-12">
+    <div className="flex flex-col gap-16 md:gap-20 pb-16 pt-8">
       
-      {/* 1. Hero Section */}
+      {/* 1. Hero Section & Slideshow */}
       <section className="container mx-auto px-4 text-center max-w-5xl">
-        {hero.badge && (
-          <span className="border border-blue-500/30 text-blue-400 text-xs font-bold px-3 py-1 rounded-full mb-4 inline-block">
-            {hero.badge}
-          </span>
-        )}
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-          <span className="text-blue-500">{hero.titleLine1}</span> <br />
-          <span className="text-orange-500">{hero.titleLine2}</span>
+        <div className="inline-flex items-center gap-2 border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-bold px-3.5 py-1.5 rounded-full mb-4 shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+          {hero.badge || "Plateforme Économique & Réseau d'Affaires Caraïbe"}
+        </div>
+
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-5 leading-tight tracking-tight">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500">{hero.titleLine1}</span> <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500">{hero.titleLine2}</span>
         </h1>
-        <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
+
+        <p className="text-slate-400 text-sm sm:text-base md:text-lg max-w-3xl mx-auto mb-8 leading-relaxed">
           {hero.subtitle}
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link href={hero.btn1Link || "/opportunites"} className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto text-center">
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md sm:max-w-none mx-auto mb-8">
+          <Link href={hero.btn1Link || "/opportunites"} className="w-full sm:w-auto inline-flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white px-7 py-3 rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/30 transition-all hover:scale-105 text-center">
             {hero.btn1Text}
           </Link>
-          <Link href={hero.btn2Link || "/inscription"} className="inline-block bg-transparent border border-slate-600 text-white px-8 py-3 rounded text-sm font-bold hover:bg-slate-800 transition-colors w-full sm:w-auto text-center">
+          <Link href={hero.btn2Link || "/inscription"} className="w-full sm:w-auto inline-flex items-center justify-center bg-[#131B2F] hover:bg-[#1E293B] border border-[#1E293B] text-slate-200 px-7 py-3 rounded-xl text-xs sm:text-sm font-bold transition-colors text-center">
             {hero.btn2Text}
           </Link>
-          <Link href={hero.btn3Link || "/finance"} className="inline-block bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded text-sm font-bold transition-colors w-full sm:w-auto text-center">
+          <Link href={hero.btn3Link || "/finance"} className="w-full sm:w-auto inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white px-7 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-lg shadow-orange-500/20 hover:scale-105 text-center">
             {hero.btn3Text}
           </Link>
         </div>
+      </section>
+
+      {/* Featured Actualités Slideshow */}
+      <section className="container mx-auto px-4 -mt-10 sm:-mt-8">
+        <HeroNewsSlider articles={articles} />
       </section>
 
       {/* 2. Video Section */}
